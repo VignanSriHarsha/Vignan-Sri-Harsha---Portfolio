@@ -147,16 +147,14 @@
 
         /* App List Layout FOR CONTENT CREATION */
         .app-list { display: grid; gap: 3rem; margin-top: 3rem; }
-        
-        /* INCREASED LEFT COLUMN TO 250px to fit logos better */
         .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
-        
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         
+        /* Flex container to hold two logos side-by-side */
         .logo-group { display: flex; gap: 15px; align-items: center; }
         
-        /* THIS CONTROLS THE LOGO SIZES. CHANGE 65px to adjust manually */
-        .app-logo { width: auto; height: 65px; object-fit: contain; } 
+        /* Removed master height from here so we can control individually below */
+        .app-logo { width: auto; object-fit: contain; } 
         
         .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
         .app-metric.accent { color: var(--accent); } 
@@ -199,8 +197,8 @@
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
-                            <img src="assets/yt-logo.png" alt="YouTube" class="app-logo">
-                            <img src="assets/ig-logo.png" alt="Instagram" class="app-logo">
+                            <img src="assets/yt-logo.png" alt="YouTube" class="app-logo" style="height: 45px;">
+                            <img src="assets/ig-logo.png" alt="Instagram" class="app-logo" style="height: 45px;">
                         </div>
                         <span class="app-metric accent">1M+ Views</span>
                     </div>
@@ -213,8 +211,8 @@
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
-                            <img src="assets/resolve-logo.png" alt="DaVinci Resolve" class="app-logo">
-                            <img src="assets/capcut-logo.png" alt="CapCut" class="app-logo">
+                            <img src="assets/resolve-logo.png" alt="DaVinci Resolve" class="app-logo" style="height: 55px;">
+                            <img src="assets/capcut-logo.png" alt="CapCut" class="app-logo" style="height: 40px;">
                         </div>
                         <span class="app-metric secondary" style="font-size: 1.5rem;">Editing</span>
                     </div>
@@ -227,7 +225,7 @@
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
-                            <img src="assets/blender-logo.png" alt="Blender" class="app-logo">
+                            <img src="assets/blender-logo.png" alt="Blender" class="app-logo" style="height: 50px;">
                         </div>
                         <span class="app-metric secondary" style="font-size: 1.5rem;">Learning</span>
                     </div>
