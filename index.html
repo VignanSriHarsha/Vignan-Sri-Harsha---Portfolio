@@ -10,7 +10,7 @@
             --text-primary: #eaeaea;
             --text-secondary: #999999;
             --accent: #A85121; /* Terracotta/Rust Orange */
-            --accent-glow: rgba(168, 81, 33, 0.15); /* Slightly boosted the glow */
+            --accent-glow: rgba(168, 81, 33, 0.15); 
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -22,11 +22,10 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            display: flex;
-            justify-content: center;
+            /* Removed the problematic body flexbox that caused the disappearing act */
         }
 
-        /* 1. Global Subtle Dot Grid Pattern (INCREASED OPACITY) */
+        /* 1. Global Subtle Dot Grid Pattern (More Visible) */
         body::before {
             content: '';
             position: fixed;
@@ -37,7 +36,7 @@
             pointer-events: none;
         }
 
-        /* 2. Fixed Ambient Brush/Glow Effects (FIXED BRACKET AND RANDOMIZED) */
+        /* 2. Fixed Ambient Brush/Glow Effects */
         .ambient-brush {
             position: fixed;
             border-radius: 50%;
@@ -45,17 +44,22 @@
             filter: blur(100px);
             z-index: -1;
             pointer-events: none;
-        } /* THIS WAS THE MISSING BRACKET! */
+        }
 
         /* Random, creative brush placements */
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
         .brush-position-3 { width: 40vw; height: 40vh; bottom: 5vh; left: 15vw; opacity: 0.5; } 
 
+        /* 3. The Main Content Container (Bulletproof Centering) */
         .container {
             max-width: 900px;
             padding: 7rem 2rem;
             width: 100%;
+            margin: 0 auto; /* Safely centers the content */
+            box-sizing: border-box; /* Prevents padding from breaking the screen width */
+            position: relative; /* Guarantees text sits strictly above the background */
+            z-index: 10;
         }
 
         header { margin-bottom: 5rem; }
@@ -104,18 +108,4 @@
         /* Project Layout Modules */
         .project-block {
             margin-bottom: 5rem;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .project-title {
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 0.7rem;
-            letter-spacing: -0.5px;
-        }
-
-        .project-meta {
-            color
     
