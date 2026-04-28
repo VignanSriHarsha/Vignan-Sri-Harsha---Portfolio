@@ -22,10 +22,9 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            /* Removed the problematic body flexbox that caused the disappearing act */
         }
 
-        /* 1. Global Subtle Dot Grid Pattern (More Visible) */
+        /* 1. Global Subtle Dot Grid Pattern */
         body::before {
             content: '';
             position: fixed;
@@ -51,14 +50,14 @@
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
         .brush-position-3 { width: 40vw; height: 40vh; bottom: 5vh; left: 15vw; opacity: 0.5; } 
 
-        /* 3. The Main Content Container (Bulletproof Centering) */
+        /* 3. The Main Content Container */
         .container {
             max-width: 900px;
             padding: 7rem 2rem;
             width: 100%;
-            margin: 0 auto; /* Safely centers the content */
-            box-sizing: border-box; /* Prevents padding from breaking the screen width */
-            position: relative; /* Guarantees text sits strictly above the background */
+            margin: 0 auto; 
+            box-sizing: border-box; 
+            position: relative; 
             z-index: 10;
         }
 
@@ -146,10 +145,14 @@
             letter-spacing: 1px;
         }
 
-        /* --- NEW: APP LIST LAYOUT FOR CONTENT CREATION --- */
+        /* App List Layout FOR CONTENT CREATION */
         .app-list { display: grid; gap: 3rem; margin-top: 3rem; }
         .app-block { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; align-items: start; }
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        
+        /* Flex container to hold two logos side-by-side */
+        .logo-group { display: flex; gap: 10px; }
+        
         .app-logo { width: auto; height: 50px; object-fit: contain; } 
         .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
         .app-metric.accent { color: var(--accent); } 
@@ -190,33 +193,40 @@
             <div class="app-list">
                 <div class="app-block">
                     <div class="app-visuals">
-                        <div style="width: 120px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[YT LOGO]</div>
-                        <span class="app-metric accent">75k+ Views</span>
+                        <div class="logo-group">
+                            <div style="width: 70px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[YT LOGO]</div>
+                            <div style="width: 70px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[IG LOGO]</div>
+                        </div>
+                        <span class="app-metric accent">1M+ Views</span>
                     </div>
                     <div class="app-info">
-                        <h3>DaVinci Resolve Workflow</h3>
-                        <p>Trailer-style narrative editing, sound design, and color grading in highly collaborative workflows to maximize audience retention.</p>
+                        <h3>Platform Growth & Engagement</h3>
+                        <p>Scaling content across YouTube and Instagram by analyzing algorithm trends, audience retention curves, and deploying targeted visual hooks to reach over 1 million organic views.</p>
                     </div>
                 </div>
 
                 <div class="app-block">
                     <div class="app-visuals">
-                        <div style="width: 120px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[BLENDER LOGO]</div>
-                        <span class="app-metric secondary">3D Assets</span>
+                        <div class="logo-group">
+                            <div style="width: 70px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[RESOLVE]</div>
+                            <div style="width: 70px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[CAPCUT]</div>
+                        </div>
+                        <span class="app-metric secondary" style="font-size: 1.5rem;">Editing</span>
                     </div>
                     <div class="app-info">
-                        <h3>Procedural Animation</h3>
-                        <p>Integrating Blender for motion graphics, architectural visualizations, and complex 3D assets to elevate media synthesis.</p>
+                        <h3>Dynamic Video Engineering</h3>
+                        <p>Synthesizing heavy narrative editing and color grading in DaVinci Resolve with the rapid, platform-native pacing of CapCut to create trailer-style cinematics and high-retention short-form content.</p>
                     </div>
                 </div>
 
                 <div class="app-block">
                     <div class="app-visuals">
-                        <div style="width: 120px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[IG/CAPCUT LOGO]</div>
+                        <div style="width: 120px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[BLENDER LOGO]</div>
+                        <span class="app-metric secondary" style="font-size: 1.5rem;">Learning</span>
                     </div>
                     <div class="app-info">
-                        <h3>Multi-Platform Native Content</h3>
-                        <p>Executing platform-native editing using CapCut for short-form content, leveraging trending audio and rapid narrative pacing.</p>
+                        <h3>3D Asset Creation</h3>
+                        <p>Currently expanding my technical stack by learning Blender, focusing on the foundational principles of procedural modeling, lighting, and spatial rendering to elevate future media synthesis.</p>
                     </div>
                 </div>
             </div>
@@ -232,9 +242,9 @@
 
         <h2>Strategic Execution</h2>
         <div class="project-block">
-            <span class="project-meta">Identifier: LW | competitive Analytics</span>
-            <div class="project-title">Closed-System Strategy & Macro Execution</div>
-            <p>Operating under the identifier LW, analyzing complex, high-stakes game states in competitive, closed-system environments. Achieved Ascendant tier by prioritizing macro-level team economy management, probability-based tactical execution, and split-second strategic adjustments.</p>
+            <span class="project-meta">Top 1.5% - 3% Global Ranking</span>
+            <div class="project-title">Competitive Analytics & Macro Execution</div>
+            <p>Operating in a volatile, closed-system environment that functions as a high-speed 5v5 chess and timing masterpiece. Reached Ascendant tier by maintaining a top-tier 75% KAST (Kill, Assist, Survive, Trade) rating, prioritizing economic management, and executing split-second probability calculations.</p>
             <div class="image-placeholder">[VALORANT / ASCENDANT SCREENSHOT]</div>
         </div>
 
