@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vignan Sri Harsha | Portfolio</title>
     <style>
+        /* --- THIS IMPORTS THE NEW CLASSY FONT FOR YOUR NAME --- */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
         :root {
             --bg: #030303;
             --text-primary: #eaeaea;
@@ -51,7 +54,7 @@
         /* The Main Content Container */
         .container {
             max-width: 900px;
-            padding: 7rem 2rem;
+            padding: 7rem 2rem 2rem 2rem;
             width: 100%;
             margin: 0 auto; 
             box-sizing: border-box; 
@@ -59,25 +62,25 @@
             z-index: 10;
         }
 
-        /* --- NEW HEADER LAYOUT (Profile + Topographic Mesh) --- */
+        /* --- HEADER LAYOUT --- */
         .header-section {
             display: flex;
             align-items: center;
-            gap: 3.5rem;
+            gap: 4rem; /* Slightly increased gap for the larger image */
             margin-bottom: 6rem;
         }
 
+        /* IMAGE SIZE CONTROL: Change width/height here to adjust the outer mesh box */
         .profile-wrapper {
             position: relative;
-            width: 180px;
-            height: 180px;
+            width: 240px; 
+            height: 240px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* The Geometric Topographic Mesh */
         .mesh-background {
             position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
@@ -92,9 +95,10 @@
             pointer-events: none;
         }
 
+        /* IMAGE SIZE CONTROL: Change width/height here to adjust the actual photo */
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 210px; 
+            height: 210px;
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid rgba(168, 81, 33, 0.4);
@@ -102,11 +106,13 @@
             box-shadow: 0 0 40px var(--accent-glow);
         }
 
+        /* FONT CONTROL: Notice the font-family is set to Playfair Display */
         .header-text h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem; /* Made the name slightly bigger to match the bigger image */
+            font-weight: 400; /* Adjusted weight for the new font */
             margin: 0;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
             color: var(--accent);
             line-height: 1.1;
         }
@@ -115,7 +121,7 @@
             font-size: 1.25rem;
             color: var(--text-secondary);
             font-weight: 300;
-            margin-top: 0.8rem;
+            margin-top: 1rem;
         }
 
         /* Headers & Text Formatting */
@@ -192,7 +198,6 @@
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         .logo-group { display: flex; gap: 15px; align-items: center; }
         
-        /* Master CSS size removed. Logos are scaled individually in the HTML below. */
         .app-logo { width: auto; object-fit: contain; } 
         
         .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
@@ -200,13 +205,27 @@
         .app-metric.secondary { color: var(--text-secondary); }
         .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
         
+        /* THE BETA FOOTER CSS */
+        .beta-footer {
+            text-align: center;
+            padding-top: 2rem;
+            padding-bottom: 4rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 2rem;
+        }
+
         /* Mobile adjustments */
         @media (max-width: 600px) {
             .header-section { flex-direction: column; text-align: center; gap: 1.5rem; }
             .app-block { grid-template-columns: 1fr; gap: 1rem; }
             .logo-group { justify-content: center; }
             .app-visuals { align-items: center; text-align: center; }
-            h1 { font-size: 2.8rem; }
+            .header-text h1 { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -303,12 +322,17 @@
         </div>
 
         <h2>Athletic Leadership</h2>
-        <div class="project-block">
+        <div class="project-block" style="border-bottom: none;">
             <span class="project-meta">Intramural competition</span>
             <div class="project-title">Traditional Teamwork & Physical Execution</div>
             <p>Grounding technical systems optimization in physical discipline. Represented my team to win gold medals in Volleyball and Kabaddi during Class 10 intramural competitions, proving traditional teamwork, leadership, and athletic execution.</p>
             <img src="assets/sports.jpg" alt="Sports Gold Medal" style="width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);">
         </div>
+
+        <div class="beta-footer">
+            This is a Beta Version of the portfolio — not the final result.
+        </div>
+
     </div>
 </body>
 </html>
