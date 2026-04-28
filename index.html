@@ -10,7 +10,7 @@
             --text-primary: #eaeaea;
             --text-secondary: #999999;
             --accent: #A85121; /* Terracotta/Rust Orange */
-            --accent-glow: rgba(168, 81, 33, 0.15); 
+            --accent-glow: rgba(168, 81, 33, 0.2); 
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* 1. Global Subtle Dot Grid Pattern */
+        /* Global Subtle Dot Grid Pattern */
         body::before {
             content: '';
             position: fixed;
@@ -35,7 +35,7 @@
             pointer-events: none;
         }
 
-        /* 2. Fixed Ambient Brush/Glow Effects */
+        /* Fixed Ambient Brush/Glow Effects */
         .ambient-brush {
             position: fixed;
             border-radius: 50%;
@@ -44,13 +44,11 @@
             z-index: -1;
             pointer-events: none;
         }
-
-        /* Random, creative brush placements */
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
         .brush-position-3 { width: 40vw; height: 40vh; bottom: 5vh; left: 15vw; opacity: 0.5; } 
 
-        /* 3. The Main Content Container */
+        /* The Main Content Container */
         .container {
             max-width: 900px;
             padding: 7rem 2rem;
@@ -61,23 +59,66 @@
             z-index: 10;
         }
 
-        header { margin-bottom: 5rem; }
-        
-        h1 {
+        /* --- NEW HEADER LAYOUT (Profile + Topographic Mesh) --- */
+        .header-section {
+            display: flex;
+            align-items: center;
+            gap: 3.5rem;
+            margin-bottom: 6rem;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* The Geometric Topographic Mesh */
+        .mesh-background {
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transform: perspective(400px) rotateX(60deg) translateZ(-100px);
+            -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%);
+            mask-image: radial-gradient(circle at center, black 10%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(168, 81, 33, 0.4);
+            z-index: 2;
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+
+        .header-text h1 {
             font-size: 3.5rem;
             font-weight: 300;
             margin: 0;
             letter-spacing: -2px;
             color: var(--accent);
+            line-height: 1.1;
         }
 
-        .subtitle {
+        .header-text .subtitle {
             font-size: 1.25rem;
             color: var(--text-secondary);
             font-weight: 300;
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
         }
 
+        /* Headers & Text Formatting */
         h2 {
             font-size: 0.9rem;
             text-transform: uppercase;
@@ -149,11 +190,9 @@
         .app-list { display: grid; gap: 3rem; margin-top: 3rem; }
         .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-        
-        /* Flex container to hold two logos side-by-side */
         .logo-group { display: flex; gap: 15px; align-items: center; }
         
-        /* Removed master height from here so we can control individually below */
+        /* Master CSS size removed. Logos are scaled individually in the HTML below. */
         .app-logo { width: auto; object-fit: contain; } 
         
         .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
@@ -161,9 +200,13 @@
         .app-metric.secondary { color: var(--text-secondary); }
         .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
         
-        /* Mobile adjustment for App List */
+        /* Mobile adjustments */
         @media (max-width: 600px) {
+            .header-section { flex-direction: column; text-align: center; gap: 1.5rem; }
             .app-block { grid-template-columns: 1fr; gap: 1rem; }
+            .logo-group { justify-content: center; }
+            .app-visuals { align-items: center; text-align: center; }
+            h1 { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -173,9 +216,16 @@
     <div class="ambient-brush brush-position-3"></div>
 
     <div class="container">
-        <header>
-            <h1>Vignan Sri Harsha</h1>
-            <div class="subtitle">Synthesizer. Bridging Systems, Strategy, and Creative Media.</div>
+        
+        <header class="header-section">
+            <div class="profile-wrapper">
+                <div class="mesh-background"></div>
+                <img src="assets/profile.png" alt="Vignan Sri Harsha" class="profile-img">
+            </div>
+            <div class="header-text">
+                <h1>Vignan Sri Harsha</h1>
+                <div class="subtitle">Synthesizer. Bridging Systems, Strategy, and Creative Media.</div>
+            </div>
         </header>
 
         <h2>Hardware Architecture</h2>
@@ -183,7 +233,6 @@
             <span class="project-meta">Optimization & Design</span>
             <div class="project-title">Custom Silicon Core Stability</div>
             <p>Built, configured, and optimized a high-performance system centered on the Ryzen microarchitecture. Focused on comprehensive thermal management and voltage balancing, achieving a stable static 4.2 GHz clock at 1.352V for maximum computational integrity under heavy creative loads.</p>
-            
             <img src="assets/pc-build.jpg" alt="Custom PC Build" style="width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);">
         </div>
 
@@ -197,8 +246,8 @@
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
-                            <img src="assets/yt-logo.png" alt="YouTube" class="app-logo" style="height: 105px;">
-                            <img src="assets/ig-logo.png" alt="Instagram" class="app-logo" style="height: 105px;">
+                            <img src="assets/yt-logo.png" alt="YouTube" class="app-logo" style="height: 45px;">
+                            <img src="assets/ig-logo.png" alt="Instagram" class="app-logo" style="height: 45px;">
                         </div>
                         <span class="app-metric accent">1M+ Views</span>
                     </div>
@@ -211,10 +260,10 @@
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
-                            <img src="assets/resolve-logo.png" alt="DaVinci Resolve" class="app-logo" style="height: 70px;">
-                            <img src="assets/capcut-logo.png" alt="CapCut" class="app-logo" style="height: 60px;">
+                            <img src="assets/resolve-logo.png" alt="DaVinci Resolve" class="app-logo" style="height: 55px;">
+                            <img src="assets/capcut-logo.png" alt="CapCut" class="app-logo" style="height: 40px;">
                         </div>
-                        <span class="app-metric accent">Editing</span>
+                        <span class="app-metric secondary" style="font-size: 1.5rem;">Editing</span>
                     </div>
                     <div class="app-info">
                         <h3>Dynamic Video Engineering</h3>
@@ -225,9 +274,9 @@
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
-                            <img src="assets/blender-logo.png" alt="Blender" class="app-logo" style="height: 70px;">
+                            <img src="assets/blender-logo.png" alt="Blender" class="app-logo" style="height: 50px;">
                         </div>
-                        <span class="app-metric accent">Learning</span>
+                        <span class="app-metric secondary" style="font-size: 1.5rem;">Learning</span>
                     </div>
                     <div class="app-info">
                         <h3>3D Asset Creation</h3>
@@ -250,7 +299,6 @@
             <span class="project-meta">Top 1.5% - 3% Global Ranking</span>
             <div class="project-title">Competitive Analytics & Macro Execution</div>
             <p>Operating in a volatile, closed-system environment that functions as a high-speed 5v5 chess and timing masterpiece. Reached Ascendant tier by maintaining a top-tier 75% KAST (Kill, Assist, Survive, Trade) rating, prioritizing economic management, and executing split-second probability calculations.</p>
-            
             <img src="assets/valorant.jpg" alt="Valorant Ascendant Rank" style="width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);">
         </div>
 
@@ -259,7 +307,6 @@
             <span class="project-meta">Intramural competition</span>
             <div class="project-title">Traditional Teamwork & Physical Execution</div>
             <p>Grounding technical systems optimization in physical discipline. Represented my team to win gold medals in Volleyball and Kabaddi during Class 10 intramural competitions, proving traditional teamwork, leadership, and athletic execution.</p>
-            
             <img src="assets/sports.jpg" alt="Sports Gold Medal" style="width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);">
         </div>
     </div>
