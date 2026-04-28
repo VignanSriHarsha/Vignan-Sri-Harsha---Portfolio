@@ -198,7 +198,16 @@
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         .logo-group { display: flex; gap: 15px; align-items: center; }
         
-        .app-logo { width: auto; object-fit: contain; } 
+        .app-logo { 
+            width: auto; 
+            object-fit: contain; 
+            filter: brightness(0) invert(1) opacity(0.85);
+            transition: all 0.3s ease;
+        }
+        
+        .app-logo:hover {
+            filter: brightness(0) invert(1) opacity(1) drop-shadow(0px 0px 8px var(--accent));
+        }
         
         .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
         .app-metric.accent { color: var(--accent); } 
