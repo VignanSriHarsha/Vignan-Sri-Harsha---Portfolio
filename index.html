@@ -108,4 +108,143 @@
         /* Project Layout Modules */
         .project-block {
             margin-bottom: 5rem;
-    
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-title {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.7rem;
+            letter-spacing: -0.5px;
+        }
+
+        .project-meta {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- NEW: APP LIST LAYOUT FOR CONTENT CREATION --- */
+        .app-list { display: grid; gap: 3rem; margin-top: 3rem; }
+        .app-block { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; align-items: start; }
+        .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        .app-logo { width: auto; height: 50px; object-fit: contain; } 
+        .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
+        .app-metric.accent { color: var(--accent); } 
+        .app-metric.secondary { color: var(--text-secondary); }
+        .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
+        
+        /* Mobile adjustment for App List */
+        @media (max-width: 600px) {
+            .app-block { grid-template-columns: 1fr; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-brush brush-position-1"></div>
+    <div class="ambient-brush brush-position-2"></div>
+    <div class="ambient-brush brush-position-3"></div>
+
+    <div class="container">
+        <header>
+            <h1>Vignan Sri Harsha</h1>
+            <div class="subtitle">Synthesizer. Bridging Systems, Strategy, and Creative Media.</div>
+        </header>
+
+        <h2>Hardware Architecture</h2>
+        <div class="project-block">
+            <span class="project-meta">Optimization & Design</span>
+            <div class="project-title">Custom Silicon Core Stability</div>
+            <p>Built, configured, and optimized a high-performance system centered on the Ryzen microarchitecture. Focused on comprehensive thermal management and voltage balancing, achieving a stable static 4.2 GHz clock at 1.352V for maximum computational integrity under heavy creative loads.</p>
+            <div class="image-placeholder">[PC BUILD IMAGE]</div>
+        </div>
+
+        <h2>Digital Media Synthesis</h2>
+        <div class="project-block">
+            <span class="project-meta">Collaboration & Creative Synthesis</span>
+            <div class="project-title">Content Creation & Performance Analytics</div>
+            <p>Synthesizing technical precision with collaborative storytelling to produce high-impact digital artifacts. Focused on leveraging diverse toolsets to drive engagement on leading creative and social platforms.</p>
+
+            <div class="app-list">
+                <div class="app-block">
+                    <div class="app-visuals">
+                        <div style="width: 120px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[YT LOGO]</div>
+                        <span class="app-metric accent">75k+ Views</span>
+                    </div>
+                    <div class="app-info">
+                        <h3>DaVinci Resolve Workflow</h3>
+                        <p>Trailer-style narrative editing, sound design, and color grading in highly collaborative workflows to maximize audience retention.</p>
+                    </div>
+                </div>
+
+                <div class="app-block">
+                    <div class="app-visuals">
+                        <div style="width: 120px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[BLENDER LOGO]</div>
+                        <span class="app-metric secondary">3D Assets</span>
+                    </div>
+                    <div class="app-info">
+                        <h3>Procedural Animation</h3>
+                        <p>Integrating Blender for motion graphics, architectural visualizations, and complex 3D assets to elevate media synthesis.</p>
+                    </div>
+                </div>
+
+                <div class="app-block">
+                    <div class="app-visuals">
+                        <div style="width: 120px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[IG/CAPCUT LOGO]</div>
+                    </div>
+                    <div class="app-info">
+                        <h3>Multi-Platform Native Content</h3>
+                        <p>Executing platform-native editing using CapCut for short-form content, leveraging trending audio and rapid narrative pacing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Visual Composition</h2>
+        <div class="project-block">
+            <span class="project-meta">Photography Gallery</span>
+            <div class="project-title">Atmosphere, Geometry, and Narrative</div>
+            <p>A minimalist collection focusing strictly on light, geometry, and composition. This gallery lets the visual artifacts speak for themselves, showcasing my approach to narrative depth through photography.</p>
+            <div class="image-placeholder">[PHOTOGRAPHY SAMPLES]</div>
+        </div>
+
+        <h2>Strategic Execution</h2>
+        <div class="project-block">
+            <span class="project-meta">Identifier: LW | competitive Analytics</span>
+            <div class="project-title">Closed-System Strategy & Macro Execution</div>
+            <p>Operating under the identifier LW, analyzing complex, high-stakes game states in competitive, closed-system environments. Achieved Ascendant tier by prioritizing macro-level team economy management, probability-based tactical execution, and split-second strategic adjustments.</p>
+            <div class="image-placeholder">[VALORANT / ASCENDANT SCREENSHOT]</div>
+        </div>
+
+        <h2>Athletic Leadership</h2>
+        <div class="project-block">
+            <span class="project-meta">Intramural competition</span>
+            <div class="project-title">Traditional Teamwork & Physical Execution</div>
+            <p>Grounding technical systems optimization in physical discipline. Represented my team to win gold medals in Volleyball and Kabaddi during Class 10 intramural competitions, proving traditional teamwork, leadership, and athletic execution.</p>
+            <div class="image-placeholder">[SPORTS GOLD MEDAL IMAGE]</div>
+        </div>
+    </div>
+</body>
+</html>
