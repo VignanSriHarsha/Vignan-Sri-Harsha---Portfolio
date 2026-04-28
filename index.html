@@ -147,13 +147,17 @@
 
         /* App List Layout FOR CONTENT CREATION */
         .app-list { display: grid; gap: 3rem; margin-top: 3rem; }
-        .app-block { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; align-items: start; }
+        
+        /* INCREASED LEFT COLUMN TO 250px to fit logos better */
+        .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
+        
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         
-        /* Flex container to hold two logos side-by-side */
-        .logo-group { display: flex; gap: 10px; }
+        .logo-group { display: flex; gap: 15px; align-items: center; }
         
-        .app-logo { width: auto; height: 50px; object-fit: contain; } 
+        /* THIS CONTROLS THE LOGO SIZES. CHANGE 65px to adjust manually */
+        .app-logo { width: auto; height: 65px; object-fit: contain; } 
+        
         .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
         .app-metric.accent { color: var(--accent); } 
         .app-metric.secondary { color: var(--text-secondary); }
@@ -181,7 +185,8 @@
             <span class="project-meta">Optimization & Design</span>
             <div class="project-title">Custom Silicon Core Stability</div>
             <p>Built, configured, and optimized a high-performance system centered on the Ryzen microarchitecture. Focused on comprehensive thermal management and voltage balancing, achieving a stable static 4.2 GHz clock at 1.352V for maximum computational integrity under heavy creative loads.</p>
-            <div class="image-placeholder">[PC BUILD IMAGE]</div>
+            
+            <img src="assets/pc-build.jpg" alt="Custom PC Build" style="width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);">
         </div>
 
         <h2>Digital Media Synthesis</h2>
@@ -194,11 +199,9 @@
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
-                            <div class="logo-group">
-    <img src="assets/YT-logo.png" alt="YouTube" class="app-logo">
-    <img src="assets/IG-Logo.png" alt="Instagram" class="app-logo">
-</div>
-                            
+                            <img src="assets/yt-logo.png" alt="YouTube" class="app-logo">
+                            <img src="assets/ig-logo.png" alt="Instagram" class="app-logo">
+                        </div>
                         <span class="app-metric accent">1M+ Views</span>
                     </div>
                     <div class="app-info">
@@ -210,8 +213,8 @@
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
-                            <div style="width: 70px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[RESOLVE]</div>
-                            <div style="width: 70px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[CAPCUT]</div>
+                            <img src="assets/resolve-logo.png" alt="DaVinci Resolve" class="app-logo">
+                            <img src="assets/capcut-logo.png" alt="CapCut" class="app-logo">
                         </div>
                         <span class="app-metric secondary" style="font-size: 1.5rem;">Editing</span>
                     </div>
@@ -223,7 +226,9 @@
 
                 <div class="app-block">
                     <div class="app-visuals">
-                        <div style="width: 120px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 4px; display:flex; align-items:center; justify-content:center; font-size: 0.7rem; color: #888;">[BLENDER LOGO]</div>
+                        <div class="logo-group">
+                            <img src="assets/blender-logo.png" alt="Blender" class="app-logo">
+                        </div>
                         <span class="app-metric secondary" style="font-size: 1.5rem;">Learning</span>
                     </div>
                     <div class="app-info">
@@ -239,7 +244,7 @@
             <span class="project-meta">Photography Gallery</span>
             <div class="project-title">Atmosphere, Geometry, and Narrative</div>
             <p>A minimalist collection focusing strictly on light, geometry, and composition. This gallery lets the visual artifacts speak for themselves, showcasing my approach to narrative depth through photography.</p>
-            <div class="image-placeholder">[PHOTOGRAPHY SAMPLES]</div>
+            <div class="image-placeholder">[PHOTOGRAPHY SAMPLES WILL GO HERE]</div>
         </div>
 
         <h2>Strategic Execution</h2>
@@ -247,7 +252,8 @@
             <span class="project-meta">Top 1.5% - 3% Global Ranking</span>
             <div class="project-title">Competitive Analytics & Macro Execution</div>
             <p>Operating in a volatile, closed-system environment that functions as a high-speed 5v5 chess and timing masterpiece. Reached Ascendant tier by maintaining a top-tier 75% KAST (Kill, Assist, Survive, Trade) rating, prioritizing economic management, and executing split-second probability calculations.</p>
-            <div class="image-placeholder">[VALORANT / ASCENDANT SCREENSHOT]</div>
+            
+            <img src="assets/valorant.jpg" alt="Valorant Ascendant Rank" style="width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);">
         </div>
 
         <h2>Athletic Leadership</h2>
@@ -255,7 +261,8 @@
             <span class="project-meta">Intramural competition</span>
             <div class="project-title">Traditional Teamwork & Physical Execution</div>
             <p>Grounding technical systems optimization in physical discipline. Represented my team to win gold medals in Volleyball and Kabaddi during Class 10 intramural competitions, proving traditional teamwork, leadership, and athletic execution.</p>
-            <div class="image-placeholder">[SPORTS GOLD MEDAL IMAGE]</div>
+            
+            <img src="assets/sports.jpg" alt="Sports Gold Medal" style="width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);">
         </div>
     </div>
 </body>
