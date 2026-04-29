@@ -192,7 +192,6 @@
 
         /* FROSTED GLASS CARDS */
         .project-block {
-            /* LOWERED OPACITY TO 0.03 FOR HIGH TRANSLUCENCY */
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -262,7 +261,7 @@
         .app-metric.secondary { color: var(--text-secondary); }
         .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
 
-        /* TERMINAL CONTACT FOOTER (Upgraded for 5 items) */
+        /* TERMINAL CONTACT FOOTER */
         .terminal-footer {
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             padding-top: 4rem;
@@ -386,7 +385,7 @@
             color: var(--text-primary);
         }
 
-        /* Mobile adjustments */
+        /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 600px) {
             .header-section { flex-direction: column; text-align: center; gap: 1.5rem; }
             .app-block { grid-template-columns: 1fr; gap: 1rem; }
@@ -395,7 +394,20 @@
             .header-text h1 { font-size: 2.8rem; }
             .project-block { padding: 1.5rem; }
             .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
-            #audio-toggle { bottom: 15px; right: 15px; font-size: 0.7rem; }
+            
+            /* MOBILE FIX 1: Prevent heavy image cropping */
+            .main-img { 
+                height: 220px; /* Reduced from 400px to maintain aspect ratio on small screens */
+            }
+
+            /* MOBILE FIX 2: Audio Toggle Glued & Resized */
+            #audio-toggle { 
+                bottom: 25px; /* Lifts it above the mobile browser URL bar/home bar */
+                right: 15px; 
+                font-size: 0.65rem; 
+                padding: 8px 12px;
+                z-index: 9999; /* Guarantees it stays strictly on top of everything */
+            }
         }
     </style>
 </head>
@@ -536,7 +548,7 @@
         </div>
 
         <div class="console-contact">
-            > system.ping --target: <a href="mailto:vignansriharsha.b@gmail.com">vignansriharsha.b@gmail.com</a>
+            > system.ping --target <a href="mailto:vignansriharsha.b@gmail.com">vignansriharsha.b@gmail.com</a>
         </div>
 
     </div>
