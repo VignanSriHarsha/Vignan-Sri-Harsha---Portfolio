@@ -46,6 +46,8 @@
             filter: blur(100px);
             z-index: -1;
             pointer-events: none;
+            /* Added smooth will-change for the liquid parallax performance */
+            will-change: transform; 
         }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
@@ -148,7 +150,7 @@
             font-size: 1.05rem;
         }
 
-        /* --- UPGRADE 1: FROSTED GLASS CARDS --- */
+        /* FROSTED GLASS CARDS */
         .project-block {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(12px);
@@ -158,6 +160,9 @@
             padding: 3rem;
             margin-bottom: 4rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            /* Ensure glass sits above the moving liquid background */
+            position: relative;
+            z-index: 5; 
         }
 
         .project-title {
@@ -178,7 +183,7 @@
             display: block;
         }
 
-        /* --- UPGRADE 2: TACTILE HOVER PHYSICS ON IMAGES --- */
+        /* TACTILE HOVER PHYSICS ON MAIN IMAGES */
         .main-img {
             width: 100%; 
             height: 400px; 
@@ -201,16 +206,16 @@
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         .logo-group { display: flex; gap: 15px; align-items: center; }
         
+        /* RESTORED LOGOS TO FULL COLOR */
         .app-logo { 
             width: auto; 
             object-fit: contain; 
-            filter: brightness(0) invert(1) opacity(0.85);
             transition: all 0.3s ease;
         }
         
         .app-logo:hover {
-            filter: brightness(0) invert(1) opacity(1) drop-shadow(0px 0px 8px var(--accent));
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.6));
         }
         
         .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
@@ -232,7 +237,7 @@
             margin-top: 2rem;
         }
 
-        /* --- UPGRADE 3: CINEMATIC SCROLL ANIMATION CLASSES --- */
+        /* CINEMATIC SCROLL ANIMATION CLASSES */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -255,9 +260,9 @@
     </style>
 </head>
 <body>
-    <div class="ambient-brush brush-position-1"></div>
-    <div class="ambient-brush brush-position-2"></div>
-    <div class="ambient-brush brush-position-3"></div>
+    <div class="ambient-brush brush-position-1" id="liquid-1"></div>
+    <div class="ambient-brush brush-position-2" id="liquid-2"></div>
+    <div class="ambient-brush brush-position-3" id="liquid-3"></div>
 
     <div class="container">
         
@@ -361,6 +366,7 @@
     </div>
 
     <script>
+        // 1. Cinematic Scroll Fade-In
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -374,8 +380,21 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        // Trigger once on load to show the header immediately
-        reveal();
+        reveal(); // Trigger immediately on load
+
+        // 2. Apple Liquid Parallax Background Physics
+        var liquid1 = document.getElementById('liquid-1');
+        var liquid2 = document.getElementById('liquid-2');
+        var liquid3 = document.getElementById('liquid-3');
+
+        window.addEventListener("scroll", function() {
+            var scrolled = window.pageYOffset;
+            
+            // Moves the glowing orbs at different speeds and rotations as you scroll down
+            if(liquid1) liquid1.style.transform = "translateY(" + (scrolled * 0.15) + "px) rotate(" + (scrolled * 0.05) + "deg)";
+            if(liquid2) liquid2.style.transform = "translateY(" + (scrolled * -0.1) + "px) scale(" + (1 + scrolled * 0.0002) + ")";
+            if(liquid3) liquid3.style.transform = "translateY(" + (scrolled * 0.08) + "px) translateX(" + (scrolled * -0.05) + "px)";
+        });
     </script>
 </body>
 </html>
