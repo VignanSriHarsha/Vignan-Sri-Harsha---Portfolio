@@ -33,12 +33,12 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-            background-size: 30px 30px; /* The master 30px grid */
+            background-size: 30px 30px; 
             z-index: -3;
             pointer-events: none;
         }
 
-        /* --- UPGRADE: TRUE RANDOM ALIGNED TWINKLING --- */
+        /* --- RANDOM ALIGNED TWINKLING --- */
         @keyframes twinkle {
             0% { opacity: 0; }
             50% { opacity: 1; }
@@ -52,7 +52,6 @@
             pointer-events: none;
         }
         
-        /* All sizes and positions MUST be multiples of 30 to match the base grid perfectly */
         .twinkle-layer-1 {
             background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px);
             background-size: 90px 90px; 
@@ -83,7 +82,6 @@
             position: fixed;
             border-radius: 50%;
             background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            /* SATURATION PATCH: 10% global saturation bump to the liquid lights */
             filter: blur(100px) saturate(110%);
             z-index: -1;
             pointer-events: none;
@@ -102,7 +100,6 @@
             box-sizing: border-box; 
             position: relative; 
             z-index: 10;
-            /* SATURATION PATCH: 10% global saturation bump to all content */
             filter: saturate(110%);
         }
 
@@ -146,7 +143,6 @@
             border: 1px solid rgba(168, 81, 33, 0.4);
             z-index: 2;
             box-shadow: 0 0 40px var(--accent-glow);
-            /* SATURATION PATCH: 25% targeted saturation bump for the profile picture */
             filter: saturate(125%);
         }
 
@@ -265,6 +261,44 @@
         .app-metric.secondary { color: var(--text-secondary); }
         .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
         
+        /* TERMINAL CONTACT FOOTER */
+        .terminal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 4rem;
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .terminal-link {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .terminal-link:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .link-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.5;
+        }
+
+        .link-value {
+            font-size: 1rem;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 500;
+        }
+
         /* THE BETA FOOTER CSS */
         .beta-footer {
             text-align: center;
@@ -290,6 +324,30 @@
             transform: translateY(0);
         }
 
+        /* --- FLOATING AUDIO TOGGLE --- */
+        #audio-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #audio-toggle:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
         /* Mobile adjustments */
         @media (max-width: 600px) {
             .header-section { flex-direction: column; text-align: center; gap: 1.5rem; }
@@ -298,10 +356,16 @@
             .app-visuals { align-items: center; text-align: center; }
             .header-text h1 { font-size: 2.8rem; }
             .project-block { padding: 1.5rem; }
+            .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
+            #audio-toggle { bottom: 15px; right: 15px; font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
+    <audio id="bg-audio" loop src="assets/music.mp3"></audio>
+
+    <button id="audio-toggle">[ SYSTEM.AUDIO : OFF ]</button>
+
     <div class="twinkle-layer-1"></div>
     <div class="twinkle-layer-2"></div>
     <div class="twinkle-layer-3"></div>
@@ -406,6 +470,25 @@
             <img src="assets/sports.jpg" alt="Sports Gold Medal" class="main-img">
         </div>
 
+        <div class="terminal-footer reveal">
+            <a href="mailto:your.email@example.com" class="terminal-link">
+                <span class="link-label">System.Contact</span>
+                <span class="link-value">Email</span>
+            </a>
+            <a href="#" target="_blank" class="terminal-link">
+                <span class="link-label">System.Vault</span>
+                <span class="link-value">GitHub</span>
+            </a>
+            <a href="#" target="_blank" class="terminal-link">
+                <span class="link-label">System.Network</span>
+                <span class="link-value">LinkedIn</span>
+            </a>
+            <a href="assets/resume.pdf" target="_blank" class="terminal-link">
+                <span class="link-label">System.Data</span>
+                <span class="link-value">Resume.pdf</span>
+            </a>
+        </div>
+
         <div class="beta-footer reveal">
             This is a Beta Version of the portfolio — not the final result.
         </div>
@@ -440,6 +523,54 @@
             if(liquid1) liquid1.style.transform = "translateY(" + (scrolled * 0.15) + "px) rotate(" + (scrolled * 0.05) + "deg)";
             if(liquid2) liquid2.style.transform = "translateY(" + (scrolled * -0.1) + "px) scale(" + (1 + scrolled * 0.0002) + ")";
             if(liquid3) liquid3.style.transform = "translateY(" + (scrolled * 0.08) + "px) translateX(" + (scrolled * -0.05) + "px)";
+        });
+
+        // 3. Audio Mixing Engine
+        const audio = document.getElementById('bg-audio');
+        const audioBtn = document.getElementById('audio-toggle');
+        let isPlaying = false;
+        let fadeInterval;
+        const targetVolume = 0.25;
+
+        audioBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                // Play and fade in
+                audio.currentTime = 14;
+                audio.volume = 0;
+                audio.play();
+                isPlaying = true;
+                
+                audioBtn.innerHTML = '[ SYSTEM.AUDIO : ON ]';
+                audioBtn.style.color = 'var(--accent)';
+                audioBtn.style.borderColor = 'var(--accent)';
+
+                clearInterval(fadeInterval);
+                fadeInterval = setInterval(() => {
+                    if (audio.volume < targetVolume) {
+                        // Math.min prevents the volume from accidentally exceeding targetVolume
+                        audio.volume = Math.min(targetVolume, audio.volume + 0.02);
+                    } else {
+                        clearInterval(fadeInterval);
+                    }
+                }, 100);
+            } else {
+                // Fade out and pause
+                clearInterval(fadeInterval);
+                fadeInterval = setInterval(() => {
+                    if (audio.volume > 0.02) {
+                        audio.volume = Math.max(0, audio.volume - 0.02);
+                    } else {
+                        audio.pause();
+                        isPlaying = false;
+                        
+                        audioBtn.innerHTML = '[ SYSTEM.AUDIO : OFF ]';
+                        audioBtn.style.color = 'var(--text-secondary)';
+                        audioBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                        
+                        clearInterval(fadeInterval);
+                    }
+                }, 100);
+            }
         });
     </script>
 </body>
