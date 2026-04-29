@@ -192,7 +192,8 @@
 
         /* FROSTED GLASS CARDS */
         .project-block {
-            background: rgba(255, 255, 255, 0.05);
+            /* LOWERED OPACITY TO 0.03 FOR HIGH TRANSLUCENCY */
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -507,7 +508,7 @@
             <img src="assets/sports.jpg" alt="Sports Gold Medal" class="main-img">
         </div>
 
-       <div class="terminal-footer reveal">
+        <div class="terminal-footer reveal">
             <a href="mailto:vignansriharsha.b@gmail.com" class="terminal-link">
                 <span class="link-label">System.Contact</span>
                 <span class="link-value">Email</span>
@@ -530,12 +531,11 @@
             </a>
         </div>
         
-            <div class="beta-footer reveal">
+        <div class="beta-footer">
             This is a Beta Version of the portfolio — not the final result.
-                
         </div>
 
-            <div class="console-contact reveal">
+        <div class="console-contact">
             > system.ping --target <a href="mailto:vignan.sri.harsha@gmail.com">vignan.sri.harsha@gmail.com</a>
         </div>
 
@@ -593,7 +593,6 @@
                 clearInterval(fadeInterval);
                 fadeInterval = setInterval(() => {
                     if (audio.volume < targetVolume) {
-                        // Math.min prevents the volume from accidentally exceeding targetVolume
                         audio.volume = Math.min(targetVolume, audio.volume + 0.02);
                     } else {
                         clearInterval(fadeInterval);
