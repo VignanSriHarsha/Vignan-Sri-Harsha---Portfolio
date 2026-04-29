@@ -27,15 +27,43 @@
             overflow-x: hidden;
         }
 
-        /* Global Subtle Dot Grid Pattern */
+        /* 1. Global Subtle Dot Grid Pattern (STATIC BASE) */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
             background-size: 30px 30px;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        /* --- UPGRADE: RANDOM SUBTLE TWINKLING DOTS --- */
+        @keyframes twinkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .twinkle-layer-1, .twinkle-layer-2 {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             pointer-events: none;
+        }
+        
+        .twinkle-layer-1 {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+            background-size: 70px 70px; /* Different spacing so it looks random */
+            background-position: 15px 15px;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+        
+        .twinkle-layer-2 {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px);
+            background-size: 110px 90px;
+            background-position: 45px 30px;
+            animation: twinkle 7s infinite ease-in-out 3s; /* Delayed start for randomness */
         }
 
         /* Fixed Ambient Brush/Glow Effects */
@@ -43,10 +71,10 @@
             position: fixed;
             border-radius: 50%;
             background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            filter: blur(100px);
+            /* SATURATION PATCH: Added 10% global saturation bump to the liquid lights */
+            filter: blur(100px) saturate(110%);
             z-index: -1;
             pointer-events: none;
-            /* Added smooth will-change for the liquid parallax performance */
             will-change: transform; 
         }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
@@ -62,6 +90,8 @@
             box-sizing: border-box; 
             position: relative; 
             z-index: 10;
+            /* SATURATION PATCH: 10% global saturation bump to all content */
+            filter: saturate(110%);
         }
 
         /* --- HEADER LAYOUT --- */
@@ -104,6 +134,8 @@
             border: 1px solid rgba(168, 81, 33, 0.4);
             z-index: 2;
             box-shadow: 0 0 40px var(--accent-glow);
+            /* SATURATION PATCH: 25% targeted saturation bump for the profile picture */
+            filter: saturate(125%);
         }
 
         .header-text h1 {
@@ -160,7 +192,6 @@
             padding: 3rem;
             margin-bottom: 4rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            /* Ensure glass sits above the moving liquid background */
             position: relative;
             z-index: 5; 
         }
@@ -206,7 +237,6 @@
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         .logo-group { display: flex; gap: 15px; align-items: center; }
         
-        /* RESTORED LOGOS TO FULL COLOR */
         .app-logo { 
             width: auto; 
             object-fit: contain; 
@@ -260,6 +290,9 @@
     </style>
 </head>
 <body>
+    <div class="twinkle-layer-1"></div>
+    <div class="twinkle-layer-2"></div>
+    
     <div class="ambient-brush brush-position-1" id="liquid-1"></div>
     <div class="ambient-brush brush-position-2" id="liquid-2"></div>
     <div class="ambient-brush brush-position-3" id="liquid-3"></div>
@@ -380,7 +413,7 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal(); // Trigger immediately on load
+        reveal(); 
 
         // 2. Apple Liquid Parallax Background Physics
         var liquid1 = document.getElementById('liquid-1');
@@ -390,7 +423,6 @@
         window.addEventListener("scroll", function() {
             var scrolled = window.pageYOffset;
             
-            // Moves the glowing orbs at different speeds and rotations as you scroll down
             if(liquid1) liquid1.style.transform = "translateY(" + (scrolled * 0.15) + "px) rotate(" + (scrolled * 0.05) + "deg)";
             if(liquid2) liquid2.style.transform = "translateY(" + (scrolled * -0.1) + "px) scale(" + (1 + scrolled * 0.0002) + ")";
             if(liquid3) liquid3.style.transform = "translateY(" + (scrolled * 0.08) + "px) translateX(" + (scrolled * -0.05) + "px)";
