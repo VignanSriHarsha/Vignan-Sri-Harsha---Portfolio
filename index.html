@@ -33,37 +33,49 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-size: 30px 30px; /* The master 30px grid */
             z-index: -3;
             pointer-events: none;
         }
 
-        /* --- UPGRADE: RANDOM SUBTLE TWINKLING DOTS --- */
+        /* --- UPGRADE: TRUE RANDOM ALIGNED TWINKLING --- */
         @keyframes twinkle {
             0% { opacity: 0; }
             50% { opacity: 1; }
             100% { opacity: 0; }
         }
         
-        .twinkle-layer-1, .twinkle-layer-2 {
+        .twinkle-layer-1, .twinkle-layer-2, .twinkle-layer-3, .twinkle-layer-4 {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             pointer-events: none;
         }
         
+        /* All sizes and positions MUST be multiples of 30 to match the base grid perfectly */
         .twinkle-layer-1 {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px);
-            background-size: 70px 70px; /* Different spacing so it looks random */
-            background-position: 15px 15px;
-            animation: twinkle 5s infinite ease-in-out;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px);
+            background-size: 90px 90px; 
+            background-position: 30px 30px;
+            animation: twinkle 4s infinite ease-in-out;
         }
-        
         .twinkle-layer-2 {
             background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px);
-            background-size: 110px 90px;
-            background-position: 45px 30px;
-            animation: twinkle 7s infinite ease-in-out 3s; /* Delayed start for randomness */
+            background-size: 120px 120px;
+            background-position: 60px 90px;
+            animation: twinkle 7s infinite ease-in-out 1s;
+        }
+        .twinkle-layer-3 {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px);
+            background-size: 150px 150px; 
+            background-position: 90px 30px;
+            animation: twinkle 11s infinite ease-in-out 3s;
+        }
+        .twinkle-layer-4 {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px);
+            background-size: 210px 210px; 
+            background-position: 150px 120px;
+            animation: twinkle 13s infinite ease-in-out 5s;
         }
 
         /* Fixed Ambient Brush/Glow Effects */
@@ -71,7 +83,7 @@
             position: fixed;
             border-radius: 50%;
             background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            /* SATURATION PATCH: Added 10% global saturation bump to the liquid lights */
+            /* SATURATION PATCH: 10% global saturation bump to the liquid lights */
             filter: blur(100px) saturate(110%);
             z-index: -1;
             pointer-events: none;
@@ -292,6 +304,8 @@
 <body>
     <div class="twinkle-layer-1"></div>
     <div class="twinkle-layer-2"></div>
+    <div class="twinkle-layer-3"></div>
+    <div class="twinkle-layer-4"></div>
     
     <div class="ambient-brush brush-position-1" id="liquid-1"></div>
     <div class="ambient-brush brush-position-2" id="liquid-2"></div>
