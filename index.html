@@ -260,6 +260,45 @@
         .app-metric.accent { color: var(--accent); } 
         .app-metric.secondary { color: var(--text-secondary); }
         .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
+
+        /* TERMINAL CONTACT FOOTER (Upgraded for 5 items) */
+        .terminal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 4rem;
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem 3rem;
+            text-align: center;
+        }
+
+        .terminal-link {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .terminal-link:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .link-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.5;
+        }
+
+        .link-value {
+            font-size: 1rem;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 500;
+        }
         
        /* ULTRA-MINIMAL CONSOLE CONTACT */
         .console-contact {
@@ -468,7 +507,7 @@
             <img src="assets/sports.jpg" alt="Sports Gold Medal" class="main-img">
         </div>
 
-        <div class="terminal-footer reveal">
+       <div class="terminal-footer reveal">
             <a href="mailto:vignansriharsha.b@gmail.com" class="terminal-link">
                 <span class="link-label">System.Contact</span>
                 <span class="link-value">Email</span>
@@ -485,12 +524,10 @@
                 <span class="link-label">System.Data</span>
                 <span class="link-value">Resume.pdf</span>
             </a>
-             </a>
             <a href="https://youtube.com/@VignanEdits" target="_blank" class="terminal-link">
                 <span class="link-label">System.Youtube</span>
                 <span class="link-value">YouTube</span>
             </a>
-            
         </div>
         
             <div class="beta-footer reveal">
