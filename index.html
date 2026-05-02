@@ -12,12 +12,11 @@
             --bg: #030303;
             --text-primary: #eaeaea;
             --text-secondary: #999999;
-            --accent: #A85121; /* Terracotta Orange */
+            --accent: #A85121; 
             --accent-glow: rgba(168, 81, 33, 0.2); 
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* MOBILE FIX: Locked html and body to strict viewport width */
         html, body {
             background-color: var(--bg);
             color: var(--text-primary);
@@ -28,406 +27,185 @@
             overflow-x: hidden;
             width: 100%;
             max-width: 100vw; 
+            cursor: none; /* Hides default cursor for Tactical replacement */
         }
 
-        /* 1. Global Subtle Dot Grid Pattern (STATIC BASE) */
+        /* Prevent default cursor on interactables */
+        a, button { cursor: none; }
+
+        /* --- 1. BOOT SEQUENCE OVERLAY --- */
+        #boot-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg);
+            z-index: 999999; /* Absolute top layer */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        #boot-text {
+            font-family: 'Chakra Petch', monospace;
+            color: var(--accent);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .hidden-boot {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- 2. TACTICAL CURSOR --- */
+        #tactical-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 10px; height: 10px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            pointer-events: none; /* Let clicks pass through it */
+            z-index: 100000;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border 0.2s ease;
+            mix-blend-mode: screen;
+        }
+        #tactical-cursor.active {
+            width: 45px; height: 45px;
+            background-color: rgba(168, 81, 33, 0.1);
+            border: 1px solid var(--accent);
+        }
+
+        /* Disable custom cursor on touch devices */
+        @media (pointer: coarse) {
+            html, body, a, button { cursor: auto; }
+            #tactical-cursor { display: none !important; }
+        }
+
+        /* Global Subtle Dot Grid Pattern */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
             background-size: 30px 30px; 
-            /* FIXED Z-INDEX: Moved to a positive layer above the background */
             z-index: 1;
             pointer-events: none;
         }
 
-        /* --- RANDOM ALIGNED TWINKLING --- */
+        /* RANDOM ALIGNED TWINKLING */
         @keyframes twinkle {
             0% { opacity: 0; }
             50% { opacity: 1; }
             100% { opacity: 0; }
         }
-        
-        .twinkle-layer-1, .twinkle-layer-2, .twinkle-layer-3, .twinkle-layer-4 {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            /* FIXED Z-INDEX: Sitting just above the static grid */
-            z-index: 2;
-            pointer-events: none;
-        }
-        
-        .twinkle-layer-1 {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px);
-            background-size: 90px 90px; 
-            background-position: 30px 30px;
-            animation: twinkle 4s infinite ease-in-out;
-        }
-        .twinkle-layer-2 {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px);
-            background-size: 120px 120px;
-            background-position: 60px 90px;
-            animation: twinkle 7s infinite ease-in-out 1s;
-        }
-        .twinkle-layer-3 {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px);
-            background-size: 150px 150px; 
-            background-position: 90px 30px;
-            animation: twinkle 11s infinite ease-in-out 3s;
-        }
-        .twinkle-layer-4 {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px);
-            background-size: 210px 210px; 
-            background-position: 150px 120px;
-            animation: twinkle 13s infinite ease-in-out 5s;
-        }
+        .twinkle-layer-1, .twinkle-layer-2, .twinkle-layer-3, .twinkle-layer-4 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .twinkle-layer-1 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 90px 90px; background-position: 30px 30px; animation: twinkle 4s infinite ease-in-out; }
+        .twinkle-layer-2 { background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px); background-size: 120px 120px; background-position: 60px 90px; animation: twinkle 7s infinite ease-in-out 1s; }
+        .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
+        .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
 
-        /* Fixed Ambient Brush/Glow Effects */
+        /* Fixed Ambient Brush Effects */
         .ambient-brush {
-            position: fixed;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            filter: blur(100px) saturate(110%);
-            /* FIXED Z-INDEX: Sitting above the dots, below the glass content */
-            z-index: 3;
-            pointer-events: none;
-            will-change: transform; 
+            position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; 
         }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
         .brush-position-3 { width: 40vw; height: 40vh; bottom: 5vh; left: 15vw; opacity: 0.5; } 
 
-        /* The Main Content Container */
         .container {
-            max-width: 900px;
-            padding: 7rem 2rem 2rem 2rem;
-            width: 100%;
-            margin: 0 auto; 
-            box-sizing: border-box; 
-            position: relative; 
-            /* GUARANTEES CONTENT SITS ON TOP OF ALL BACKGROUND EFFECTS */
-            z-index: 10;
-            filter: saturate(110%);
+            max-width: 900px; padding: 7rem 2rem 2rem 2rem; width: 100%; margin: 0 auto; 
+            box-sizing: border-box; position: relative; z-index: 10; filter: saturate(110%);
         }
 
-        /* --- HEADER LAYOUT --- */
-        .header-section {
-            display: flex;
-            align-items: center;
-            gap: 4rem; 
-            margin-bottom: 6rem;
-        }
+        /* HEADER */
+        .header-section { display: flex; align-items: center; gap: 4rem; margin-bottom: 6rem; }
+        .profile-wrapper { position: relative; width: 240px; height: 240px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .mesh-background { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 20px 20px; transform: perspective(400px) rotateX(60deg) translateZ(-100px); -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%); mask-image: radial-gradient(circle at center, black 10%, transparent 60%); z-index: 1; pointer-events: none; }
+        .profile-img { width: 210px; height: 210px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(168, 81, 33, 0.4); position: relative; z-index: 2; box-shadow: 0 0 40px var(--accent-glow); filter: saturate(125%); }
+        .header-text h1 { font-family: 'Chakra Petch', sans-serif; font-size: 4rem; font-weight: 500; margin: 0; letter-spacing: -1px; color: var(--accent); line-height: 1.1; }
+        .header-text .subtitle { font-size: 1.25rem; color: var(--text-secondary); font-weight: 300; margin-top: 1rem; }
 
-        .profile-wrapper {
-            position: relative;
-            width: 240px; 
-            height: 240px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        h2 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: #ffffff; margin-top: 3rem; margin-bottom: 2rem; position: relative; display: inline-block; font-weight: 500; }
+        h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, var(--accent), transparent); }
+        p { font-weight: 300; color: #b0b0b0; margin-bottom: 1.5rem; font-size: 1.05rem; }
 
-        .mesh-background {
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
-            transform: perspective(400px) rotateX(60deg) translateZ(-100px);
-            -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%);
-            mask-image: radial-gradient(circle at center, black 10%, transparent 60%);
-            /* FIXED Z-INDEX */
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .profile-img {
-            width: 210px; 
-            height: 210px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid rgba(168, 81, 33, 0.4);
-            position: relative;
-            /* FIXED Z-INDEX */
-            z-index: 2;
-            box-shadow: 0 0 40px var(--accent-glow);
-            filter: saturate(125%);
-        }
-
-        .header-text h1 {
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 4rem; 
-            font-weight: 500; 
-            margin: 0;
-            letter-spacing: -1px;
-            color: var(--accent);
-            line-height: 1.1;
-        }
-
-        .header-text .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            margin-top: 1rem;
-        }
-
-        /* Section Titles */
-        h2 {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #ffffff;
-            margin-top: 3rem;
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
-            font-weight: 500;
-        }
-        
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -8px; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(to right, var(--accent), transparent);
-        }
-
-        p {
-            font-weight: 300;
-            color: #b0b0b0;
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
-        }
-
-        /* FROSTED GLASS CARDS */
+        /* --- 3. FROSTED GLASS CARDS (Upgraded for Kinetic Tilt) --- */
         .project-block {
-            /* MAINTAINING HIGH TRANSLUCENCY AT 3% OPACITY */
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 3rem;
-            margin-bottom: 4rem;
+            border-radius: 16px; padding: 3rem; margin-bottom: 4rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 5; 
+            position: relative; z-index: 5; 
+            /* Kinetic Tilt Requirements */
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease, box-shadow 0.5s ease;
+            will-change: transform;
         }
 
-        .project-title {
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 0.7rem;
-            letter-spacing: -0.5px;
-        }
-
-        .project-meta {
-            color: var(--accent);
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        /* TACTILE HOVER PHYSICS ON MAIN IMAGES */
-        .main-img {
-            width: 100%; 
-            height: 400px; 
-            object-fit: cover; 
-            border-radius: 8px; 
-            margin-top: 2rem; 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease, box-shadow 0.5s ease;
-        }
-
-        .main-img:hover {
-            transform: scale(1.02) translateY(-5px);
-            border-color: rgba(168, 81, 33, 0.5);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow);
-        }
+        .project-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.7rem; letter-spacing: -0.5px; transform: translateZ(20px); }
+        .project-meta { color: var(--accent); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; transform: translateZ(30px); }
+        
+        .main-img { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05); transform: translateZ(40px); }
 
         /* App List Layout FOR CONTENT CREATION */
-        .app-list { display: grid; gap: 3rem; margin-top: 3rem; }
+        .app-list { display: grid; gap: 3rem; margin-top: 3rem; transform: translateZ(25px); }
         .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         .logo-group { display: flex; gap: 15px; align-items: center; }
-        
-        .app-logo { 
-            width: auto; 
-            object-fit: contain; 
-            transition: all 0.3s ease;
-        }
-        
-        .app-logo:hover {
-            transform: translateY(-4px);
-            filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.6));
-        }
-        
+        .app-logo { width: auto; object-fit: contain; }
         .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
         .app-metric.accent { color: var(--accent); } 
-        .app-metric.secondary { color: var(--text-secondary); }
         .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
 
         /* TERMINAL CONTACT FOOTER */
-        .terminal-footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 4rem;
-            margin-top: 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem 3rem;
-            text-align: center;
-        }
-
-        .terminal-link {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            text-decoration: none;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-        }
-
-        .terminal-link:hover {
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .link-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.5;
-        }
-
-        .link-value {
-            font-size: 1rem;
-            font-family: 'Chakra Petch', sans-serif;
-            font-weight: 500;
-        }
+        .terminal-footer { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 4rem; margin-top: 2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem 3rem; text-align: center; }
+        .terminal-link { display: flex; flex-direction: column; gap: 0.5rem; text-decoration: none; color: var(--text-secondary); transition: all 0.3s ease; }
+        .link-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
+        .link-value { font-size: 1rem; font-family: 'Chakra Petch', sans-serif; font-weight: 500; }
         
-       /* ULTRA-MINIMAL CONSOLE CONTACT */
-        .console-contact {
-            text-align: center;
-            padding-bottom: 3rem;
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-            word-wrap: break-word;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
+        /* ULTRA-MINIMAL CONSOLE CONTACT */
+        .console-contact { text-align: center; padding-bottom: 3rem; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 2px; opacity: 0.6; transition: opacity 0.3s ease; word-wrap: break-word; padding-left: 1rem; padding-right: 1rem; }
+        .console-contact a { color: var(--accent); text-decoration: none; position: relative; margin-left: 5px; text-transform: lowercase; }
+        .console-contact a::after { content: '_'; display: inline-block; margin-left: 2px; animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        .console-contact:hover {
-            opacity: 1;
-        }
+        .beta-footer { text-align: center; padding-top: 2rem; padding-bottom: 4rem; font-size: 0.85rem; color: var(--text-secondary); opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 2rem; }
 
-        .console-contact a {
-            color: var(--accent);
-            text-decoration: none;
-            position: relative;
-            margin-left: 5px;
-            text-transform: lowercase;
-        }
+        /* SCROLL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* The Blinking Terminal Cursor */
-        .console-contact a::after {
-            content: '_';
-            display: inline-block;
-            margin-left: 2px;
-            animation: blink 1s step-end infinite;
-        }
+        /* AUDIO TOGGLE */
+        #audio-toggle { position: fixed; bottom: 30px; right: 30px; z-index: 1000; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); padding: 10px 16px; border-radius: 4px; font-family: 'Chakra Petch', sans-serif; font-size: 0.8rem; letter-spacing: 2px; transition: all 0.3s ease; }
 
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        /* THE BETA FOOTER CSS */
-        .beta-footer {
-            text-align: center;
-            padding-top: 2rem;
-            padding-bottom: 4rem;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            opacity: 0.6;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 2rem;
-        }
-
-        /* CINEMATIC SCROLL ANIMATION CLASSES */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- FLOATING AUDIO TOGGLE --- */
-        #audio-toggle {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-secondary);
-            padding: 10px 16px;
-            border-radius: 4px;
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        #audio-toggle:hover {
-            border-color: var(--accent);
-            color: var(--text-primary);
-        }
-
-        /* --- MOBILE ADJUSTMENTS --- */
+        /* MOBILE OVERRIDES */
         @media (max-width: 600px) {
             .header-section { flex-direction: column; text-align: center; gap: 1.5rem; }
             .app-block { grid-template-columns: 1fr; gap: 1rem; }
             .logo-group { justify-content: center; }
             .app-visuals { align-items: center; text-align: center; }
             .header-text h1 { font-size: 2.8rem; }
-            .project-block { padding: 1.5rem; }
+            .project-block { padding: 1.5rem; transform: none !important; /* Disables 3D tilt on mobile */ }
             .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
-            
-            /* MOBILE FIX 1: Prevent heavy image cropping */
-            .main-img { 
-                height: 220px; 
-            }
-
-            /* MOBILE FIX 2: Audio Toggle Glued securely inside viewport */
-            #audio-toggle { 
-                bottom: 25px; 
-                right: 15px; 
-                font-size: 0.65rem; 
-                padding: 8px 12px;
-                z-index: 9999; 
-            }
+            .main-img { height: 220px; }
+            #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; z-index: 9999; }
         }
     </style>
 </head>
 <body>
-    <audio id="bg-audio" loop src="assets/music.mp3"></audio>
+    
+    <!-- TACTICAL CURSOR ELEMENT -->
+    <div id="tactical-cursor"></div>
 
+    <!-- SYSTEM BOOT SCREEN -->
+    <div id="boot-screen">
+        <div id="boot-text"></div>
+    </div>
+
+    <!-- AUDIO ELEMENT -->
+    <audio id="bg-audio" loop src="assets/music.mp3"></audio>
     <button id="audio-toggle">[ SYSTEM.AUDIO : OFF ]</button>
 
     <div class="twinkle-layer-1"></div>
@@ -515,6 +293,7 @@
             <span class="project-meta">Photography Gallery</span>
             <div class="project-title">Atmosphere, Geometry, and Narrative</div>
             <p>A minimalist collection focusing strictly on light, geometry, and composition. This gallery lets the visual artifacts speak for themselves, showcasing my approach to narrative depth through photography.</p>
+            <!-- PRESERVED YOUR VIDEO TAG UPDATE -->
             <video src="assets/photography.mp4" class="main-img" autoplay loop muted playsinline></video>
         </div>
 
@@ -568,7 +347,81 @@
     </div>
 
     <script>
-        // 1. Cinematic Scroll Fade-In
+        // --- BOOT SEQUENCE ENGINE ---
+        const bootScreen = document.getElementById('boot-screen');
+        const bootText = document.getElementById('boot-text');
+        const bootMessages = [
+            "> INITIALIZING SYSTEM ARCHITECTURE...", 
+            "> MOUNTING VISUAL ASSETS...", 
+            "> ESTABLISHING AUDIO LINK...", 
+            "> ACCESS GRANTED."
+        ];
+        let msgIndex = 0;
+
+        function runBootSequence() {
+            if (msgIndex < bootMessages.length) {
+                bootText.innerText = bootMessages[msgIndex];
+                msgIndex++;
+                setTimeout(runBootSequence, 350); // Speed of the text change
+            } else {
+                setTimeout(() => {
+                    bootScreen.classList.add('hidden-boot');
+                    reveal(); // Trigger the scroll reveals after boot
+                }, 500);
+            }
+        }
+        window.addEventListener('load', () => {
+            setTimeout(runBootSequence, 200);
+        });
+
+
+        // --- TACTICAL CURSOR ENGINE ---
+        const cursor = document.getElementById('tactical-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        
+        // Make cursor expand when hovering over anything interactive
+        const interactables = document.querySelectorAll('a, button, .project-block');
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+
+
+        // --- KINETIC DEPTH MAPPING (3D TILT) ---
+        const cards = document.querySelectorAll('.project-block');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                // Ignore on mobile screens
+                if (window.innerWidth <= 600) return; 
+
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element
+                const y = e.clientY - rect.top;  // y position within the element
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Calculate rotation (max 4 degrees to keep it subtle)
+                const rotateX = ((y - centerY) / centerY) * -4; 
+                const rotateY = ((x - centerX) / centerX) * 4;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.borderColor = 'rgba(168, 81, 33, 0.4)';
+                card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                card.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                card.style.boxShadow = `0 10px 30px rgba(0,0,0,0.2)`;
+            });
+        });
+
+
+        // --- CINEMATIC SCROLL FADE-IN ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -582,22 +435,22 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal(); 
 
-        // 2. Apple Liquid Parallax Background Physics
+
+        // --- APPLE LIQUID PARALLAX PHYSICS ---
         var liquid1 = document.getElementById('liquid-1');
         var liquid2 = document.getElementById('liquid-2');
         var liquid3 = document.getElementById('liquid-3');
 
         window.addEventListener("scroll", function() {
             var scrolled = window.pageYOffset;
-            
             if(liquid1) liquid1.style.transform = "translateY(" + (scrolled * 0.15) + "px) rotate(" + (scrolled * 0.05) + "deg)";
             if(liquid2) liquid2.style.transform = "translateY(" + (scrolled * -0.1) + "px) scale(" + (1 + scrolled * 0.0002) + ")";
             if(liquid3) liquid3.style.transform = "translateY(" + (scrolled * 0.08) + "px) translateX(" + (scrolled * -0.05) + "px)";
         });
 
-        // 3. Audio Mixing Engine
+
+        // --- AUDIO MIXING ENGINE ---
         const audio = document.getElementById('bg-audio');
         const audioBtn = document.getElementById('audio-toggle');
         let isPlaying = false;
@@ -606,7 +459,6 @@
 
         audioBtn.addEventListener('click', () => {
             if (!isPlaying) {
-                // Play and fade in
                 audio.currentTime = 14;
                 audio.volume = 0;
                 audio.play();
@@ -625,7 +477,6 @@
                     }
                 }, 100);
             } else {
-                // Fade out and pause
                 clearInterval(fadeInterval);
                 fadeInterval = setInterval(() => {
                     if (audio.volume > 0.02) {
@@ -633,11 +484,9 @@
                     } else {
                         audio.pause();
                         isPlaying = false;
-                        
                         audioBtn.innerHTML = '[ SYSTEM.AUDIO : OFF ]';
                         audioBtn.style.color = 'var(--text-secondary)';
                         audioBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                        
                         clearInterval(fadeInterval);
                     }
                 }, 100);
