@@ -98,7 +98,7 @@
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
 
-        /* Ambient Brush Effects (Modified by Audio engine) */
+        /* Ambient Brush Effects */
         .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.3s ease, transform 0.2s ease-out; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
@@ -118,7 +118,7 @@
         h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, var(--accent), transparent); }
         p { font-weight: 300; color: #b0b0b0; margin-bottom: 1.5rem; font-size: 1.05rem; }
 
-        /* --- FROSTED GLASS CARDS (With Tactical Addons) --- */
+        /* --- FROSTED GLASS CARDS --- */
         .project-block {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -129,10 +129,10 @@
             transform-style: preserve-3d;
             transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease, box-shadow 0.5s ease;
             will-change: transform;
-            overflow: hidden; /* Contains the scanner glare */
+            overflow: hidden; 
         }
 
-        /* 1. Sensor Sweep Glare */
+        /* Sensor Sweep Glare */
         .glare {
             position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
@@ -140,44 +140,31 @@
             transform: rotate(45deg) translateY(-100%);
             transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
             pointer-events: none;
-            z-index: 1; /* Sits behind text, over the glass */
+            z-index: 1; 
         }
-        .project-block:hover .glare {
-            transform: rotate(45deg) translateY(100%);
+        
+        /* PC Hover Triggers */
+        @media (pointer: fine) {
+            .project-block:hover .glare { transform: rotate(45deg) translateY(100%); }
+            .project-block:hover::before { top: 25px; left: 25px; opacity: 1; }
+            .project-block:hover::after { bottom: 25px; right: 25px; opacity: 1; }
         }
 
-        /* 2. Targeting Brackets */
+        /* Mobile Scroll Triggers (.in-view added via JS) */
+        @media (pointer: coarse) {
+            .project-block.in-view .glare { transform: rotate(45deg) translateY(100%); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+            .project-block.in-view::before { top: 25px; left: 25px; opacity: 1; }
+            .project-block.in-view::after { bottom: 25px; right: 25px; opacity: 1; }
+        }
+
+        /* Targeting Brackets */
         .project-block::before, .project-block::after {
-            content: '';
-            position: absolute;
-            width: 20px; height: 20px;
-            border: 2px solid transparent;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 10;
+            content: ''; position: absolute; width: 20px; height: 20px;
+            border: 2px solid transparent; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0; pointer-events: none; z-index: 10;
         }
-        /* Top Left Bracket */
-        .project-block::before {
-            top: 10px; left: 10px;
-            border-top-color: var(--accent);
-            border-left-color: var(--accent);
-        }
-        /* Bottom Right Bracket */
-        .project-block::after {
-            bottom: 10px; right: 10px;
-            border-bottom-color: var(--accent);
-            border-right-color: var(--accent);
-        }
-        /* Snap inwards on hover */
-        .project-block:hover::before {
-            top: 25px; left: 25px;
-            opacity: 1;
-        }
-        .project-block:hover::after {
-            bottom: 25px; right: 25px;
-            opacity: 1;
-        }
+        .project-block::before { top: 10px; left: 10px; border-top-color: var(--accent); border-left-color: var(--accent); }
+        .project-block::after { bottom: 10px; right: 10px; border-bottom-color: var(--accent); border-right-color: var(--accent); }
 
         .project-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.7rem; letter-spacing: -0.5px; transform: translateZ(20px); position: relative; z-index: 5;}
         .project-meta { color: var(--accent); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; transform: translateZ(30px); position: relative; z-index: 5;}
@@ -219,8 +206,6 @@
             .app-visuals { align-items: center; text-align: center; }
             .header-text h1 { font-size: 2.8rem; }
             .project-block { padding: 1.5rem; transform: none !important; }
-            /* Turn off brackets and glare on mobile for clean scrolling */
-            .project-block::before, .project-block::after, .glare { display: none; }
             .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
             .main-img { height: 220px; }
             #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; z-index: 9999; }
@@ -415,7 +400,7 @@
             el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
         });
 
-        // --- KINETIC 3D TILT ---
+        // --- KINETIC 3D TILT (PC ONLY) ---
         const cards = document.querySelectorAll('.project-block');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -438,6 +423,21 @@
             });
         });
 
+        // --- MOBILE SCROLL OBSERVER (TACTICAL UI TRIGGERS) ---
+        if (window.innerWidth <= 600) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    } else {
+                        entry.target.classList.remove('in-view');
+                    }
+                });
+            }, { threshold: 0.65 }); // Triggers when 65% of the card is on screen
+
+            cards.forEach(card => observer.observe(card));
+        }
+
         // --- SCROLL FADE-IN ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
@@ -449,13 +449,14 @@
         }
         window.addEventListener("scroll", reveal);
 
-        // --- AUDIO ENGINE (TAMED BASS PHYSICS) ---
+        // --- AUDIO ENGINE (WITH TRANSITION LOCK & HAPTICS) ---
         const audio = document.getElementById('bg-audio');
         const audioBtn = document.getElementById('audio-toggle');
         
         let audioCtx, analyser, dataArray, source;
         let isAudioEngineRunning = false;
         let isPlaying = false;
+        let isTransitioning = false; // The State Lock
         let fadeInterval;
 
         var liquid1 = document.getElementById('liquid-1');
@@ -487,11 +488,7 @@
             requestAnimationFrame(renderAudioVisuals);
             analyser.getByteFrequencyData(dataArray);
             
-            // Get raw bass frequencies
             let rawBass = (dataArray[0] + dataArray[1] + dataArray[2]) / 3 / 255;
-            
-            // MATH UPDATE: Tamed the response. Using an exponent heavily ignores 
-            // low-humming bass and ONLY triggers on aggressive sub-bass kicks.
             let bassImpact = Math.pow(rawBass, 4); 
 
             if(liquid1) {
@@ -505,6 +502,13 @@
         }
 
         audioBtn.addEventListener('click', () => {
+            // Haptic Feedback for Mobile (Subtle 50ms vibration)
+            if (navigator.vibrate) navigator.vibrate(50);
+
+            // Ignore spam-clicks if already fading in/out
+            if (isTransitioning) return; 
+            isTransitioning = true;
+
             if (!isAudioEngineRunning) initAudioEngine();
             if (audioCtx.state === 'suspended') audioCtx.resume();
 
@@ -522,8 +526,12 @@
 
                 clearInterval(fadeInterval);
                 fadeInterval = setInterval(() => {
-                    if (audio.volume < 0.25) audio.volume = Math.min(0.25, audio.volume + 0.02);
-                    else clearInterval(fadeInterval);
+                    if (audio.volume < 0.25) {
+                        audio.volume = Math.min(0.25, audio.volume + 0.02);
+                    } else {
+                        clearInterval(fadeInterval);
+                        isTransitioning = false; // Unlock
+                    }
                 }, 100);
             } else {
                 clearInterval(fadeInterval);
@@ -541,6 +549,7 @@
                         if(liquid2) { liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`; liquid2.style.opacity = 1; }
                         
                         clearInterval(fadeInterval);
+                        isTransitioning = false; // Unlock
                     }
                 }, 100);
             }
