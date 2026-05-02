@@ -27,10 +27,9 @@
             overflow-x: hidden;
             width: 100%;
             max-width: 100vw; 
-            cursor: none; /* Hides default cursor for Tactical replacement */
+            cursor: none; 
         }
 
-        /* Prevent default cursor on interactables */
         a, button { cursor: none; }
 
         /* --- 1. BOOT SEQUENCE OVERLAY --- */
@@ -38,7 +37,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--bg);
-            z-index: 999999; /* Absolute top layer */
+            z-index: 999999; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -56,26 +55,42 @@
             pointer-events: none;
         }
 
-        /* --- 2. TACTICAL CURSOR --- */
+        /* --- 2. ADVANCED TACTICAL CROSSHAIR --- */
         #tactical-cursor {
             position: fixed;
             top: 0; left: 0;
-            width: 10px; height: 10px;
-            background-color: var(--accent);
+            width: 24px; height: 24px;
+            border: 1px solid rgba(168, 81, 33, 0.5);
             border-radius: 50%;
-            pointer-events: none; /* Let clicks pass through it */
+            pointer-events: none; 
             z-index: 100000;
             transform: translate(-50%, -50%);
-            transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border 0.2s ease;
-            mix-blend-mode: screen;
+            transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        #tactical-cursor.active {
-            width: 45px; height: 45px;
-            background-color: rgba(168, 81, 33, 0.1);
-            border: 1px solid var(--accent);
+        
+        /* The center targeting dot */
+        #tactical-cursor::after {
+            content: '';
+            width: 4px; height: 4px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
-        /* Disable custom cursor on touch devices */
+        /* Hover "Lock-On" state */
+        #tactical-cursor.active {
+            width: 40px; height: 40px;
+            border-color: var(--accent);
+            background-color: rgba(168, 81, 33, 0.05);
+        }
+        #tactical-cursor.active::after {
+            transform: scale(0); 
+            opacity: 0;
+        }
+
         @media (pointer: coarse) {
             html, body, a, button { cursor: auto; }
             #tactical-cursor { display: none !important; }
@@ -93,30 +108,20 @@
         }
 
         /* RANDOM ALIGNED TWINKLING */
-        @keyframes twinkle {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
+        @keyframes twinkle { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
         .twinkle-layer-1, .twinkle-layer-2, .twinkle-layer-3, .twinkle-layer-4 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
         .twinkle-layer-1 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 90px 90px; background-position: 30px 30px; animation: twinkle 4s infinite ease-in-out; }
         .twinkle-layer-2 { background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px); background-size: 120px 120px; background-position: 60px 90px; animation: twinkle 7s infinite ease-in-out 1s; }
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
 
-        /* Fixed Ambient Brush Effects */
-        .ambient-brush {
-            position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; 
-        }
+        /* Ambient Brush Effects */
+        .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
         .brush-position-3 { width: 40vw; height: 40vh; bottom: 5vh; left: 15vw; opacity: 0.5; } 
 
-        .container {
-            max-width: 900px; padding: 7rem 2rem 2rem 2rem; width: 100%; margin: 0 auto; 
-            box-sizing: border-box; position: relative; z-index: 10; filter: saturate(110%);
-        }
+        .container { max-width: 900px; padding: 7rem 2rem 2rem 2rem; width: 100%; margin: 0 auto; box-sizing: border-box; position: relative; z-index: 10; filter: saturate(110%); }
 
         /* HEADER */
         .header-section { display: flex; align-items: center; gap: 4rem; margin-bottom: 6rem; }
@@ -130,7 +135,7 @@
         h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, var(--accent), transparent); }
         p { font-weight: 300; color: #b0b0b0; margin-bottom: 1.5rem; font-size: 1.05rem; }
 
-        /* --- 3. FROSTED GLASS CARDS (Upgraded for Kinetic Tilt) --- */
+        /* FROSTED GLASS CARDS */
         .project-block {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -138,7 +143,6 @@
             border-radius: 16px; padding: 3rem; margin-bottom: 4rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             position: relative; z-index: 5; 
-            /* Kinetic Tilt Requirements */
             transform-style: preserve-3d;
             transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease, box-shadow 0.5s ease;
             will-change: transform;
@@ -149,7 +153,6 @@
         
         .main-img { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05); transform: translateZ(40px); }
 
-        /* App List Layout FOR CONTENT CREATION */
         .app-list { display: grid; gap: 3rem; margin-top: 3rem; transform: translateZ(25px); }
         .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
@@ -169,7 +172,6 @@
         .console-contact { text-align: center; padding-bottom: 3rem; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 2px; opacity: 0.6; transition: opacity 0.3s ease; word-wrap: break-word; padding-left: 1rem; padding-right: 1rem; }
         .console-contact a { color: var(--accent); text-decoration: none; position: relative; margin-left: 5px; text-transform: lowercase; }
         .console-contact a::after { content: '_'; display: inline-block; margin-left: 2px; animation: blink 1s step-end infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
 
         .beta-footer { text-align: center; padding-top: 2rem; padding-bottom: 4rem; font-size: 0.85rem; color: var(--text-secondary); opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 2rem; }
 
@@ -187,7 +189,7 @@
             .logo-group { justify-content: center; }
             .app-visuals { align-items: center; text-align: center; }
             .header-text h1 { font-size: 2.8rem; }
-            .project-block { padding: 1.5rem; transform: none !important; /* Disables 3D tilt on mobile */ }
+            .project-block { padding: 1.5rem; transform: none !important; }
             .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
             .main-img { height: 220px; }
             #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; z-index: 9999; }
@@ -293,7 +295,6 @@
             <span class="project-meta">Photography Gallery</span>
             <div class="project-title">Atmosphere, Geometry, and Narrative</div>
             <p>A minimalist collection focusing strictly on light, geometry, and composition. This gallery lets the visual artifacts speak for themselves, showcasing my approach to narrative depth through photography.</p>
-            <!-- PRESERVED YOUR VIDEO TAG UPDATE -->
             <video src="assets/photography.mp4" class="main-img" autoplay loop muted playsinline></video>
         </div>
 
@@ -362,18 +363,17 @@
             if (msgIndex < bootMessages.length) {
                 bootText.innerText = bootMessages[msgIndex];
                 msgIndex++;
-                setTimeout(runBootSequence, 350); // Speed of the text change
+                setTimeout(runBootSequence, 350); 
             } else {
                 setTimeout(() => {
                     bootScreen.classList.add('hidden-boot');
-                    reveal(); // Trigger the scroll reveals after boot
+                    reveal(); 
                 }, 500);
             }
         }
         window.addEventListener('load', () => {
             setTimeout(runBootSequence, 200);
         });
-
 
         // --- TACTICAL CURSOR ENGINE ---
         const cursor = document.getElementById('tactical-cursor');
@@ -382,33 +382,30 @@
             cursor.style.top = e.clientY + 'px';
         });
         
-        // Make cursor expand when hovering over anything interactive
         const interactables = document.querySelectorAll('a, button, .project-block');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('active'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
         });
 
-
-        // --- KINETIC DEPTH MAPPING (3D TILT) ---
+        // --- KINETIC DEPTH MAPPING (SUBTLE MICRO-TILT) ---
         const cards = document.querySelectorAll('.project-block');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
-                // Ignore on mobile screens
                 if (window.innerWidth <= 600) return; 
 
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x position within the element
-                const y = e.clientY - rect.top;  // y position within the element
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
                 
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                // Calculate rotation (max 4 degrees to keep it subtle)
-                const rotateX = ((y - centerY) / centerY) * -4; 
-                const rotateY = ((x - centerX) / centerX) * 4;
+                // MATH REDUCED TO 1.5 DEGREES FOR PREMIUM SUBTLETY
+                const rotateX = ((y - centerY) / centerY) * -1.5; 
+                const rotateY = ((x - centerX) / centerX) * 1.5;
 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
                 card.style.borderColor = 'rgba(168, 81, 33, 0.4)';
                 card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow)`;
             });
@@ -419,7 +416,6 @@
                 card.style.boxShadow = `0 10px 30px rgba(0,0,0,0.2)`;
             });
         });
-
 
         // --- CINEMATIC SCROLL FADE-IN ---
         function reveal() {
@@ -436,7 +432,6 @@
         }
         window.addEventListener("scroll", reveal);
 
-
         // --- APPLE LIQUID PARALLAX PHYSICS ---
         var liquid1 = document.getElementById('liquid-1');
         var liquid2 = document.getElementById('liquid-2');
@@ -448,7 +443,6 @@
             if(liquid2) liquid2.style.transform = "translateY(" + (scrolled * -0.1) + "px) scale(" + (1 + scrolled * 0.0002) + ")";
             if(liquid3) liquid3.style.transform = "translateY(" + (scrolled * 0.08) + "px) translateX(" + (scrolled * -0.05) + "px)";
         });
-
 
         // --- AUDIO MIXING ENGINE ---
         const audio = document.getElementById('bg-audio');
