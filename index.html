@@ -30,7 +30,7 @@
             cursor: none; 
         }
 
-        a, button { cursor: none; }
+        a, button, canvas { cursor: none; }
 
         /* --- 1. BOOT SEQUENCE OVERLAY --- */
         #boot-screen {
@@ -55,7 +55,7 @@
             pointer-events: none;
         }
 
-        /* --- 2. TACTICAL CURSOR (Reverted to Expanding Dot) --- */
+        /* --- 2. TACTICAL CURSOR --- */
         #tactical-cursor {
             position: fixed;
             top: 0; left: 0;
@@ -75,7 +75,7 @@
         }
 
         @media (pointer: coarse) {
-            html, body, a, button { cursor: auto; }
+            html, body, a, button, canvas { cursor: auto; }
             #tactical-cursor { display: none !important; }
         }
 
@@ -98,8 +98,8 @@
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
 
-        /* Ambient Brush Effects */
-        .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; }
+        /* Ambient Brush Effects (Will be modified by Audio engine) */
+        .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.1s ease; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
         .brush-position-3 { width: 40vw; height: 40vh; bottom: 5vh; left: 15vw; opacity: 0.5; } 
@@ -133,8 +133,20 @@
 
         .project-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.7rem; letter-spacing: -0.5px; transform: translateZ(20px); }
         .project-meta { color: var(--accent); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; transform: translateZ(30px); }
-        
         .main-img { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05); transform: translateZ(40px); }
+
+        /* NODE GRAPH CANVAS */
+        #node-graph-container {
+            width: 100%; height: 350px; 
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+            position: relative;
+            transform: translateZ(40px);
+            overflow: hidden;
+        }
+        canvas { display: block; width: 100%; height: 100%; }
 
         .app-list { display: grid; gap: 3rem; margin-top: 3rem; transform: translateZ(25px); }
         .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
@@ -151,7 +163,6 @@
         .link-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
         .link-value { font-size: 1rem; font-family: 'Chakra Petch', sans-serif; font-weight: 500; }
         
-        /* ULTRA-MINIMAL CONSOLE CONTACT */
         .console-contact { text-align: center; padding-bottom: 3rem; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 2px; opacity: 0.6; transition: opacity 0.3s ease; word-wrap: break-word; padding-left: 1rem; padding-right: 1rem; }
         .console-contact a { color: var(--accent); text-decoration: none; position: relative; margin-left: 5px; text-transform: lowercase; }
         .console-contact a::after { content: '_'; display: inline-block; margin-left: 2px; animation: blink 1s step-end infinite; }
@@ -175,13 +186,14 @@
             .project-block { padding: 1.5rem; transform: none !important; }
             .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
             .main-img { height: 220px; }
+            #node-graph-container { height: 250px; }
             #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; z-index: 9999; }
         }
     </style>
 </head>
 <body>
     
-    <!-- TACTICAL CURSOR ELEMENT -->
+    <!-- TACTICAL CURSOR -->
     <div id="tactical-cursor"></div>
 
     <!-- SYSTEM BOOT SCREEN -->
@@ -214,6 +226,18 @@
                 <div class="subtitle">Synthesizer. Bridging Systems, Strategy, and Creative Media.</div>
             </div>
         </header>
+
+        <h2 class="reveal">The Synthesizer Map</h2>
+        <div class="project-block reveal">
+            <span class="project-meta">Neural Architecture</span>
+            <div class="project-title">Interconnected Skill Graph</div>
+            <p>Hover over the matrix below to trace the logic paths connecting physical hardware optimization, competitive analytics, and dynamic media creation.</p>
+            
+            <!-- THE NEW HTML5 CANVAS NODE ENGINE -->
+            <div id="node-graph-container">
+                <canvas id="node-graph"></canvas>
+            </div>
+        </div>
 
         <h2 class="reveal">Hardware Architecture</h2>
         <div class="project-block reveal">
@@ -331,68 +355,53 @@
     </div>
 
     <script>
-        // --- BOOT SEQUENCE ENGINE ---
+        // --- BOOT SEQUENCE ---
         const bootScreen = document.getElementById('boot-screen');
         const bootText = document.getElementById('boot-text');
-        const bootMessages = [
-            "> INITIALIZING SYSTEM ARCHITECTURE...", 
-            "> MOUNTING VISUAL ASSETS...", 
-            "> ESTABLISHING AUDIO LINK...", 
-            "> ACCESS GRANTED."
-        ];
+        const bootMessages = ["> INITIALIZING...", "> MOUNTING ASSETS...", "> ACCESS GRANTED."];
         let msgIndex = 0;
-
         function runBootSequence() {
             if (msgIndex < bootMessages.length) {
                 bootText.innerText = bootMessages[msgIndex];
                 msgIndex++;
-                setTimeout(runBootSequence, 350); 
+                setTimeout(runBootSequence, 300); 
             } else {
                 setTimeout(() => {
                     bootScreen.classList.add('hidden-boot');
                     reveal(); 
-                }, 500);
+                }, 400);
             }
         }
-        window.addEventListener('load', () => {
-            setTimeout(runBootSequence, 200);
-        });
+        window.addEventListener('load', () => setTimeout(runBootSequence, 200));
 
-        // --- TACTICAL CURSOR ENGINE ---
+        // --- TACTICAL CURSOR ---
         const cursor = document.getElementById('tactical-cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-        
         const interactables = document.querySelectorAll('a, button, .project-block');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('active'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
         });
 
-        // --- KINETIC DEPTH MAPPING (TUNED TO 2.5 DEGREES) ---
+        // --- KINETIC 3D TILT ---
         const cards = document.querySelectorAll('.project-block');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 if (window.innerWidth <= 600) return; 
-
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left; 
                 const y = e.clientY - rect.top;  
-                
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
-                // MATH TUNED TO 2.5 DEGREES FOR THE SWEET SPOT
                 const rotateX = ((y - centerY) / centerY) * -2.5; 
                 const rotateY = ((x - centerX) / centerX) * 2.5;
-
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
                 card.style.borderColor = 'rgba(168, 81, 33, 0.4)';
                 card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow)`;
             });
-
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
                 card.style.borderColor = 'rgba(255, 255, 255, 0.05)';
@@ -400,41 +409,179 @@
             });
         });
 
-        // --- CINEMATIC SCROLL FADE-IN ---
+        // --- SCROLL FADE-IN ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
+                if (elementTop < windowHeight - 100) reveals[i].classList.add("active");
             }
         }
         window.addEventListener("scroll", reveal);
 
-        // --- APPLE LIQUID PARALLAX PHYSICS ---
+
+        // --- THE SYNTHESIZER NODE ENGINE (CANVAS) ---
+        const canvas = document.getElementById('node-graph');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        // The exact coordinates (percentages) of your skills
+        const rawNodes = [
+            { id: 'hw', x: 0.15, y: 0.3, label: 'Hardware Arch' },
+            { id: 'val', x: 0.3, y: 0.7, label: 'Valorant Macro' },
+            { id: 'stat', x: 0.5, y: 0.2, label: 'Data Analytics' },
+            { id: 'res', x: 0.7, y: 0.8, label: 'DaVinci Resolve' },
+            { id: 'cam', x: 0.85, y: 0.4, label: 'Visual Comp' },
+            { id: 'med', x: 0.5, y: 0.6, label: 'Media Synthesis' }
+        ];
+
+        // How they connect logically
+        const rawLinks = [
+            { source: 'hw', target: 'val' },
+            { source: 'hw', target: 'res' },
+            { source: 'val', target: 'stat' },
+            { source: 'stat', target: 'med' },
+            { source: 'res', target: 'med' },
+            { source: 'cam', target: 'med' },
+            { source: 'cam', target: 'res' }
+        ];
+
+        let nodes = [];
+        let mouseX = -100, mouseY = -100;
+
+        function initCanvas() {
+            const container = document.getElementById('node-graph-container');
+            // High-DPI screen support for crisp rendering
+            width = container.clientWidth;
+            height = container.clientHeight;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.scale(dpr, dpr);
+            
+            nodes = rawNodes.map(n => ({ ...n, px: n.x * width, py: n.y * height }));
+            drawGraph();
+        }
+
+        function drawGraph() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Find which node we are hovering near (within 50px)
+            let hoveredNode = null;
+            nodes.forEach(n => {
+                const dist = Math.hypot(n.px - mouseX, n.py - mouseY);
+                if (dist < 50) hoveredNode = n;
+            });
+
+            // Draw Lines
+            rawLinks.forEach(link => {
+                const source = nodes.find(n => n.id === link.source);
+                const target = nodes.find(n => n.id === link.target);
+                
+                ctx.beginPath();
+                ctx.moveTo(source.px, source.py);
+                ctx.lineTo(target.px, target.py);
+                
+                // If it connects to the hovered node, light it up Terracotta
+                if (hoveredNode && (hoveredNode.id === source.id || hoveredNode.id === target.id)) {
+                    ctx.strokeStyle = 'rgba(168, 81, 33, 0.8)';
+                    ctx.lineWidth = 2;
+                } else {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                    ctx.lineWidth = 1;
+                }
+                ctx.stroke();
+            });
+
+            // Draw Nodes & Text
+            nodes.forEach(n => {
+                const isHovered = hoveredNode && hoveredNode.id === n.id;
+                
+                ctx.beginPath();
+                ctx.arc(n.px, n.py, isHovered ? 6 : 4, 0, Math.PI * 2);
+                ctx.fillStyle = isHovered ? '#A85121' : '#eaeaea';
+                ctx.fill();
+
+                ctx.font = "12px 'Chakra Petch', sans-serif";
+                ctx.fillStyle = isHovered ? '#A85121' : '#999999';
+                ctx.textAlign = 'center';
+                ctx.fillText(n.label, n.px, n.py - 15);
+            });
+        }
+
+        window.addEventListener('resize', initCanvas);
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+            drawGraph();
+        });
+        canvas.addEventListener('mouseleave', () => {
+            mouseX = -100; mouseY = -100;
+            drawGraph();
+        });
+        initCanvas();
+
+
+        // --- AUDIO ENGINE (WEB AUDIO API + LIQUID PULSE) ---
+        const audio = document.getElementById('bg-audio');
+        const audioBtn = document.getElementById('audio-toggle');
+        
+        let audioCtx, analyser, dataArray, source;
+        let isAudioEngineRunning = false;
+        let isPlaying = false;
+        let fadeInterval;
+
         var liquid1 = document.getElementById('liquid-1');
         var liquid2 = document.getElementById('liquid-2');
         var liquid3 = document.getElementById('liquid-3');
+        var baseScroll = 0; // Store scroll position
 
         window.addEventListener("scroll", function() {
-            var scrolled = window.pageYOffset;
-            if(liquid1) liquid1.style.transform = "translateY(" + (scrolled * 0.15) + "px) rotate(" + (scrolled * 0.05) + "deg)";
-            if(liquid2) liquid2.style.transform = "translateY(" + (scrolled * -0.1) + "px) scale(" + (1 + scrolled * 0.0002) + ")";
-            if(liquid3) liquid3.style.transform = "translateY(" + (scrolled * 0.08) + "px) translateX(" + (scrolled * -0.05) + "px)";
+            baseScroll = window.pageYOffset;
+            // Native scroll physics
+            if(liquid1 && !isPlaying) liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg)`;
+            if(liquid2 && !isPlaying) liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`;
+            if(liquid3 && !isPlaying) liquid3.style.transform = `translateY(${baseScroll * 0.08}px) translateX(${baseScroll * -0.05}px)`;
         });
 
-        // --- AUDIO MIXING ENGINE ---
-        const audio = document.getElementById('bg-audio');
-        const audioBtn = document.getElementById('audio-toggle');
-        let isPlaying = false;
-        let fadeInterval;
-        const targetVolume = 0.25;
+        function initAudioEngine() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioCtx.createAnalyser();
+            source = audioCtx.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+            analyser.fftSize = 256; 
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
+            isAudioEngineRunning = true;
+            renderAudioVisuals();
+        }
+
+        function renderAudioVisuals() {
+            if (!isPlaying) return;
+            requestAnimationFrame(renderAudioVisuals);
+            analyser.getByteFrequencyData(dataArray);
+            
+            // Isolate sub-bass frequencies (first few bars of FFT)
+            let bassSum = dataArray[0] + dataArray[1] + dataArray[2] + dataArray[3];
+            let bassImpact = (bassSum / 4) / 255; // Normalize 0.0 to 1.0
+
+            // Combine scroll physics with live bass physics
+            if(liquid1) {
+                liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg) scale(${1 + bassImpact * 0.3})`;
+                liquid1.style.opacity = 0.5 + (bassImpact * 0.5);
+            }
+            if(liquid2) {
+                liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + (baseScroll * 0.0002) + (bassImpact * 0.4)})`;
+                liquid2.style.opacity = 0.5 + (bassImpact * 0.5);
+            }
+        }
 
         audioBtn.addEventListener('click', () => {
+            if (!isAudioEngineRunning) initAudioEngine();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
             if (!isPlaying) {
                 audio.currentTime = 14;
                 audio.volume = 0;
@@ -445,13 +592,12 @@
                 audioBtn.style.color = 'var(--accent)';
                 audioBtn.style.borderColor = 'var(--accent)';
 
+                renderAudioVisuals(); // Kickstart visual loop
+
                 clearInterval(fadeInterval);
                 fadeInterval = setInterval(() => {
-                    if (audio.volume < targetVolume) {
-                        audio.volume = Math.min(targetVolume, audio.volume + 0.02);
-                    } else {
-                        clearInterval(fadeInterval);
-                    }
+                    if (audio.volume < 0.25) audio.volume = Math.min(0.25, audio.volume + 0.02);
+                    else clearInterval(fadeInterval);
                 }, 100);
             } else {
                 clearInterval(fadeInterval);
@@ -464,6 +610,11 @@
                         audioBtn.innerHTML = '[ SYSTEM.AUDIO : OFF ]';
                         audioBtn.style.color = 'var(--text-secondary)';
                         audioBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                        
+                        // Reset visuals smoothly to default state
+                        if(liquid1) { liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg)`; liquid1.style.opacity = 1; }
+                        if(liquid2) { liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`; liquid2.style.opacity = 1; }
+                        
                         clearInterval(fadeInterval);
                     }
                 }, 100);
