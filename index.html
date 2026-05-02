@@ -98,7 +98,7 @@
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
 
-        /* Ambient Brush Effects */
+        /* Ambient Brush Effects (Modified by Audio engine) */
         .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.3s ease, transform 0.2s ease-out; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
@@ -142,29 +142,33 @@
             pointer-events: none;
             z-index: 1; 
         }
+
+        /* Targeting Brackets (FIXED Z-INDEX) */
+        .project-block::before, .project-block::after {
+            content: ''; position: absolute; width: 20px; height: 20px;
+            border: 2px solid transparent; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0; pointer-events: none; 
+            z-index: 1; /* Sits completely behind the Z-index: 5 text */
+        }
+        .project-block::before { top: 0px; left: 0px; border-top-color: var(--accent); border-left-color: var(--accent); }
+        .project-block::after { bottom: 0px; right: 0px; border-bottom-color: var(--accent); border-right-color: var(--accent); }
+
         
         /* PC Hover Triggers */
         @media (pointer: fine) {
             .project-block:hover .glare { transform: rotate(45deg) translateY(100%); }
-            .project-block:hover::before { top: 25px; left: 25px; opacity: 1; }
-            .project-block:hover::after { bottom: 25px; right: 25px; opacity: 1; }
+            .project-block:hover::before { top: 15px; left: 15px; opacity: 1; }
+            .project-block:hover::after { bottom: 15px; right: 15px; opacity: 1; }
         }
 
         /* Mobile Scroll Triggers (.in-view added via JS) */
         @media (pointer: coarse) {
             .project-block.in-view .glare { transform: rotate(45deg) translateY(100%); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
-            .project-block.in-view::before { top: 25px; left: 25px; opacity: 1; }
-            .project-block.in-view::after { bottom: 25px; right: 25px; opacity: 1; }
+            
+            /* FIXED MOBILE SCALING: Smaller bounds, thinner lines, tighter snap */
+            .project-block.in-view::before { top: 12px; left: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
+            .project-block.in-view::after { bottom: 12px; right: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
         }
-
-        /* Targeting Brackets */
-        .project-block::before, .project-block::after {
-            content: ''; position: absolute; width: 20px; height: 20px;
-            border: 2px solid transparent; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            opacity: 0; pointer-events: none; z-index: 10;
-        }
-        .project-block::before { top: 10px; left: 10px; border-top-color: var(--accent); border-left-color: var(--accent); }
-        .project-block::after { bottom: 10px; right: 10px; border-bottom-color: var(--accent); border-right-color: var(--accent); }
 
         .project-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.7rem; letter-spacing: -0.5px; transform: translateZ(20px); position: relative; z-index: 5;}
         .project-meta { color: var(--accent); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; transform: translateZ(30px); position: relative; z-index: 5;}
@@ -433,7 +437,7 @@
                         entry.target.classList.remove('in-view');
                     }
                 });
-            }, { threshold: 0.65 }); // Triggers when 65% of the card is on screen
+            }, { threshold: 0.65 }); 
 
             cards.forEach(card => observer.observe(card));
         }
@@ -449,14 +453,14 @@
         }
         window.addEventListener("scroll", reveal);
 
-        // --- AUDIO ENGINE (WITH TRANSITION LOCK & HAPTICS) ---
+        // --- AUDIO ENGINE ---
         const audio = document.getElementById('bg-audio');
         const audioBtn = document.getElementById('audio-toggle');
         
         let audioCtx, analyser, dataArray, source;
         let isAudioEngineRunning = false;
         let isPlaying = false;
-        let isTransitioning = false; // The State Lock
+        let isTransitioning = false; 
         let fadeInterval;
 
         var liquid1 = document.getElementById('liquid-1');
@@ -502,10 +506,7 @@
         }
 
         audioBtn.addEventListener('click', () => {
-            // Haptic Feedback for Mobile (Subtle 50ms vibration)
             if (navigator.vibrate) navigator.vibrate(50);
-
-            // Ignore spam-clicks if already fading in/out
             if (isTransitioning) return; 
             isTransitioning = true;
 
@@ -530,7 +531,7 @@
                         audio.volume = Math.min(0.25, audio.volume + 0.02);
                     } else {
                         clearInterval(fadeInterval);
-                        isTransitioning = false; // Unlock
+                        isTransitioning = false; 
                     }
                 }, 100);
             } else {
@@ -549,7 +550,7 @@
                         if(liquid2) { liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`; liquid2.style.opacity = 1; }
                         
                         clearInterval(fadeInterval);
-                        isTransitioning = false; // Unlock
+                        isTransitioning = false; 
                     }
                 }, 100);
             }
