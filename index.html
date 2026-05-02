@@ -30,7 +30,7 @@
             cursor: none; 
         }
 
-        a, button, canvas { cursor: none; }
+        a, button { cursor: none; }
 
         /* --- 1. BOOT SEQUENCE OVERLAY --- */
         #boot-screen {
@@ -75,7 +75,7 @@
         }
 
         @media (pointer: coarse) {
-            html, body, a, button, canvas { cursor: auto; }
+            html, body, a, button { cursor: auto; }
             #tactical-cursor { display: none !important; }
         }
 
@@ -98,8 +98,8 @@
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
 
-        /* Ambient Brush Effects (Will be modified by Audio engine) */
-        .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.1s ease; }
+        /* Ambient Brush Effects (Modified by Audio engine) */
+        .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.3s ease, transform 0.2s ease-out; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
         .brush-position-3 { width: 40vw; height: 40vh; bottom: 5vh; left: 15vw; opacity: 0.5; } 
@@ -118,7 +118,7 @@
         h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, var(--accent), transparent); }
         p { font-weight: 300; color: #b0b0b0; margin-bottom: 1.5rem; font-size: 1.05rem; }
 
-        /* FROSTED GLASS CARDS */
+        /* --- FROSTED GLASS CARDS (With Tactical Addons) --- */
         .project-block {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -129,26 +129,61 @@
             transform-style: preserve-3d;
             transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease, box-shadow 0.5s ease;
             will-change: transform;
+            overflow: hidden; /* Contains the scanner glare */
         }
 
-        .project-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.7rem; letter-spacing: -0.5px; transform: translateZ(20px); }
-        .project-meta { color: var(--accent); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; transform: translateZ(30px); }
-        .main-img { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05); transform: translateZ(40px); }
-
-        /* NODE GRAPH CANVAS */
-        #node-graph-container {
-            width: 100%; height: 350px; 
-            border-radius: 8px; 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(0, 0, 0, 0.2);
-            margin-top: 2rem;
-            position: relative;
-            transform: translateZ(40px);
-            overflow: hidden;
+        /* 1. Sensor Sweep Glare */
+        .glare {
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(168,81,33,0.08) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(45deg) translateY(-100%);
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+            z-index: 1; /* Sits behind text, over the glass */
         }
-        canvas { display: block; width: 100%; height: 100%; }
+        .project-block:hover .glare {
+            transform: rotate(45deg) translateY(100%);
+        }
 
-        .app-list { display: grid; gap: 3rem; margin-top: 3rem; transform: translateZ(25px); }
+        /* 2. Targeting Brackets */
+        .project-block::before, .project-block::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+        /* Top Left Bracket */
+        .project-block::before {
+            top: 10px; left: 10px;
+            border-top-color: var(--accent);
+            border-left-color: var(--accent);
+        }
+        /* Bottom Right Bracket */
+        .project-block::after {
+            bottom: 10px; right: 10px;
+            border-bottom-color: var(--accent);
+            border-right-color: var(--accent);
+        }
+        /* Snap inwards on hover */
+        .project-block:hover::before {
+            top: 25px; left: 25px;
+            opacity: 1;
+        }
+        .project-block:hover::after {
+            bottom: 25px; right: 25px;
+            opacity: 1;
+        }
+
+        .project-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.7rem; letter-spacing: -0.5px; transform: translateZ(20px); position: relative; z-index: 5;}
+        .project-meta { color: var(--accent); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; transform: translateZ(30px); position: relative; z-index: 5;}
+        .main-img { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05); transform: translateZ(40px); position: relative; z-index: 5;}
+
+        .app-list { display: grid; gap: 3rem; margin-top: 3rem; transform: translateZ(25px); position: relative; z-index: 5;}
         .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         .logo-group { display: flex; gap: 15px; align-items: center; }
@@ -184,9 +219,10 @@
             .app-visuals { align-items: center; text-align: center; }
             .header-text h1 { font-size: 2.8rem; }
             .project-block { padding: 1.5rem; transform: none !important; }
+            /* Turn off brackets and glare on mobile for clean scrolling */
+            .project-block::before, .project-block::after, .glare { display: none; }
             .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
             .main-img { height: 220px; }
-            #node-graph-container { height: 250px; }
             #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; z-index: 9999; }
         }
     </style>
@@ -227,20 +263,9 @@
             </div>
         </header>
 
-        <h2 class="reveal">The Synthesizer Map</h2>
-        <div class="project-block reveal">
-            <span class="project-meta">Neural Architecture</span>
-            <div class="project-title">Interconnected Skill Graph</div>
-            <p>Hover over the matrix below to trace the logic paths connecting physical hardware optimization, competitive analytics, and dynamic media creation.</p>
-            
-            <!-- THE NEW HTML5 CANVAS NODE ENGINE -->
-            <div id="node-graph-container">
-                <canvas id="node-graph"></canvas>
-            </div>
-        </div>
-
         <h2 class="reveal">Hardware Architecture</h2>
         <div class="project-block reveal">
+            <div class="glare"></div>
             <span class="project-meta">System Building & Optimization</span>
             <div class="project-title">Custom High-Performance PC Build</div>
             <p>Built, configured, and manually optimized a custom PC centered around a Ryzen processor. I focused heavily on thermal management and voltage balancing—achieving a stable 4.2 GHz overclock at 1.352V—to ensure the system handles heavy video rendering and competitive gaming without bottlenecking.</p>
@@ -249,6 +274,7 @@
 
         <h2 class="reveal">Digital Media Synthesis</h2>
         <div class="project-block reveal">
+            <div class="glare"></div>
             <span class="project-meta">Collaboration & Creative Synthesis</span>
             <div class="project-title">Content Creation & Performance Analytics</div>
             <p>Synthesizing technical precision with collaborative storytelling to produce high-impact digital artifacts. Focused on leveraging diverse toolsets to drive engagement on leading creative and social platforms.</p>
@@ -299,6 +325,7 @@
 
         <h2 class="reveal">Visual Composition</h2>
         <div class="project-block reveal">
+            <div class="glare"></div>
             <span class="project-meta">Photography Gallery</span>
             <div class="project-title">Atmosphere, Geometry, and Narrative</div>
             <p>A minimalist collection focusing strictly on light, geometry, and composition. This gallery lets the visual artifacts speak for themselves, showcasing my approach to narrative depth through photography.</p>
@@ -307,6 +334,7 @@
 
         <h2 class="reveal">Strategic Execution</h2>
         <div class="project-block reveal">
+            <div class="glare"></div>
             <span class="project-meta">Top 1.5% - 3% Global Ranking</span>
             <div class="project-title">Competitive Analytics & Macro Execution</div>
             <p>Operating in a volatile, closed-system environment that functions as a high-speed 5v5 chess and timing masterpiece. Reached Ascendant tier by maintaining a top-tier 75% KAST (Kill, Assist, Survive, Trade) rating, prioritizing economic management, and executing split-second probability calculations.</p>
@@ -315,6 +343,7 @@
 
         <h2 class="reveal">Athletic Leadership</h2>
         <div class="project-block reveal">
+            <div class="glare"></div>
             <span class="project-meta">Intramural competition</span>
             <div class="project-title">Traditional Teamwork & Physical Execution</div>
             <p>Grounding technical systems optimization in physical discipline. Represented my team to win gold medals in Volleyball and Kabaddi during Class 10 intramural competitions, proving traditional teamwork, leadership, and athletic execution.</p>
@@ -420,111 +449,7 @@
         }
         window.addEventListener("scroll", reveal);
 
-
-        // --- THE SYNTHESIZER NODE ENGINE (CANVAS) ---
-        const canvas = document.getElementById('node-graph');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-
-        // The exact coordinates (percentages) of your skills
-        const rawNodes = [
-            { id: 'hw', x: 0.15, y: 0.3, label: 'Hardware Arch' },
-            { id: 'val', x: 0.3, y: 0.7, label: 'Valorant Macro' },
-            { id: 'stat', x: 0.5, y: 0.2, label: 'Data Analytics' },
-            { id: 'res', x: 0.7, y: 0.8, label: 'DaVinci Resolve' },
-            { id: 'cam', x: 0.85, y: 0.4, label: 'Visual Comp' },
-            { id: 'med', x: 0.5, y: 0.6, label: 'Media Synthesis' }
-        ];
-
-        // How they connect logically
-        const rawLinks = [
-            { source: 'hw', target: 'val' },
-            { source: 'hw', target: 'res' },
-            { source: 'val', target: 'stat' },
-            { source: 'stat', target: 'med' },
-            { source: 'res', target: 'med' },
-            { source: 'cam', target: 'med' },
-            { source: 'cam', target: 'res' }
-        ];
-
-        let nodes = [];
-        let mouseX = -100, mouseY = -100;
-
-        function initCanvas() {
-            const container = document.getElementById('node-graph-container');
-            // High-DPI screen support for crisp rendering
-            width = container.clientWidth;
-            height = container.clientHeight;
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = width * dpr;
-            canvas.height = height * dpr;
-            ctx.scale(dpr, dpr);
-            
-            nodes = rawNodes.map(n => ({ ...n, px: n.x * width, py: n.y * height }));
-            drawGraph();
-        }
-
-        function drawGraph() {
-            ctx.clearRect(0, 0, width, height);
-            
-            // Find which node we are hovering near (within 50px)
-            let hoveredNode = null;
-            nodes.forEach(n => {
-                const dist = Math.hypot(n.px - mouseX, n.py - mouseY);
-                if (dist < 50) hoveredNode = n;
-            });
-
-            // Draw Lines
-            rawLinks.forEach(link => {
-                const source = nodes.find(n => n.id === link.source);
-                const target = nodes.find(n => n.id === link.target);
-                
-                ctx.beginPath();
-                ctx.moveTo(source.px, source.py);
-                ctx.lineTo(target.px, target.py);
-                
-                // If it connects to the hovered node, light it up Terracotta
-                if (hoveredNode && (hoveredNode.id === source.id || hoveredNode.id === target.id)) {
-                    ctx.strokeStyle = 'rgba(168, 81, 33, 0.8)';
-                    ctx.lineWidth = 2;
-                } else {
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-                    ctx.lineWidth = 1;
-                }
-                ctx.stroke();
-            });
-
-            // Draw Nodes & Text
-            nodes.forEach(n => {
-                const isHovered = hoveredNode && hoveredNode.id === n.id;
-                
-                ctx.beginPath();
-                ctx.arc(n.px, n.py, isHovered ? 6 : 4, 0, Math.PI * 2);
-                ctx.fillStyle = isHovered ? '#A85121' : '#eaeaea';
-                ctx.fill();
-
-                ctx.font = "12px 'Chakra Petch', sans-serif";
-                ctx.fillStyle = isHovered ? '#A85121' : '#999999';
-                ctx.textAlign = 'center';
-                ctx.fillText(n.label, n.px, n.py - 15);
-            });
-        }
-
-        window.addEventListener('resize', initCanvas);
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            mouseX = e.clientX - rect.left;
-            mouseY = e.clientY - rect.top;
-            drawGraph();
-        });
-        canvas.addEventListener('mouseleave', () => {
-            mouseX = -100; mouseY = -100;
-            drawGraph();
-        });
-        initCanvas();
-
-
-        // --- AUDIO ENGINE (WEB AUDIO API + LIQUID PULSE) ---
+        // --- AUDIO ENGINE (TAMED BASS PHYSICS) ---
         const audio = document.getElementById('bg-audio');
         const audioBtn = document.getElementById('audio-toggle');
         
@@ -536,11 +461,10 @@
         var liquid1 = document.getElementById('liquid-1');
         var liquid2 = document.getElementById('liquid-2');
         var liquid3 = document.getElementById('liquid-3');
-        var baseScroll = 0; // Store scroll position
+        var baseScroll = 0; 
 
         window.addEventListener("scroll", function() {
             baseScroll = window.pageYOffset;
-            // Native scroll physics
             if(liquid1 && !isPlaying) liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg)`;
             if(liquid2 && !isPlaying) liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`;
             if(liquid3 && !isPlaying) liquid3.style.transform = `translateY(${baseScroll * 0.08}px) translateX(${baseScroll * -0.05}px)`;
@@ -563,18 +487,20 @@
             requestAnimationFrame(renderAudioVisuals);
             analyser.getByteFrequencyData(dataArray);
             
-            // Isolate sub-bass frequencies (first few bars of FFT)
-            let bassSum = dataArray[0] + dataArray[1] + dataArray[2] + dataArray[3];
-            let bassImpact = (bassSum / 4) / 255; // Normalize 0.0 to 1.0
+            // Get raw bass frequencies
+            let rawBass = (dataArray[0] + dataArray[1] + dataArray[2]) / 3 / 255;
+            
+            // MATH UPDATE: Tamed the response. Using an exponent heavily ignores 
+            // low-humming bass and ONLY triggers on aggressive sub-bass kicks.
+            let bassImpact = Math.pow(rawBass, 4); 
 
-            // Combine scroll physics with live bass physics
             if(liquid1) {
-                liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg) scale(${1 + bassImpact * 0.3})`;
-                liquid1.style.opacity = 0.5 + (bassImpact * 0.5);
+                liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg) scale(${1 + bassImpact * 0.15})`;
+                liquid1.style.opacity = 0.5 + (bassImpact * 0.3);
             }
             if(liquid2) {
-                liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + (baseScroll * 0.0002) + (bassImpact * 0.4)})`;
-                liquid2.style.opacity = 0.5 + (bassImpact * 0.5);
+                liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + (baseScroll * 0.0002) + (bassImpact * 0.2)})`;
+                liquid2.style.opacity = 0.5 + (bassImpact * 0.3);
             }
         }
 
@@ -592,7 +518,7 @@
                 audioBtn.style.color = 'var(--accent)';
                 audioBtn.style.borderColor = 'var(--accent)';
 
-                renderAudioVisuals(); // Kickstart visual loop
+                renderAudioVisuals(); 
 
                 clearInterval(fadeInterval);
                 fadeInterval = setInterval(() => {
@@ -611,7 +537,6 @@
                         audioBtn.style.color = 'var(--text-secondary)';
                         audioBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                         
-                        // Reset visuals smoothly to default state
                         if(liquid1) { liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg)`; liquid1.style.opacity = 1; }
                         if(liquid2) { liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`; liquid2.style.opacity = 1; }
                         
