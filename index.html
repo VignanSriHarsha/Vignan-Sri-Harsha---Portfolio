@@ -55,40 +55,23 @@
             pointer-events: none;
         }
 
-        /* --- 2. ADVANCED TACTICAL CROSSHAIR --- */
+        /* --- 2. TACTICAL CURSOR (Reverted to Expanding Dot) --- */
         #tactical-cursor {
             position: fixed;
             top: 0; left: 0;
-            width: 24px; height: 24px;
-            border: 1px solid rgba(168, 81, 33, 0.5);
+            width: 10px; height: 10px;
+            background-color: var(--accent);
             border-radius: 50%;
             pointer-events: none; 
             z-index: 100000;
             transform: translate(-50%, -50%);
-            transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border 0.2s ease;
+            mix-blend-mode: screen;
         }
-        
-        /* The center targeting dot */
-        #tactical-cursor::after {
-            content: '';
-            width: 4px; height: 4px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-
-        /* Hover "Lock-On" state */
         #tactical-cursor.active {
-            width: 40px; height: 40px;
-            border-color: var(--accent);
-            background-color: rgba(168, 81, 33, 0.05);
-        }
-        #tactical-cursor.active::after {
-            transform: scale(0); 
-            opacity: 0;
+            width: 45px; height: 45px;
+            background-color: rgba(168, 81, 33, 0.1);
+            border: 1px solid var(--accent);
         }
 
         @media (pointer: coarse) {
@@ -388,7 +371,7 @@
             el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
         });
 
-        // --- KINETIC DEPTH MAPPING (SUBTLE MICRO-TILT) ---
+        // --- KINETIC DEPTH MAPPING (TUNED TO 2.5 DEGREES) ---
         const cards = document.querySelectorAll('.project-block');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -401,11 +384,11 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                // MATH REDUCED TO 1.5 DEGREES FOR PREMIUM SUBTLETY
-                const rotateX = ((y - centerY) / centerY) * -1.5; 
-                const rotateY = ((x - centerX) / centerX) * 1.5;
+                // MATH TUNED TO 2.5 DEGREES FOR THE SWEET SPOT
+                const rotateX = ((y - centerY) / centerY) * -2.5; 
+                const rotateY = ((x - centerX) / centerX) * 2.5;
 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
                 card.style.borderColor = 'rgba(168, 81, 33, 0.4)';
                 card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow)`;
             });
