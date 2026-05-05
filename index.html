@@ -11,6 +11,24 @@
     <meta name="google-site-verification" content="ehfNX9Q7y9RHamFYI3x-fjj5yg2k8_nml71sxYK6Gnk" />
     
     <style>
+        /* --- CUSTOM SCROLLBAR ARCHITECTURE --- */
+::-webkit-scrollbar {
+    width: 8px; /* Makes it sleek and thin */
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg); /* Seamlessly matches your dark background */
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(168, 81, 33, 0.4); /* Faded burnt orange */
+    border-radius: 10px; /* Smooth, rounded edges */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent); /* Lights up to solid orange when they hover over it */
+}
+        
         /* Classy Tech Font */
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap');
 
@@ -85,6 +103,10 @@
         }
 
         /* --- 1. BOOT SEQUENCE OVERLAY --- */
+        // Prevent auto-scrolling to hash on page reload
+if (window.location.hash) {
+    history.replaceState("", document.title, window.location.pathname + window.location.search);
+}
         #boot-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
