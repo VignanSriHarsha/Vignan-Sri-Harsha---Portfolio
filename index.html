@@ -8,7 +8,6 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
     <meta name="msvalidate.01" content="6E63FF6D16EA1B841BD9B7C94FFB7F0C" />
-
     <meta name="google-site-verification" content="ehfNX9Q7y9RHamFYI3x-fjj5yg2k8_nml71sxYK6Gnk" />
     
     <style>
@@ -35,9 +34,54 @@
             width: 100%;
             max-width: 100vw; 
             cursor: none; 
+            scroll-behavior: smooth; /* Global smooth scroll */
         }
 
         a, button { cursor: none; }
+
+        /* --- STICKY HEADER ARCHITECTURE --- */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* Subtle dark burnt-orange fade */
+            background: linear-gradient(to bottom, rgba(40, 15, 5, 0.95) 0%, rgba(40, 15, 5, 0.5) 50%, transparent 100%);
+            padding: 30px 50px 60px 50px; 
+            display: flex !important; 
+            justify-content: space-between !important; 
+            align-items: center;
+            z-index: 9999; 
+            pointer-events: none; 
+            box-sizing: border-box;
+        }
+
+        .nav-identity {
+            pointer-events: auto; 
+            color: #ffffff; 
+            font-size: 1.4rem; 
+            font-family: 'Chakra Petch', sans-serif; 
+            font-weight: 600;
+            letter-spacing: 3px; 
+            margin: 0;
+        }
+
+        .nav-scroll {
+            pointer-events: auto; 
+            color: #ffffff !important; 
+            font-size: 0.9rem; 
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none !important; 
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .nav-scroll:hover {
+            opacity: 1;
+            color: var(--accent) !important; 
+        }
 
         /* --- 1. BOOT SEQUENCE OVERLAY --- */
         #boot-screen {
@@ -84,6 +128,13 @@
         @media (pointer: coarse) {
             html, body, a, button { cursor: auto; }
             #tactical-cursor { display: none !important; }
+            
+            /* Mobile tweaks for the header */
+            .top-nav {
+                padding: 20px 25px 40px 25px; 
+            }
+            .nav-identity { font-size: 1.1rem; }
+            .nav-scroll { font-size: 0.75rem; }
         }
 
         /* Global Subtle Dot Grid Pattern */
@@ -105,7 +156,7 @@
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
 
-        /* Ambient Brush Effects (Modified by Audio engine) */
+        /* Ambient Brush Effects */
         .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.3s ease, transform 0.2s ease-out; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
@@ -114,7 +165,7 @@
         .container { max-width: 900px; padding: 7rem 2rem 2rem 2rem; width: 100%; margin: 0 auto; box-sizing: border-box; position: relative; z-index: 10; filter: saturate(110%); }
 
         /* HEADER */
-        .header-section { display: flex; align-items: center; gap: 4rem; margin-bottom: 6rem; }
+        .header-section { display: flex; align-items: center; gap: 4rem; margin-bottom: 6rem; margin-top: 4rem; }
         .profile-wrapper { position: relative; width: 240px; height: 240px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .mesh-background { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 20px 20px; transform: perspective(400px) rotateX(60deg) translateZ(-100px); -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%); mask-image: radial-gradient(circle at center, black 10%, transparent 60%); z-index: 1; pointer-events: none; }
         .profile-img { width: 210px; height: 210px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(168, 81, 33, 0.4); position: relative; z-index: 2; box-shadow: 0 0 40px var(--accent-glow); filter: saturate(125%); }
@@ -150,17 +201,16 @@
             z-index: 1; 
         }
 
-        /* Targeting Brackets (FIXED Z-INDEX) */
+        /* Targeting Brackets */
         .project-block::before, .project-block::after {
             content: ''; position: absolute; width: 20px; height: 20px;
             border: 2px solid transparent; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             opacity: 0; pointer-events: none; 
-            z-index: 1; /* Sits completely behind the Z-index: 5 text */
+            z-index: 1; 
         }
         .project-block::before { top: 0px; left: 0px; border-top-color: var(--accent); border-left-color: var(--accent); }
         .project-block::after { bottom: 0px; right: 0px; border-bottom-color: var(--accent); border-right-color: var(--accent); }
 
-        
         /* PC Hover Triggers */
         @media (pointer: fine) {
             .project-block:hover .glare { transform: rotate(45deg) translateY(100%); }
@@ -168,49 +218,9 @@
             .project-block:hover::after { bottom: 15px; right: 15px; opacity: 1; }
         }
 
-        /* Mobile Scroll Triggers (.in-view added via JS) */
+        /* Mobile Scroll Triggers */
         @media (pointer: coarse) {
             .project-block.in-view .glare { transform: rotate(45deg) translateY(100%); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
-
-            html {
-    scroll-behavior: smooth;
-}
-
-            /* Sticky Header Architecture */
-.top-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* The dark fade: Starts solid dark, fades to invisible */
-    background: linear-gradient(to bottom, rgba(15, 15, 15, 0.95) 0%, rgba(15, 15, 15, 0) 100%);
-    padding: 25px 50px; /* Spacing from the edges */
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    z-index: 1000; /* Forces it to sit on top of everything else */
-    pointer-events: none; /* Prevents the invisible gradient from blocking clicks on the rest of your site */
-    box-sizing: border-box;
-}
-
-/* Typography and Interaction */
-.nav-identity, .nav-scroll {
-    pointer-events: auto; /* Makes the text itself clickable */
-    color: #f4f4f5; /* Crisp off-white */
-    font-size: 0.85rem; /* Small, minimalist size */
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    text-decoration: none;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-.nav-scroll:hover {
-    opacity: 1;
-    cursor: pointer;
-}
-            
-            /* FIXED MOBILE SCALING: Smaller bounds, thinner lines, tighter snap */
             .project-block.in-view::before { top: 12px; left: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
             .project-block.in-view::after { bottom: 12px; right: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
         }
@@ -249,7 +259,7 @@
 
         /* MOBILE OVERRIDES */
         @media (max-width: 600px) {
-            .header-section { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .header-section { flex-direction: column; text-align: center; gap: 1.5rem; margin-top: 2rem; }
             .app-block { grid-template-columns: 1fr; gap: 1rem; }
             .logo-group { justify-content: center; }
             .app-visuals { align-items: center; text-align: center; }
@@ -264,9 +274,9 @@
 <body>
 
     <nav class="top-nav">
-    <div class="nav-identity">BHIRAVABHOTLA</div>
-    <a href="#bottom-target" class="nav-scroll">Scroll to Bottom ↓</a>
-</nav>
+        <div class="nav-identity">BHIRAVABHOTLA</div>
+        <a href="#bottom-target" class="nav-scroll">Head to the footer</a>
+    </nav>
     
     <!-- TACTICAL CURSOR -->
     <div id="tactical-cursor"></div>
@@ -416,7 +426,8 @@
             This is a Beta Version of the portfolio — not the final result.
         </div>
 
-        <div class="console-contact">
+        <!-- ANCHOR TARGET ADDED HERE -->
+        <div class="console-contact" id="bottom-target">
             > system.ping --target <a href="mailto:vignansriharsha.b@gmail.com">vignansriharsha.b@gmail.com</a>
         </div>
 
@@ -606,10 +617,5 @@
             }
         });
     </script>
-    
-    <footer id="bottom-target">
-    <p>Contact or whatever text is at the bottom of your site</p>
-</footer>
-    
 </body>
 </html>
