@@ -171,6 +171,44 @@
         /* Mobile Scroll Triggers (.in-view added via JS) */
         @media (pointer: coarse) {
             .project-block.in-view .glare { transform: rotate(45deg) translateY(100%); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+
+            html {
+    scroll-behavior: smooth;
+}
+
+            /* Sticky Header Architecture */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* The dark fade: Starts solid dark, fades to invisible */
+    background: linear-gradient(to bottom, rgba(15, 15, 15, 0.95) 0%, rgba(15, 15, 15, 0) 100%);
+    padding: 25px 50px; /* Spacing from the edges */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 1000; /* Forces it to sit on top of everything else */
+    pointer-events: none; /* Prevents the invisible gradient from blocking clicks on the rest of your site */
+    box-sizing: border-box;
+}
+
+/* Typography and Interaction */
+.nav-identity, .nav-scroll {
+    pointer-events: auto; /* Makes the text itself clickable */
+    color: #f4f4f5; /* Crisp off-white */
+    font-size: 0.85rem; /* Small, minimalist size */
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.nav-scroll:hover {
+    opacity: 1;
+    cursor: pointer;
+}
             
             /* FIXED MOBILE SCALING: Smaller bounds, thinner lines, tighter snap */
             .project-block.in-view::before { top: 12px; left: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
@@ -224,6 +262,11 @@
     </style>
 </head>
 <body>
+
+    <nav class="top-nav">
+    <div class="nav-identity">BHIRAVABHOTLA</div>
+    <a href="#bottom-target" class="nav-scroll">Scroll to Bottom ↓</a>
+</nav>
     
     <!-- TACTICAL CURSOR -->
     <div id="tactical-cursor"></div>
@@ -563,5 +606,10 @@
             }
         });
     </script>
+    
+    <footer id="bottom-target">
+    <p>Contact or whatever text is at the bottom of your site</p>
+</footer>
+    
 </body>
 </html>
