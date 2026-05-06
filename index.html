@@ -292,13 +292,26 @@ if (window.location.hash) {
             .main-img { height: 220px; }
             #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; z-index: 9999; }
         }
+            /* Header Mobile Overrides */
+    .desktop-text {
+        display: none; /* Instantly hides "Head to the " on small screens */
+    }
+    
+    .nav-identity {
+        font-size: 0.95rem !important; /* Shrinks your surname */
+        letter-spacing: 2px; /* Tightens the spacing slightly for small screens */
+    }
+    
+    .nav-scroll {
+        font-size: 0.65rem !important; /* Shrinks the Footer link */
+    }
     </style>
 </head>
 <body>
 
     <nav class="top-nav">
         <div class="nav-identity">BHIRAVABHOTLA</div>
-        <a href="#bottom-target" class="nav-scroll">Head to the footer</a>
+        <a href="#bottom-target" class="nav-scroll"><span class="desktop-text">Head to the </span>Footer</a>
     </nav>
     
     <!-- TACTICAL CURSOR -->
