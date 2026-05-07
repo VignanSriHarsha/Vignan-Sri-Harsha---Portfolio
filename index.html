@@ -22,6 +22,59 @@
     <meta name="google-site-verification" content="ehfNX9Q7y9RHamFYI3x-fjj5yg2k8_nml71sxYK6Gnk" />
     
     <style>
+        /* --- SECURITY OVERRIDE MODAL --- */
+#security-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(3, 3, 3, 0.85);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+#security-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.security-box {
+    background: #0a0a0a;
+    border: 1px solid var(--accent);
+    padding: 2.5rem;
+    max-width: 400px;
+    text-align: center;
+    font-family: 'Chakra Petch', sans-serif;
+}
+.sec-header {
+    color: var(--accent);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+.sec-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.sec-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+.sec-btn.confirm {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+        
         /* Classy Tech Font */
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap');
 
@@ -323,6 +376,17 @@
 </head>
 <body>
 
+    <div id="security-modal">
+    <div class="security-box">
+        <div class="sec-header">> SYSTEM.SECURITY_CHECK</div>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Physical human presence required to access restricted assets.</p>
+        <div class="sec-actions">
+            <button class="sec-btn" onclick="closeSecurity()">Abort</button>
+            <button class="sec-btn confirm" onclick="confirmAccess()">Establish Connection</button>
+        </div>
+    </div>
+</div>
+
     <nav class="top-nav">
         <div class="nav-identity">BHIRAVABHOTLA</div>
         <a href="#bottom-target" class="nav-scroll"><span class="desktop-text">Head to the </span>Footer</a>
@@ -452,23 +516,23 @@
         </div>
 
         <div class="terminal-footer reveal">
-            <a href="mailto:vignansriharsha.b@gmail.com" class="terminal-link">
+            <a onclick="openSecurity('mailto:vignansriharsha.b@gmail.com')" class="terminal-link">
                 <span class="link-label">System.Contact</span>
                 <span class="link-value">Email</span>
             </a>
-            <a href="https://github.com/VignanSriHarsha/Vignan-Sri-Harsha---Portfolio" target="_blank" class="terminal-link">
+            <a onclick="openSecurity('https://github.com/VignanSriHarsha/Vignan-Sri-Harsha---Portfolio')" class="terminal-link">
                 <span class="link-label">System.Vault</span>
                 <span class="link-value">GitHub</span>
             </a>
-            <a href="https://www.linkedin.com/in/vignan-sri-harsha-bhiravabhotla/" target="_blank" class="terminal-link">
+            <a onclick="openSecurity('https://www.linkedin.com/in/vignan-sri-harsha-bhiravabhotla/')" class="terminal-link">
                 <span class="link-label">System.Network</span>
                 <span class="link-value">LinkedIn</span>
             </a>
-            <a href="assets/resume-real.pdf" target="_blank" class="terminal-link">
+            <a onclick="openSecurity('assets/resume-real.pdf')" class="terminal-link">
                 <span class="link-label">System.Data</span>
                 <span class="link-value">Resume.pdf</span>
             </a>
-            <a href="https://youtube.com/@VignanEdits" target="_blank" class="terminal-link">
+            <a onclick="openSecurity('https://youtube.com/@VignanEdits')" class="terminal-link">
                 <span class="link-label">System.Youtube</span>
                 <span class="link-value">YouTube</span>
             </a>
@@ -479,7 +543,7 @@
         </div>
 
         <div class="legal-disclaimer">
-            All assets and architecture are proprietary. Do not clone or redistribute.
+            All assets and architecture are proprietary. Do not clone or redistribute. All rights reserved.
         </div>
 
         <!-- ANCHOR TARGET ADDED HERE -->
