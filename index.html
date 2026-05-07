@@ -22,6 +22,67 @@
     <meta name="google-site-verification" content="ehfNX9Q7y9RHamFYI3x-fjj5yg2k8_nml71sxYK6Gnk" />
     
     <style>
+        /* --- SECURITY OVERRIDE MODAL --- */
+        #security-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 3, 3, 0.85);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #security-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .security-box {
+            background: #0a0a0a;
+            border: 1px solid var(--accent);
+            padding: 2.5rem;
+            max-width: 400px;
+            text-align: center;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+        .sec-header {
+            color: var(--accent);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        .sec-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .sec-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+        .sec-btn:hover {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        .sec-btn.confirm {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .sec-btn.confirm:hover {
+            background: rgba(168, 81, 33, 0.1);
+        }
+        
         /* Classy Tech Font */
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap');
 
@@ -31,7 +92,6 @@
             --text-secondary: #999999;
             --accent: #A85121; 
             --accent-glow: rgba(168, 81, 33, 0.2); 
-            --font-tech: 'Chakra Petch', sans-serif;
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -46,93 +106,33 @@
             width: 100%;
             max-width: 100vw; 
             cursor: none; 
-            scroll-behavior: smooth;
+            scroll-behavior: smooth; /* Global smooth scroll */
         }
 
         a, button { cursor: none; }
 
-        /* --- SECURITY OVERRIDE MODAL --- */
-        #security-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 3, 3, 0.9);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        /* --- CUSTOM SCROLLBAR ARCHITECTURE --- */
+        ::-webkit-scrollbar {
+            width: 8px; /* Makes it sleek and thin */
         }
-        #security-modal.active {
-            opacity: 1;
-            pointer-events: auto;
+        ::-webkit-scrollbar-track {
+            background: var(--bg); /* Seamlessly matches your dark background */
         }
-        .security-box {
-            background: #0a0a0a;
-            border: 1px solid var(--accent);
-            padding: 3rem;
-            max-width: 450px;
-            text-align: center;
-            font-family: var(--font-tech);
-            box-shadow: 0 0 50px rgba(168, 81, 33, 0.15);
-            transform: scale(0.9);
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        ::-webkit-scrollbar-thumb {
+            background: rgba(168, 81, 33, 0.4); /* Faded burnt orange */
+            border-radius: 10px; /* Smooth, rounded edges */
         }
-        #security-modal.active .security-box {
-            transform: scale(1);
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent); /* Lights up to solid orange when they hover over it */
         }
-        .sec-header {
-            color: var(--accent);
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            border-bottom: 1px solid rgba(168, 81, 33, 0.3);
-            padding-bottom: 0.5rem;
-        }
-        .sec-actions {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            margin-top: 2.5rem;
-        }
-        .sec-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-secondary);
-            padding: 10px 20px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            font-family: var(--font-tech);
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-        .sec-btn:hover {
-            border-color: #ffffff;
-            color: #ffffff;
-        }
-        .sec-btn.confirm {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        .sec-btn.confirm:hover {
-            background: rgba(168, 81, 33, 0.1);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        /* --- CUSTOM SCROLLBAR --- */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: rgba(168, 81, 33, 0.4); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         /* --- STICKY HEADER ARCHITECTURE --- */
         .top-nav {
             position: fixed;
-            top: 0; left: 0; width: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* Subtle dark burnt-orange fade */
             background: linear-gradient(to bottom, rgba(40, 15, 5, 0.85) 0%, rgba(40, 15, 5, 0.35) 50%, transparent 100%);
             padding: 30px 50px 60px 50px; 
             display: flex !important; 
@@ -142,111 +142,244 @@
             pointer-events: none; 
             box-sizing: border-box;
         }
+
         .nav-identity {
-            pointer-events: auto; color: #ffffff; 
-            font-size: 1.4rem; font-family: var(--font-tech); 
-            font-weight: 600; letter-spacing: 3px; margin: 0;
+            pointer-events: auto; 
+            color: #ffffff; 
+            font-size: 1.4rem; 
+            font-family: 'Chakra Petch', sans-serif; 
+            font-weight: 600;
+            letter-spacing: 3px; 
+            margin: 0;
             -webkit-text-stroke: 0.25px var(--accent);
         }
+
         .nav-scroll {
-            pointer-events: auto; color: #ffffff !important; 
-            font-size: 0.9rem; font-family: var(--font-tech);
-            letter-spacing: 1.5px; text-transform: uppercase;
-            text-decoration: none !important; opacity: 0.7; transition: all 0.3s ease;
+            pointer-events: auto; 
+            color: #ffffff !important; 
+            font-size: 0.9rem; 
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none !important; 
+            opacity: 0.7;
+            transition: all 0.3s ease;
         }
-        .nav-scroll:hover { opacity: 1; color: var(--accent) !important; }
 
-        /* --- PERSISTENT COPYRIGHT SIGNATURE --- */
+        .nav-scroll:hover {
+            opacity: 1;
+            color: var(--accent) !important; 
+        }
+
+        /* --- COPYRIGHT & LEGAL ARCHITECTURE --- */
         .copyright-lock {
-            position: fixed; bottom: 35px; left: 50px; 
-            color: var(--text-secondary); font-family: var(--font-tech);
-            font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
-            z-index: 1000; opacity: 0.4; pointer-events: none; 
+            position: fixed;
+            bottom: 30px;
+            left: 50px; 
+            color: var(--text-secondary);
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 1000;
+            opacity: 0.4;
+            pointer-events: none; 
         }
 
-        /* --- GRID & TWINKLE --- */
+        .legal-disclaimer {
+            text-align: center;
+            padding-bottom: 2rem;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            opacity: 0.3;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        /* --- 1. BOOT SEQUENCE OVERLAY --- */
+        #boot-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg);
+            z-index: 999999; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        #boot-text {
+            font-family: 'Chakra Petch', monospace;
+            color: var(--accent);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .hidden-boot {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- 2. TACTICAL CURSOR --- */
+        #tactical-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 10px; height: 10px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            pointer-events: none; 
+            z-index: 100000;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border 0.2s ease;
+            mix-blend-mode: screen;
+        }
+        #tactical-cursor.active {
+            width: 45px; height: 45px;
+            background-color: rgba(168, 81, 33, 0.1);
+            border: 1px solid var(--accent);
+        }
+
+        /* Global Subtle Dot Grid Pattern */
         body::before {
-            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-            background-size: 30px 30px; z-index: 1; pointer-events: none;
+            background-size: 30px 30px; 
+            z-index: 1;
+            pointer-events: none;
         }
-        @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-        .twinkle-layer-1 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 90px 90px; animation: twinkle 4s infinite ease-in-out; }
-        .twinkle-layer-2 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 150px 150px; animation: twinkle 7s infinite ease-in-out 1s; }
 
-        /* --- AMBIENT BRUSHES --- */
+        /* RANDOM ALIGNED TWINKLING */
+        @keyframes twinkle { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+        .twinkle-layer-1, .twinkle-layer-2, .twinkle-layer-3, .twinkle-layer-4 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .twinkle-layer-1 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 90px 90px; background-position: 30px 30px; animation: twinkle 4s infinite ease-in-out; }
+        .twinkle-layer-2 { background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px); background-size: 120px 120px; background-position: 60px 90px; animation: twinkle 7s infinite ease-in-out 1s; }
+        .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
+        .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
+
+        /* Ambient Brush Effects */
         .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.3s ease, transform 0.2s ease-out; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
+        .brush-position-3 { width: 40vw; height: 40vh; bottom: 5vh; left: 15vw; opacity: 0.5; } 
 
-        /* --- MAIN CONTAINER --- */
-        .container { max-width: 900px; padding: 12rem 2rem 2rem 2rem; width: 100%; margin: 0 auto; box-sizing: border-box; position: relative; z-index: 10; }
+        .container { max-width: 900px; padding: 7rem 2rem 2rem 2rem; width: 100%; margin: 0 auto; box-sizing: border-box; position: relative; z-index: 10; filter: saturate(110%); }
 
-        .header-section { display: flex; align-items: center; gap: 4rem; margin-bottom: 8rem; }
-        .profile-wrapper { position: relative; width: 240px; height: 240px; flex-shrink: 0; }
-        .profile-img { width: 210px; height: 210px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(168, 81, 33, 0.4); position: relative; z-index: 2; box-shadow: 0 0 40px var(--accent-glow); }
-        .header-text h1 { font-family: var(--font-tech); font-size: 4.2rem; font-weight: 500; margin: 0; color: var(--accent); line-height: 1.1; letter-spacing: -2px; }
-        .header-text .subtitle { font-size: 1.25rem; color: var(--text-secondary); margin-top: 1rem; font-weight: 300; }
+        /* HEADER */
+        .header-section { display: flex; align-items: center; gap: 4rem; margin-bottom: 6rem; margin-top: 4rem; }
+        .profile-wrapper { position: relative; width: 240px; height: 240px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .mesh-background { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 20px 20px; transform: perspective(400px) rotateX(60deg) translateZ(-100px); -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%); mask-image: radial-gradient(circle at center, black 10%, transparent 60%); z-index: 1; pointer-events: none; }
+        .profile-img { width: 210px; height: 210px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(168, 81, 33, 0.4); position: relative; z-index: 2; box-shadow: 0 0 40px var(--accent-glow); filter: saturate(125%); }
+        .header-text h1 { font-family: 'Chakra Petch', sans-serif; font-size: 4rem; font-weight: 500; margin: 0; letter-spacing: -1px; color: var(--accent); line-height: 1.1; }
+        .header-text .subtitle { font-size: 1.25rem; color: var(--text-secondary); font-weight: 300; margin-top: 1rem; }
 
-        h2 { font-family: var(--font-tech); font-size: 1rem; text-transform: uppercase; letter-spacing: 3px; color: #ffffff; margin-top: 6rem; margin-bottom: 2.5rem; position: relative; display: inline-block; }
-        h2::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, var(--accent), transparent); }
+        h2 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: #ffffff; margin-top: 3rem; margin-bottom: 2rem; position: relative; display: inline-block; font-weight: 500; }
+        h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, var(--accent), transparent); }
+        p { font-weight: 300; color: #b0b0b0; margin-bottom: 1.5rem; font-size: 1.05rem; }
 
-        /* --- PROJECT BLOCKS --- */
+        /* --- FROSTED GLASS CARDS --- */
         .project-block {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px; padding: 3.5rem; margin-bottom: 5rem;
-            position: relative; overflow: hidden; transition: transform 0.2s ease, border-color 0.4s ease;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px; padding: 3rem; margin-bottom: 4rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative; z-index: 5; 
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease, box-shadow 0.5s ease;
+            will-change: transform;
+            overflow: hidden; 
         }
-        .project-title { color: var(--text-primary); font-size: 1.8rem; font-weight: 500; margin-bottom: 1rem; font-family: var(--font-tech); }
-        .project-meta { color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; display: block; }
-        .main-img { width: 100%; height: 450px; object-fit: cover; border-radius: 12px; margin-top: 2.5rem; border: 1px solid rgba(255, 255, 255, 0.07); }
 
-        /* --- APP LIST GRID --- */
-        .app-list { display: grid; gap: 4rem; margin-top: 4rem; }
-        .app-block { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; align-items: start; }
-        .app-metric { font-family: var(--font-tech); font-size: 2.5rem; color: var(--accent); display: block; margin-top: 1rem; }
-        .app-info h3 { font-family: var(--font-tech); font-size: 1.4rem; color: var(--text-primary); margin-bottom: 0.8rem; }
+        /* Sensor Sweep Glare */
+        .glare {
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(168,81,33,0.08) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(45deg) translateY(-100%);
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+            z-index: 1; 
+        }
 
-        /* --- FOOTER ELEMENTS --- */
-        .terminal-footer { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 5rem; margin-top: 4rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 4rem; }
-        .terminal-link { display: flex; flex-direction: column; gap: 0.6rem; text-decoration: none; color: var(--text-secondary); transition: 0.3s; cursor: pointer; text-align: center; }
+        /* Targeting Brackets */
+        .project-block::before, .project-block::after {
+            content: ''; position: absolute; width: 20px; height: 20px;
+            border: 2px solid transparent; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0; pointer-events: none; 
+            z-index: 1; 
+        }
+        .project-block::before { top: 0px; left: 0px; border-top-color: var(--accent); border-left-color: var(--accent); }
+        .project-block::after { bottom: 0px; right: 0px; border-bottom-color: var(--accent); border-right-color: var(--accent); }
+
+        /* PC Hover Triggers */
+        @media (pointer: fine) {
+            .project-block:hover .glare { transform: rotate(45deg) translateY(100%); }
+            .project-block:hover::before { top: 15px; left: 15px; opacity: 1; }
+            .project-block:hover::after { bottom: 15px; right: 15px; opacity: 1; }
+        }
+
+        .project-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.7rem; letter-spacing: -0.5px; transform: translateZ(20px); position: relative; z-index: 5;}
+        .project-meta { color: var(--accent); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; transform: translateZ(30px); position: relative; z-index: 5;}
+        .main-img { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05); transform: translateZ(40px); position: relative; z-index: 5;}
+
+        .app-list { display: grid; gap: 3rem; margin-top: 3rem; transform: translateZ(25px); position: relative; z-index: 5;}
+        .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
+        .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        .logo-group { display: flex; gap: 15px; align-items: center; }
+        .app-logo { width: auto; object-fit: contain; }
+        .app-metric { font-size: 2.2rem; font-weight: 400; letter-spacing: -1.5px; line-height: 1.1; display: block; margin-top: 0.5rem;}
+        .app-metric.accent { color: var(--accent); } 
+        .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
+
+        /* TERMINAL CONTACT FOOTER */
+        .terminal-footer { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 4rem; margin-top: 2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem 3rem; text-align: center; }
+        .terminal-link { display: flex; flex-direction: column; gap: 0.5rem; text-decoration: none; color: var(--text-secondary); transition: all 0.3s ease; cursor: pointer; }
         .link-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
-        .link-value { font-family: var(--font-tech); font-size: 1.1rem; font-weight: 500; }
-        .terminal-link:hover { color: var(--accent); transform: translateY(-5px); }
-
-        .beta-footer { text-align: center; padding-top: 4rem; font-family: var(--font-tech); font-size: 0.8rem; color: var(--text-secondary); opacity: 0.5; letter-spacing: 2px; }
-        .legal-disclaimer { text-align: center; padding: 1.5rem 0 4rem 0; font-family: var(--font-tech); font-size: 0.65rem; color: var(--text-secondary); opacity: 0.3; letter-spacing: 1.5px; text-transform: uppercase; }
-
-        .console-contact { text-align: center; padding-bottom: 5rem; font-family: var(--font-tech); font-size: 0.9rem; color: var(--text-secondary); opacity: 0.6; }
-        .console-contact a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
-        .console-contact a:hover { border-bottom-color: var(--accent); }
-
-        /* --- ANIMATIONS --- */
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .link-value { font-size: 1rem; font-family: 'Chakra Petch', sans-serif; font-weight: 500; }
+        .terminal-link:hover { color: var(--accent); transform: translateY(-3px); }
         
-        #boot-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 999999; display: flex; align-items: center; justify-content: center; transition: opacity 0.8s ease; }
-        #boot-text { font-family: var(--font-tech); color: var(--accent); font-size: 1.1rem; letter-spacing: 4px; text-transform: uppercase; }
-        .hidden-boot { opacity: 0; pointer-events: none; }
+        .console-contact { text-align: center; padding-bottom: 3rem; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 2px; opacity: 0.6; transition: opacity 0.3s ease; word-wrap: break-word; padding-left: 1rem; padding-right: 1rem; }
+        .console-contact a { color: var(--accent); text-decoration: none; position: relative; margin-left: 5px; text-transform: lowercase; }
+        .console-contact a::after { content: '_'; display: inline-block; margin-left: 2px; animation: blink 1s step-end infinite; }
 
-        #tactical-cursor { position: fixed; top: 0; left: 0; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 100000; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s; mix-blend-mode: screen; }
-        #tactical-cursor.active { width: 50px; height: 50px; background: rgba(168, 81, 33, 0.1); border: 1px solid var(--accent); }
+        .beta-footer { text-align: center; padding-top: 2rem; padding-bottom: 2rem; font-size: 0.85rem; color: var(--text-secondary); opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 2rem; }
 
-        /* --- MOBILE OVERRIDES --- */
-        @media (max-width: 600px) {
-            .top-nav { padding: 25px; }
+        /* SCROLL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* AUDIO TOGGLE */
+        #audio-toggle { position: fixed; bottom: 30px; right: 30px; z-index: 1000; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); padding: 10px 16px; border-radius: 4px; font-family: 'Chakra Petch', sans-serif; font-size: 0.8rem; letter-spacing: 2px; transition: all 0.3s ease; cursor: pointer; }
+
+        /* --- MOBILE OVERRIDES & TOUCH DEVICES --- */
+        @media (pointer: coarse), (max-width: 600px) {
+            html, body, a, button { cursor: auto; }
+            #tactical-cursor { display: none !important; }
+            
+            /* Header / Identity Mobile Tweaks */
+            .top-nav { padding: 20px 25px 40px 25px; }
             .desktop-text { display: none; }
-            .nav-identity { font-size: 1.1rem; }
-            .nav-scroll { font-size: 0.7rem; }
-            .container { padding-top: 8rem; }
-            .header-section { flex-direction: column; text-align: center; gap: 2rem; }
-            .header-text h1 { font-size: 3rem; }
-            .project-block { padding: 2rem; }
-            .main-img { height: 250px; }
-            .app-block { grid-template-columns: 1fr; text-align: center; }
-            .copyright-lock { left: 25px; bottom: 25px; font-size: 0.6rem; }
-            #audio-toggle { bottom: 25px !important; right: 25px !important; font-size: 0.65rem !important; }
+            .nav-identity { font-size: 0.95rem !important; letter-spacing: 2px; }
+            .nav-scroll { font-size: 0.65rem !important; }
+
+            /* Main Container Mobile Tweaks */
+            .header-section { flex-direction: column; text-align: center; gap: 1.5rem; margin-top: 2rem; }
+            .app-block { grid-template-columns: 1fr; gap: 1rem; }
+            .logo-group { justify-content: center; }
+            .app-visuals { align-items: center; text-align: center; }
+            .header-text h1 { font-size: 2.8rem; }
+            .project-block { padding: 1.5rem; transform: none !important; }
+            .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
+            .main-img { height: 220px; }
+            #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; z-index: 9999; }
+            
+            /* Copyright & Card Targeting Mobile */
+            .copyright-lock { bottom: 25px; left: 25px; font-size: 0.6rem; }
+            .project-block.in-view .glare { transform: rotate(45deg) translateY(100%); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+            .project-block.in-view::before { top: 12px; left: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
+            .project-block.in-view::after { bottom: 12px; right: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
         }
     </style>
 </head>
@@ -255,10 +388,10 @@
     <div id="security-modal">
         <div class="security-box">
             <div class="sec-header">> SYSTEM.SECURITY_CHECK</div>
-            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.6;">Access to restricted repository or contact data requires physical human confirmation to bypass automated scrapers.</p>
+            <p style="font-size: 0.8rem; opacity: 0.7;">Physical human presence required to access restricted assets.</p>
             <div class="sec-actions">
-                <button class="sec-btn" onclick="closeSecurity()">[ ABORT ]</button>
-                <button class="sec-btn confirm" onclick="confirmAccess()">[ ESTABLISH CONNECTION ]</button>
+                <button class="sec-btn" onclick="closeSecurity()">Abort</button>
+                <button class="sec-btn confirm" onclick="confirmAccess()">Establish Connection</button>
             </div>
         </div>
     </div>
@@ -269,22 +402,30 @@
     </nav>
     
     <div class="copyright-lock">&copy; Vignan Sri Harsha</div>
+    
     <div id="tactical-cursor"></div>
 
-    <div id="boot-screen"><div id="boot-text"></div></div>
+    <div id="boot-screen">
+        <div id="boot-text"></div>
+    </div>
 
     <audio id="bg-audio" loop src="assets/music.mp3" preload="auto"></audio>
-    <button id="audio-toggle" style="position:fixed; bottom:40px; right:40px; z-index:1000; background:rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.1); color:var(--text-secondary); padding:12px 20px; font-family:var(--font-tech); font-size:0.8rem; letter-spacing:2px; cursor:none;">[ SYSTEM.AUDIO : OFF ]</button>
+    <button id="audio-toggle">[ SYSTEM.AUDIO : OFF ]</button>
 
     <div class="twinkle-layer-1"></div>
     <div class="twinkle-layer-2"></div>
+    <div class="twinkle-layer-3"></div>
+    <div class="twinkle-layer-4"></div>
+    
     <div class="ambient-brush brush-position-1" id="liquid-1"></div>
     <div class="ambient-brush brush-position-2" id="liquid-2"></div>
+    <div class="ambient-brush brush-position-3" id="liquid-3"></div>
 
     <div class="container">
         
         <header class="header-section reveal">
             <div class="profile-wrapper">
+                <div class="mesh-background"></div>
                 <img src="assets/profile.png" alt="Vignan Sri Harsha" class="profile-img">
             </div>
             <div class="header-text">
@@ -295,40 +436,59 @@
 
         <h2 class="reveal">Hardware Architecture</h2>
         <div class="project-block reveal">
+            <div class="glare"></div>
             <span class="project-meta">System Building & Optimization</span>
             <div class="project-title">Custom High-Performance PC Build</div>
             <p>Built, configured, and manually optimized a custom PC centered around a Ryzen processor. I focused heavily on thermal management and voltage balancing—achieving a stable 4.2 GHz overclock at 1.352V—to ensure the system handles heavy video rendering and competitive gaming without bottlenecking.</p>
-            <img src="assets/pc-build.jpg" alt="PC Build" class="main-img">
+            <img src="assets/pc-build.jpg" alt="Custom PC Build" class="main-img">
         </div>
 
         <h2 class="reveal">Digital Media Synthesis</h2>
         <div class="project-block reveal">
+            <div class="glare"></div>
             <span class="project-meta">Collaboration & Creative Synthesis</span>
             <div class="project-title">Content Creation & Performance Analytics</div>
-            <p>Synthesizing technical precision with collaborative storytelling to produce high-impact digital artifacts. Focused on leveraging diverse toolsets to drive engagement on leading platforms.</p>
+            <p>Synthesizing technical precision with collaborative storytelling to produce high-impact digital artifacts. Focused on leveraging diverse toolsets to drive engagement on leading creative and social platforms.</p>
 
             <div class="app-list">
                 <div class="app-block">
-                    <div class="app-info">
-                        <div style="display:flex; gap:20px; margin-bottom:1rem;">
-                            <img src="assets/yt-logo.png" style="height:45px;">
-                            <img src="assets/ig-logo.png" style="height:45px;">
+                    <div class="app-visuals">
+                        <div class="logo-group">
+                            <img src="assets/yt-logo.png" alt="YouTube" class="app-logo" style="height: 55px;">
+                            <img src="assets/ig-logo.png" alt="Instagram" class="app-logo" style="height: 60px;">
                         </div>
-                        <span class="app-metric">750k+ Views</span>
-                        <h3>Platform Growth</h3>
-                        <p>Scaling content by analyzing algorithm trends and deploying targeted visual hooks to reach near-million organic reach.</p>
+                        <span class="app-metric accent">750k+ Views</span>
+                    </div>
+                    <div class="app-info">
+                        <h3>Platform Growth & Engagement</h3>
+                        <p>Scaling content across YouTube and Instagram by analyzing algorithm trends, audience retention curves, and deploying targeted visual hooks to reach over 1 million organic views.</p>
                     </div>
                 </div>
 
                 <div class="app-block">
-                    <div class="app-info">
-                        <div style="display:flex; gap:20px; margin-bottom:1rem;">
-                            <img src="assets/resolve-logo.png" style="height:45px;">
-                            <img src="assets/capcut-logo.png" style="height:45px;">
+                    <div class="app-visuals">
+                        <div class="logo-group">
+                            <img src="assets/resolve-logo.png" alt="DaVinci Resolve" class="app-logo" style="height: 75px;">
+                            <img src="assets/capcut-logo.png" alt="CapCut" class="app-logo" style="height: 65px;">
                         </div>
-                        <span class="app-metric">Dynamic Editing</span>
-                        <h3>Video Engineering</h3>
-                        <p>Synthesizing heavy narrative color grading in Resolve with rapid short-form pacing to create high-retention cinematics.</p>
+                        <span class="app-metric accent">Editing</span>
+                    </div>
+                    <div class="app-info">
+                        <h3>Dynamic Video Engineering</h3>
+                        <p>Synthesizing heavy narrative editing and color grading in DaVinci Resolve with the rapid, platform-native pacing of CapCut to create trailer-style cinematics and high-retention short-form content.</p>
+                    </div>
+                </div>
+
+                <div class="app-block">
+                    <div class="app-visuals">
+                        <div class="logo-group">
+                            <img src="assets/blender-logo.png" alt="Blender" class="app-logo" style="height: 65px;">
+                        </div>
+                        <span class="app-metric accent">Learning</span>
+                    </div>
+                    <div class="app-info">
+                        <h3>3D Asset Creation</h3>
+                        <p>Currently expanding my technical stack by learning Blender, focusing on the foundational principles of procedural modeling, lighting, and spatial rendering to elevate future media synthesis.</p>
                     </div>
                 </div>
             </div>
@@ -336,18 +496,29 @@
 
         <h2 class="reveal">Visual Composition</h2>
         <div class="project-block reveal">
+            <div class="glare"></div>
             <span class="project-meta">Photography Gallery</span>
             <div class="project-title">Atmosphere, Geometry, and Narrative</div>
-            <p>A minimalist collection focusing strictly on light and composition. This gallery lets visual artifacts speak for themselves.</p>
+            <p>A minimalist collection focusing strictly on light, geometry, and composition. This gallery lets the visual artifacts speak for themselves, showcasing my approach to narrative depth through photography.</p>
             <video src="assets/photography.mp4" class="main-img" autoplay loop muted playsinline preload="auto"></video>
         </div>
 
         <h2 class="reveal">Strategic Execution</h2>
         <div class="project-block reveal">
-            <span class="project-meta">Top 1.5% Global Ranking</span>
+            <div class="glare"></div>
+            <span class="project-meta">Top 1.5% - 3% Global Ranking</span>
             <div class="project-title">Competitive Analytics & Macro Execution</div>
-            <p>Reached Ascendant tier in Valorant by maintaining a 75% KAST rating, prioritizing economic management, and executing split-second probability calculations in a high-stress environment.</p>
-            <img src="assets/valorant.jpg" alt="Valorant" class="main-img">
+            <p>Operating in a volatile, closed-system environment that functions as a high-speed 5v5 chess and timing masterpiece. Reached Ascendant tier by maintaining a top-tier 75% KAST (Kill, Assist, Survive, Trade) rating, prioritizing economic management, and executing split-second probability calculations.</p>
+            <img src="assets/valorant.jpg" alt="Valorant Ascendant Rank" class="main-img">
+        </div>
+
+        <h2 class="reveal">Athletic Leadership</h2>
+        <div class="project-block reveal">
+            <div class="glare"></div>
+            <span class="project-meta">Intramural competition</span>
+            <div class="project-title">Traditional Teamwork & Physical Execution</div>
+            <p>Grounding technical systems optimization in physical discipline. Represented my team to win gold medals in Volleyball and Kabaddi during Class 10 intramural competitions, proving traditional teamwork, leadership, and athletic execution.</p>
+            <img src="assets/sports.jpg" alt="Sports Gold Medal" class="main-img">
         </div>
 
         <div class="terminal-footer reveal">
@@ -355,22 +526,31 @@
                 <span class="link-label">System.Contact</span>
                 <span class="link-value">Email</span>
             </a>
+            <a onclick="openSecurity('https://github.com/VignanSriHarsha/Vignan-Sri-Harsha---Portfolio')" class="terminal-link">
+                <span class="link-label">System.Vault</span>
+                <span class="link-value">GitHub</span>
+            </a>
+            <a onclick="openSecurity('https://www.linkedin.com/in/vignan-sri-harsha-bhiravabhotla/')" class="terminal-link">
+                <span class="link-label">System.Network</span>
+                <span class="link-value">LinkedIn</span>
+            </a>
             <a onclick="openSecurity('assets/resume-real.pdf')" class="terminal-link">
                 <span class="link-label">System.Data</span>
                 <span class="link-value">Resume.pdf</span>
-            </a>
-            <a onclick="openSecurity('https://github.com/VignanSriHarsha')" class="terminal-link">
-                <span class="link-label">System.Vault</span>
-                <span class="link-value">GitHub</span>
             </a>
             <a onclick="openSecurity('https://youtube.com/@VignanEdits')" class="terminal-link">
                 <span class="link-label">System.Youtube</span>
                 <span class="link-value">YouTube</span>
             </a>
         </div>
+        
+        <div class="beta-footer">
+            This is a Beta Version of the portfolio — not the final result.
+        </div>
 
-        <div class="beta-footer">THIS IS A BETA VERSION OF THE PORTFOLIO — NOT THE FINAL RESULT.</div>
-        <div class="legal-disclaimer">All assets and architecture are proprietary. Do not clone or redistribute. All rights reserved.</div>
+        <div class="legal-disclaimer">
+            All assets and architecture are proprietary. Do not clone or redistribute. All rights reserved.
+        </div>
 
         <div class="console-contact" id="bottom-target">
             > system.ping --target <a href="mailto:vignansriharsha.b@gmail.com">vignansriharsha.b@gmail.com</a>
@@ -387,98 +567,201 @@
         }
         function closeSecurity() {
             document.getElementById('security-modal').classList.remove('active');
+            targetURL = '';
         }
         function confirmAccess() {
-            window.open(targetURL, '_blank');
+            if (targetURL) {
+                window.open(targetURL, '_blank');
+            }
             closeSecurity();
         }
 
-        // --- HASH & BOOT LOGIC ---
-        if (window.location.hash) { history.replaceState("", document.title, window.location.pathname); }
+        // Prevent auto-scrolling to hash on page reload
+        if (window.location.hash) {
+            history.replaceState("", document.title, window.location.pathname + window.location.search);
+        }
 
+        // --- BOOT SEQUENCE ---
         const bootScreen = document.getElementById('boot-screen');
         const bootText = document.getElementById('boot-text');
-        const messages = ["> INITIALIZING...", "> MOUNTING ASSETS...", "> ACCESS GRANTED."];
+        const bootMessages = ["> INITIALIZING...", "> MOUNTING ASSETS...", "> ACCESS GRANTED."];
         let msgIndex = 0;
-
-        function runBoot() {
-            if (msgIndex < messages.length) {
-                bootText.innerText = messages[msgIndex++];
-                setTimeout(runBoot, 450);
+        function runBootSequence() {
+            if (msgIndex < bootMessages.length) {
+                bootText.innerText = bootMessages[msgIndex];
+                msgIndex++;
+                setTimeout(runBootSequence, 300); 
             } else {
                 setTimeout(() => {
                     bootScreen.classList.add('hidden-boot');
-                    reveal();
-                }, 500);
+                    reveal(); 
+                }, 400);
             }
         }
-        window.onload = runBoot;
+        window.addEventListener('load', () => setTimeout(runBootSequence, 200));
 
-        // --- CURSOR & INTERACTION ---
+        // --- TACTICAL CURSOR ---
         const cursor = document.getElementById('tactical-cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-
-        const interactables = document.querySelectorAll('a, button, .project-block');
+        const interactables = document.querySelectorAll('a, button, .project-block, .terminal-link');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('active'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
         });
 
-        // --- 3D TILT ENGINE ---
+        // --- KINETIC 3D TILT (PC ONLY) ---
         const cards = document.querySelectorAll('.project-block');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
-                if (window.innerWidth <= 600) return;
+                if (window.innerWidth <= 600) return; 
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -3;
-                const rotateY = ((x - centerX) / centerX) * 3;
+                const rotateX = ((y - centerY) / centerY) * -2.5; 
+                const rotateY = ((x - centerX) / centerX) * 2.5;
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
                 card.style.borderColor = 'rgba(168, 81, 33, 0.4)';
+                card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow)`;
             });
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
                 card.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                card.style.boxShadow = `0 10px 30px rgba(0,0,0,0.2)`;
             });
         });
 
-        // --- REVEAL ON SCROLL ---
+        // --- MOBILE SCROLL OBSERVER (TACTICAL UI TRIGGERS) ---
+        if (window.innerWidth <= 600) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    } else {
+                        entry.target.classList.remove('in-view');
+                    }
+                });
+            }, { threshold: 0.65 }); 
+
+            cards.forEach(card => observer.observe(card));
+        }
+
+        // --- SCROLL FADE-IN ---
         function reveal() {
-            let reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
-            });
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) reveals[i].classList.add("active");
+            }
         }
         window.addEventListener("scroll", reveal);
 
         // --- AUDIO ENGINE ---
         const audio = document.getElementById('bg-audio');
-        const btn = document.getElementById('audio-toggle');
-        const liquid1 = document.getElementById('liquid-1');
-        const liquid2 = document.getElementById('liquid-2');
+        const audioBtn = document.getElementById('audio-toggle');
+        
+        let audioCtx, analyser, dataArray, source;
+        let isAudioEngineRunning = false;
+        let isPlaying = false;
+        let isTransitioning = false; 
+        let fadeInterval;
 
-        btn.onclick = () => {
-            if (audio.paused) {
-                audio.play(); 
-                btn.innerText = "[ SYSTEM.AUDIO : ON ]";
-                btn.style.color = "var(--accent)";
-            } else {
-                audio.pause(); 
-                btn.innerText = "[ SYSTEM.AUDIO : OFF ]";
-                btn.style.color = "var(--text-secondary)";
+        var liquid1 = document.getElementById('liquid-1');
+        var liquid2 = document.getElementById('liquid-2');
+        var liquid3 = document.getElementById('liquid-3');
+        var baseScroll = 0; 
+
+        window.addEventListener("scroll", function() {
+            baseScroll = window.pageYOffset;
+            if(liquid1 && !isPlaying) liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg)`;
+            if(liquid2 && !isPlaying) liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`;
+            if(liquid3 && !isPlaying) liquid3.style.transform = `translateY(${baseScroll * 0.08}px) translateX(${baseScroll * -0.05}px)`;
+        });
+
+        function initAudioEngine() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioCtx.createAnalyser();
+            source = audioCtx.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+            analyser.fftSize = 256; 
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
+            isAudioEngineRunning = true;
+            renderAudioVisuals();
+        }
+
+        function renderAudioVisuals() {
+            if (!isPlaying) return;
+            requestAnimationFrame(renderAudioVisuals);
+            analyser.getByteFrequencyData(dataArray);
+            
+            let rawBass = (dataArray[0] + dataArray[1] + dataArray[2]) / 3 / 255;
+            let bassImpact = Math.pow(rawBass, 4); 
+
+            if(liquid1) {
+                liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg) scale(${1 + bassImpact * 0.15})`;
+                liquid1.style.opacity = 0.5 + (bassImpact * 0.3);
             }
-        };
+            if(liquid2) {
+                liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + (baseScroll * 0.0002) + (bassImpact * 0.2)})`;
+                liquid2.style.opacity = 0.5 + (bassImpact * 0.3);
+            }
+        }
 
-        window.addEventListener("scroll", () => {
-            let s = window.pageYOffset;
-            liquid1.style.transform = `translateY(${s * 0.1}px) rotate(${s * 0.02}deg)`;
-            liquid2.style.transform = `translateY(${s * -0.05}px) scale(${1 + s * 0.0001})`;
+        audioBtn.addEventListener('click', () => {
+            if (navigator.vibrate) navigator.vibrate(50);
+            if (isTransitioning) return; 
+            isTransitioning = true;
+
+            if (!isAudioEngineRunning) initAudioEngine();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            if (!isPlaying) {
+                audio.currentTime = 14;
+                audio.volume = 0;
+                audio.play();
+                isPlaying = true;
+                
+                audioBtn.innerHTML = '[ SYSTEM.AUDIO : ON ]';
+                audioBtn.style.color = 'var(--accent)';
+                audioBtn.style.borderColor = 'var(--accent)';
+
+                renderAudioVisuals(); 
+
+                clearInterval(fadeInterval);
+                fadeInterval = setInterval(() => {
+                    if (audio.volume < 0.25) {
+                        audio.volume = Math.min(0.25, audio.volume + 0.02);
+                    } else {
+                        clearInterval(fadeInterval);
+                        isTransitioning = false; 
+                    }
+                }, 100);
+            } else {
+                clearInterval(fadeInterval);
+                fadeInterval = setInterval(() => {
+                    if (audio.volume > 0.02) {
+                        audio.volume = Math.max(0, audio.volume - 0.02);
+                    } else {
+                        audio.pause();
+                        isPlaying = false;
+                        audioBtn.innerHTML = '[ SYSTEM.AUDIO : OFF ]';
+                        audioBtn.style.color = 'var(--text-secondary)';
+                        audioBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                        
+                        if(liquid1) { liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg)`; liquid1.style.opacity = 1; }
+                        if(liquid2) { liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`; liquid2.style.opacity = 1; }
+                        
+                        clearInterval(fadeInterval);
+                        isTransitioning = false; 
+                    }
+                }, 100);
+            }
         });
     </script>
 </body>
