@@ -24,6 +24,10 @@
     <style>
         /* Classy Tech Font */
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap');
+
+        :root {
+            --font-tech: 'Chakra Petch', sans-serif;
+        }
         
         /* --- SECURITY OVERRIDE MODAL --- */
         #security-modal {
@@ -188,15 +192,16 @@
 
         .legal-disclaimer {
             text-align: center;
-            padding-bottom: 2rem;
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            opacity: 0.3;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-family: 'Chakra Petch', sans-serif;
+            padding-bottom: 4rem; 
+            font-family: var(--font-tech); 
+            font-size: 0.85rem; /* Increased significantly from 0.65rem */
+            font-weight: 700; /* Pushed to Bold */
+            color: var(--text-secondary); 
+            opacity: 0.7; /* Much more visible against the dark background */
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
         }
-
+        
         /* --- 1. BOOT SEQUENCE OVERLAY --- */
         #boot-screen {
             position: fixed;
@@ -549,7 +554,7 @@
         </div>
 
         <div class="legal-disclaimer">
-            All assets and architecture are proprietary. Do not clone or redistribute. All rights reserved.
+            All assets and architecture are proprietary. Do not clone or redistribute. All rights are reserved.
         </div>
 
         <div class="console-contact" id="bottom-target">
