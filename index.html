@@ -356,6 +356,9 @@
         .project-block::before { top: 0px; left: 0px; border-top-color: var(--accent); border-left-color: var(--accent); }
         .project-block::after { bottom: 0px; right: 0px; border-bottom-color: var(--accent); border-right-color: var(--accent); }
 
+        /* --- TERMINAL BLINK ANIMATION --- */
+        @keyframes blink { 50% { opacity: 0; } }
+
         /* PC Hover Triggers */
         @media (pointer: fine) {
             .project-block:hover .glare { transform: rotate(45deg) translateY(100%); }
@@ -607,7 +610,7 @@
         </div>
 
         <div class="version-stamp">
-            SYSTEM BUILD v1.7.131.BETA // DEPLOYED MAY 12, 2026
+            SYSTEM BUILD v1.7.138.BETA // DEPLOYED MAY 12, 2026
         </div>
 
     </div>
