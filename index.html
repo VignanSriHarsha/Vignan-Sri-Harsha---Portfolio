@@ -147,6 +147,21 @@
             box-sizing: border-box;
         }
 
+        /* --- PERSISTENT COPYRIGHT SIGNATURE --- */
+        .copyright-lock {
+            position: fixed; 
+            bottom: 35px; 
+            left: 50px; 
+            color: var(--text-secondary); 
+            font-family: var(--font-tech);
+            font-size: 0.75rem; 
+            letter-spacing: 2px; 
+            text-transform: uppercase;
+            z-index: 1000; 
+            opacity: 0.4; 
+            pointer-events: none; 
+        }
+
         .nav-identity {
             pointer-events: auto; 
             color: #ffffff; 
@@ -395,6 +410,9 @@
             .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
             .main-img { height: 220px; }
             #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; z-index: 9999; }
+
+            /* Add this inside the mobile @media block */
+            .copyright-lock { left: 25px; bottom: 25px; font-size: 0.6rem; }
             
             /* Copyright & Card Targeting Mobile */
             .copyright-lock { bottom: 25px; left: 25px; font-size: 0.6rem; }
@@ -578,7 +596,7 @@
         </div>
 
         <div class="version-stamp">
-            SYSTEM BUILD v1.7.127.BETA // DEPLOYED MAY 12, 2026
+            SYSTEM BUILD v1.7.128.BETA // DEPLOYED MAY 12, 2026
         </div>
 
     </div>
