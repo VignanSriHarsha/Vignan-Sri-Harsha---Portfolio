@@ -87,10 +87,25 @@
             .container { padding-top: 7rem; }
             .page-title { font-size: 2.2rem; }
         }
+        /* --- TACTICAL CURSOR --- */
+        #tactical-cursor {
+            position: fixed; top: 0; left: 0; width: 10px; height: 10px;
+            background-color: var(--accent); border-radius: 50%;
+            pointer-events: none; z-index: 100000; transform: translate(-50%, -50%);
+            transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border 0.2s ease;
+            mix-blend-mode: screen;
+        }
+        #tactical-cursor.active { width: 45px; height: 45px; background-color: rgba(168, 81, 33, 0.1); border: 1px solid var(--accent); }
+        
+        /* Disable cursor on mobile */
+        @media (max-width: 600px) {
+            #tactical-cursor { display: none !important; }
+        }
     </style>
 </head>
 <body>
-
+    
+    <div id="tactical-cursor"></div>
     <nav class="top-nav">
         <a href="/" class="nav-link">< RETURN TO MAIN</a>
     </nav>
@@ -133,6 +148,21 @@
             </div>
         </div>
     </div>
+            
+            <script>
+        // --- TACTICAL CURSOR LOGIC ---
+        const cursor = document.getElementById('tactical-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
+        // Makes the cursor expand when hovering over links
+        const interactables = document.querySelectorAll('a, button');
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+    </script>
 </body>
 </html>
