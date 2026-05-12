@@ -192,14 +192,25 @@
 
         .legal-disclaimer {
             text-align: center;
-            padding-bottom: 4rem; 
+            padding-bottom: 1rem; /* Reduced to bring the version stamp closer */
             font-family: var(--font-tech); 
-            font-size: 0.7rem; /* Dialed back down to sit below the beta warning */
-            font-weight: 500; /* Thinned out from 700 to a cleaner medium weight */
+            font-size: 0.7rem; 
+            font-weight: 500; 
             color: var(--text-secondary); 
-            opacity: 0.45; /* Increased translucency so it blends into the dark void */
+            opacity: 0.45; 
             letter-spacing: 1.5px; 
             text-transform: uppercase; 
+        }
+
+        .version-stamp {
+            text-align: center;
+            padding-bottom: 4rem; /* Restores the massive gap above the console ping */
+            font-family: var(--font-tech);
+            font-size: 0.55rem; /* The smallest text on the page */
+            color: var(--text-secondary);
+            opacity: 0.25; /* Deeply muted */
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
         
         /* --- 1. BOOT SEQUENCE OVERLAY --- */
@@ -555,6 +566,10 @@
 
         <div class="legal-disclaimer">
             All assets and architecture are proprietary. Do not clone or redistribute. All rights are reserved.
+        </div>
+
+        <div class="version-stamp">
+            SYSTEM BUILD v1.7.126.BETA // DEPLOYED MAY 12, 2026
         </div>
 
         <div class="console-contact" id="bottom-target">
