@@ -176,23 +176,9 @@
         }
 
         /* --- COPYRIGHT & LEGAL ARCHITECTURE --- */
-        .copyright-lock {
-            position: fixed;
-            bottom: 30px;
-            left: 50px; 
-            color: var(--text-secondary);
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            z-index: 1000;
-            opacity: 0.4;
-            pointer-events: none; 
-        }
-
         .legal-disclaimer {
             text-align: center;
-            padding-bottom: 1rem; /* Reduced to bring the version stamp closer */
+            padding-bottom: 4rem; /* Restored the massive gap to let it breathe */
             font-family: var(--font-tech); 
             font-size: 0.7rem; 
             font-weight: 500; 
@@ -202,13 +188,32 @@
             text-transform: uppercase; 
         }
 
+        .console-contact { 
+            text-align: center; 
+            padding-bottom: 1.5rem; /* Shrunk from 5rem so the version stamp tucks nicely under it */
+            font-family: var(--font-tech); 
+            font-size: 0.85rem; 
+            color: var(--text-secondary); 
+            opacity: 0.6; 
+            transition: opacity 0.3s ease; 
+            word-wrap: break-word; 
+            padding-left: 1rem; 
+            padding-right: 1rem; 
+        }
+        .console-contact a { color: var(--accent); text-decoration: none; position: relative; margin-left: 5px; text-transform: lowercase; }
+        .console-contact a::after { content: '_'; display: inline-block; margin-left: 2px; animation: blink 1s step-end infinite; }
+
         .version-stamp {
             text-align: center;
-            padding-bottom: 4rem; /* Restores the massive gap above the console ping */
+            padding-bottom: 4rem; /* Keeps it off the absolute floor of the browser */
             font-family: var(--font-tech);
-            font-size: 0.55rem; /* The smallest text on the page */
+            font-size: 0.55rem;
             color: var(--text-secondary);
-            opacity: 0.25; /* Deeply muted */
+            
+            /* TO TWEAK OPACITY: Change this decimal. 
+               0.1 is almost invisible. 0.5 is half solid. 1.0 is solid. */
+            opacity: 0.35; 
+            
             letter-spacing: 3px;
             text-transform: uppercase;
         }
@@ -568,12 +573,12 @@
             All assets and architecture are proprietary. Do not clone or redistribute. All rights are reserved.
         </div>
 
-        <div class="version-stamp">
-            SYSTEM BUILD v1.7.126.BETA // DEPLOYED MAY 12, 2026
-        </div>
-
         <div class="console-contact" id="bottom-target">
     > system.ping --auth "Felix(Harsha)" --target <a href="mailto:vignansriharsha.b@gmail.com">vignansriharsha.b@gmail.com</a>
+        </div>
+
+        <div class="version-stamp">
+            SYSTEM BUILD v1.7.127.BETA // DEPLOYED MAY 12, 2026
         </div>
 
     </div>
