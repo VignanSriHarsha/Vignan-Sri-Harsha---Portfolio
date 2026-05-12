@@ -635,24 +635,34 @@
             history.replaceState("", document.title, window.location.pathname + window.location.search);
         }
 
-        // --- BOOT SEQUENCE ---
+        // --- BOOT SEQUENCE WITH SESSION MEMORY ---
         const bootScreen = document.getElementById('boot-screen');
         const bootText = document.getElementById('boot-text');
-        const bootMessages = ["> INITIALIZING...", "> MOUNTING ASSETS...", "> ACCESS GRANTED."];
+        const messages = ["> INITIALIZING...", "> MOUNTING ASSETS...", "> ACCESS GRANTED."];
         let msgIndex = 0;
-        function runBootSequence() {
-            if (msgIndex < bootMessages.length) {
-                bootText.innerText = bootMessages[msgIndex];
-                msgIndex++;
-                setTimeout(runBootSequence, 300); 
+
+        function runBoot() {
+            if (msgIndex < messages.length) {
+                bootText.innerText = messages[msgIndex++];
+                setTimeout(runBoot, 450);
             } else {
                 setTimeout(() => {
                     bootScreen.classList.add('hidden-boot');
-                    reveal(); 
-                }, 400);
+                    sessionStorage.setItem('systemBooted', 'true'); // Locks the memory
+                    reveal();
+                }, 500);
             }
         }
-        window.addEventListener('load', () => setTimeout(runBootSequence, 200));
+
+        // Check if system already booted this session
+        window.onload = () => {
+            if (sessionStorage.getItem('systemBooted')) {
+                bootScreen.style.display = 'none'; // Bypasses the screen entirely
+                reveal();
+            } else {
+                runBoot();
+            }
+        };
 
         // --- TACTICAL CURSOR ---
         const cursor = document.getElementById('tactical-cursor');
