@@ -434,7 +434,7 @@
         }
     </style>
 </head>
-<body>
+<body id="top-target">
 
     <div id="security-modal">
         <div class="security-box">
@@ -451,7 +451,10 @@
         <div class="nav-identity">BHIRAVABHOTLA</div>
         <div class="nav-menu">
             <a href="/ethos" class="nav-scroll">Ethos</a>
-        <a href="#bottom-target" class="nav-scroll"><span class="desktop-text">Head to the </span>Footer</a>
+            <a href="#bottom-target" class="nav-scroll" id="dynamic-scroll-btn">
+                <span class="desktop-text">Head to the </span><span id="dynamic-scroll-text">Footer</span>
+            </a>
+        </div>
     </nav>
     
     <div class="copyright-lock">&copy; Vignan Sri Harsha</div>
@@ -606,7 +609,7 @@
         </div>
 
         <div class="console-contact" id="bottom-target">
-    > system.ping --auth "Felix(Harsha)" --target <a href="mailto:vignansriharsha.b@gmail.com">vignansriharsha.b@gmail.com</a>
+            > system.ping --auth "Felix(Harsha)" --target <a href="mailto:vignansriharsha.b@gmail.com">vignansriharsha.b@gmail.com</a>
         </div>
 
         <div class="version-stamp">
@@ -828,6 +831,26 @@
                         isTransitioning = false; 
                     }
                 }, 100);
+            }
+        });
+
+        // --- DYNAMIC SCROLL TOGGLE ---
+        const scrollBtn = document.getElementById('dynamic-scroll-btn');
+        const scrollText = document.getElementById('dynamic-scroll-text');
+
+        window.addEventListener('scroll', () => {
+            // Calculate the exact 50% midpoint of the total scrollable area
+            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const midpoint = scrollableHeight / 2;
+
+            if (window.scrollY > midpoint) {
+                // User is in the bottom half -> Switch to "Header"
+                scrollBtn.setAttribute('href', '#top-target');
+                scrollText.innerText = 'Header';
+            } else {
+                // User is in the top half -> Switch to "Footer"
+                scrollBtn.setAttribute('href', '#bottom-target');
+                scrollText.innerText = 'Footer';
             }
         });
     </script>
