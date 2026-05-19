@@ -613,7 +613,7 @@
         </div>
 
         <div class="version-stamp">
-            SYSTEM BUILD v1.7.138.BETA // DEPLOYED MAY 12, 2026
+            SYSTEM BUILD v1.7.139.BETA // DEPLOYED MAY 19, 2026
         </div>
 
     </div>
@@ -852,6 +852,44 @@
                 scrollBtn.setAttribute('href', '#bottom-target');
                 scrollText.innerText = 'Footer';
             }
+            // --- CRYPTOGRAPHIC DECRYPTION EFFECT (H2 HEADERS) ---
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+        const headers = document.querySelectorAll('h2.reveal');
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 1.0 };
+        
+        const headerObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    let iteration = 0;
+                    const target = entry.target;
+                    // Store original text if not already stored
+                    if (!target.dataset.value) target.dataset.value = target.innerText;
+                    
+                    clearInterval(target.interval);
+                    
+                    target.interval = setInterval(() => {
+                        target.innerText = target.dataset.value
+                            .split("")
+                            .map((letter, index) => {
+                                if(index < iteration) return target.dataset.value[index];
+                                return letters[Math.floor(Math.random() * 26)];
+                            })
+                            .join("");
+                        
+                        if(iteration >= target.dataset.value.length){ 
+                            clearInterval(target.interval);
+                        }
+                        iteration += 1 / 3; // Controls the speed of decryption
+                    }, 30);
+                    
+                    observer.unobserve(target); // Only decrypts once per load to avoid noise
+                }
+            });
+        });
+
+        headers.forEach(header => headerObserver.observe(header));
+            
         });
     </script>
 </body>
