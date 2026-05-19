@@ -301,6 +301,26 @@
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
 
+        /* --- PARALLAX TELEMETRY BACKGROUND ARCHITECTURE --- */
+        .telemetry-rail {
+            position: fixed;
+            top: 0;
+            width: 1px;
+            height: 100vh;
+            /* 6% Opacity Burnt Orange ensures absolute compliance with Negative Space principles */
+            background: linear-gradient(to bottom, transparent, rgba(168, 81, 33, 0.06) 20%, rgba(168, 81, 33, 0.06) 80%, transparent);
+            z-index: 2; /* Positioned securely beneath main text but above base backgrounds */
+            pointer-events: none;
+            will-change: transform;
+        }
+        .left-rail { left: 8vw; }   /* Positioned perfectly inside the left negative space envelope */
+        .right-rail { right: 8vw; } /* Positioned perfectly inside the right negative space envelope */
+
+        /* Mobile override to drop the lines completely so tiny phone screens don't choke */
+        @media (max-width: 600px) {
+            .telemetry-rail { display: none !important; }
+        }
+
         /* Ambient Brush Effects */
         .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.3s ease, transform 0.2s ease-out; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
@@ -446,6 +466,9 @@
             </div>
         </div>
     </div>
+
+    <div class="telemetry-rail left-rail"></div>
+    <div class="telemetry-rail right-rail"></div>
 
     <nav class="top-nav">
         <div class="nav-identity">BHIRAVABHOTLA</div>
@@ -619,6 +642,29 @@
     </div>
 
     <script>
+        // --- HIGH-PERFORMANCE BACKGROUND PARALLAX ENGINE ---
+        const leftRail = document.querySelector('.left-rail');
+        const rightRail = document.querySelector('.right-rail');
+        
+        // Use a lightweight ticking state to prevent scroll-event bottlenecks
+        let isTicking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!isTicking) {
+                window.requestAnimationFrame(() => {
+                    if (window.innerWidth > 600) {
+                        // Math: 0.12 Multiplier moves background down slightly against the scroll, deepening the depth profile
+                        let parallaxOffset = window.pageYOffset * 0.12;
+                        
+                        leftRail.style.transform = `translateY(${parallaxOffset}px)`;
+                        rightRail.style.transform = `translateY(${parallaxOffset}px)`;
+                    }
+                    isTicking = false;
+                });
+                isTicking = true;
+            }
+        });
+        
         // --- SECURITY LOGIC ---
         let targetURL = '';
         function openSecurity(url) {
