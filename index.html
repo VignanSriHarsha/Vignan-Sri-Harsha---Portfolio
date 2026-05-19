@@ -852,11 +852,10 @@
                 scrollBtn.setAttribute('href', '#bottom-target');
                 scrollText.innerText = 'Footer';
             }
-            // --- HARDWARE-ACCELERATED CRYPTOGRAPHIC DECRYPTION ENGINE ---
+           // --- HARDWARE-ACCELERATED CRYPTOGRAPHIC DECRYPTION ENGINE ---
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
         const headers = document.querySelectorAll('h2.reveal');
 
-        // Adjusted options: Triggers exactly when 10% of the header slides into view
         const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
         
         const headerObserver = new IntersectionObserver((entries) => {
@@ -864,33 +863,26 @@
                 const target = entry.target;
                 
                 if (entry.isIntersecting) {
-                    // THE IN-VIEW LOCK: If this header is already in the viewport, freeze execution.
-                    // This permanently kills the micro-scroll re-trigger glitch.
                     if (target.dataset.inView === "true") return;
                     target.dataset.inView = "true";
                     
-                    // Securely store the immutable original string on first contact
                     if (!target.dataset.originalText) {
                         target.dataset.originalText = target.innerText;
                     }
                     
-                    // Persistent View State Matrix Tracker
                     let viewCount = parseInt(target.dataset.viewCount || "0");
                     viewCount++;
                     target.dataset.viewCount = viewCount;
 
-                    // ADAPTIVE TIMING ENGINE: Calculate speed based on previous engagement metrics
-                    // First view: Smooth, deliberate execution (33ms cycles, 0.35 increment steps)
-                    // Subsequent views: High-speed system query warp (16ms cycles, 0.70 increment steps)
                     let stepIncrement = viewCount === 1 ? 0.35 : 0.70;
                     let intervalSpeed = viewCount === 1 ? 33 : 16;
-                    let blurIntensity = viewCount === 1 ? "1px" : "1.75px";
+                    let blurIntensity = viewCount === 1 ? "1.5px" : "2px";
                     
-                    // ENGAGE MOTION BLUR: Force the GPU to handle rendering and introduce physical blur
+                    // START PHASE: Hard-cut to the blurred, scrambled state
+                    target.style.transition = "none"; // Kill any CSS lag
                     target.style.filter = `blur(${blurIntensity})`;
-                    target.style.opacity = "0.85";
+                    target.style.opacity = "0.7";
                     target.style.willChange = "transform, filter";
-                    target.style.transition = "none"; // Kills any CSS lag overrides
                     
                     let iteration = 0;
                     clearInterval(target.interval);
@@ -908,20 +900,25 @@
                             clearInterval(target.interval);
                             target.innerText = target.dataset.originalText;
                             
-                            // DISENGAGE MOTION BLUR: Snap back to crisp, absolute high-fidelity typography
-                            target.style.filter = "none";
+                            // RESOLUTION PHASE: The "Ease-Out" Lens Focus
+                            // We use an exponential cubic-bezier curve to make the blur fade slowly and cinematically
+                            target.style.transition = "filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease-out";
+                            target.style.filter = "blur(0px)";
                             target.style.opacity = "1";
-                            target.style.willChange = "auto";
+                            
+                            // Memory cleanup: Wait for the 0.8s fade to finish, then release GPU resources
+                            setTimeout(() => {
+                                target.style.willChange = "auto";
+                            }, 800);
                         }
                         iteration += stepIncrement;
                     }, intervalSpeed);
                     
                 } else {
-                    // EVICTION CLEARANCE: The element has left the viewport window.
-                    // Wipe the current execution loop, reset structural locks, but PRESERVE viewCount memory.
                     target.dataset.inView = "false";
                     clearInterval(target.interval);
-                    target.style.filter = "none";
+                    target.style.transition = "none";
+                    target.style.filter = "blur(0px)";
                     target.style.opacity = "1";
                     target.style.willChange = "auto";
                 }
