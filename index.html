@@ -852,42 +852,81 @@
                 scrollBtn.setAttribute('href', '#bottom-target');
                 scrollText.innerText = 'Footer';
             }
-            // --- CRYPTOGRAPHIC DECRYPTION EFFECT (H2 HEADERS) ---
+            // --- HARDWARE-ACCELERATED CRYPTOGRAPHIC DECRYPTION ENGINE ---
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
         const headers = document.querySelectorAll('h2.reveal');
 
-        // Forces the header to be 100% visible AND 15% up the screen before triggering
-        const observerOptions = { root: null, rootMargin: '0px 0px -15% 0px', threshold: 1.0 };
+        // Adjusted options: Triggers exactly when 10% of the header slides into view
+        const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
         
-        const headerObserver = new IntersectionObserver((entries, observer) => {
+        const headerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                const target = entry.target;
+                
                 if (entry.isIntersecting) {
+                    // THE IN-VIEW LOCK: If this header is already in the viewport, freeze execution.
+                    // This permanently kills the micro-scroll re-trigger glitch.
+                    if (target.dataset.inView === "true") return;
+                    target.dataset.inView = "true";
+                    
+                    // Securely store the immutable original string on first contact
+                    if (!target.dataset.originalText) {
+                        target.dataset.originalText = target.innerText;
+                    }
+                    
+                    // Persistent View State Matrix Tracker
+                    let viewCount = parseInt(target.dataset.viewCount || "0");
+                    viewCount++;
+                    target.dataset.viewCount = viewCount;
+
+                    // ADAPTIVE TIMING ENGINE: Calculate speed based on previous engagement metrics
+                    // First view: Smooth, deliberate execution (33ms cycles, 0.35 increment steps)
+                    // Subsequent views: High-speed system query warp (16ms cycles, 0.70 increment steps)
+                    let stepIncrement = viewCount === 1 ? 0.35 : 0.70;
+                    let intervalSpeed = viewCount === 1 ? 33 : 16;
+                    let blurIntensity = viewCount === 1 ? "1px" : "1.75px";
+                    
+                    // ENGAGE MOTION BLUR: Force the GPU to handle rendering and introduce physical blur
+                    target.style.filter = `blur(${blurIntensity})`;
+                    target.style.opacity = "0.85";
+                    target.style.willChange = "transform, filter";
+                    target.style.transition = "none"; // Kills any CSS lag overrides
+                    
                     let iteration = 0;
-                    const target = entry.target;
-                    
-                    if (!target.dataset.value) target.dataset.value = target.innerText;
-                    
                     clearInterval(target.interval);
                     
                     target.interval = setInterval(() => {
-                        target.innerText = target.dataset.value
+                        target.innerText = target.dataset.originalText
                             .split("")
                             .map((letter, index) => {
-                                if(index < iteration) return target.dataset.value[index];
-                                return letters[Math.floor(Math.random() * 26)]; // Maps to the 26 letters string
+                                if (index < iteration) return target.dataset.originalText[index];
+                                return letters[Math.floor(Math.random() * letters.length)];
                             })
                             .join("");
                         
-                        if(iteration >= target.dataset.value.length){ 
+                        if (iteration >= target.dataset.originalText.length) {
                             clearInterval(target.interval);
+                            target.innerText = target.dataset.originalText;
+                            
+                            // DISENGAGE MOTION BLUR: Snap back to crisp, absolute high-fidelity typography
+                            target.style.filter = "none";
+                            target.style.opacity = "1";
+                            target.style.willChange = "auto";
                         }
-                        iteration += 1 / 3; 
-                    }, 30);
+                        iteration += stepIncrement;
+                    }, intervalSpeed);
                     
-                    observer.unobserve(target); // Locks it so it never repeats
+                } else {
+                    // EVICTION CLEARANCE: The element has left the viewport window.
+                    // Wipe the current execution loop, reset structural locks, but PRESERVE viewCount memory.
+                    target.dataset.inView = "false";
+                    clearInterval(target.interval);
+                    target.style.filter = "none";
+                    target.style.opacity = "1";
+                    target.style.willChange = "auto";
                 }
             });
-        }, observerOptions); // <-- THIS IS THE VARIABLE I FORGOT TO ADD
+        }, observerOptions);
 
         headers.forEach(header => headerObserver.observe(header));
             
