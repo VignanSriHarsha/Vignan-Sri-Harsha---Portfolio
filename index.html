@@ -301,25 +301,6 @@
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
 
-       /* --- PARALLAX TELEMETRY BACKGROUND ARCHITECTURE --- */
-        .telemetry-rail {
-            position: fixed;
-            top: -50vh; /* Gives the line 50% overhang on top so it doesn't clip when scrolling */
-            width: 2px; /* Beefed up from 1px */
-            height: 200vh; /* Doubled height for a seamless track */
-            /* Boosted opacity to 25% (0.25) so it is definitively visible */
-            background: linear-gradient(to bottom, transparent, rgba(168, 81, 33, 0.25) 20%, rgba(168, 81, 33, 0.25) 80%, transparent);
-            z-index: 2; 
-            pointer-events: none;
-            will-change: transform;
-        }
-        .left-rail { left: 8vw; }   
-        .right-rail { right: 8vw; } 
-
-        @media (max-width: 600px) {
-            .telemetry-rail { display: none !important; }
-        }
-
         /* Ambient Brush Effects */
         .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.3s ease, transform 0.2s ease-out; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
@@ -465,9 +446,6 @@
             </div>
         </div>
     </div>
-
-    <div class="telemetry-rail left-rail"></div>
-    <div class="telemetry-rail right-rail"></div>
 
     <nav class="top-nav">
         <div class="nav-identity">BHIRAVABHOTLA</div>
@@ -868,26 +846,6 @@
             } else {
                 scrollBtn.setAttribute('href', '#bottom-target');
                 scrollText.innerText = 'Footer';
-            }
-        });
-
-        // --- HIGH-PERFORMANCE BACKGROUND PARALLAX ENGINE ---
-        const leftRail = document.querySelector('.left-rail');
-        const rightRail = document.querySelector('.right-rail');
-        let isTicking = false;
-
-        window.addEventListener('scroll', () => {
-            if (!isTicking) {
-                window.requestAnimationFrame(() => {
-                    if (window.innerWidth > 600) {
-                        // 0.12 Multiplier against the scroll
-                        let parallaxOffset = window.scrollY * 0.12;
-                        leftRail.style.transform = `translateY(${parallaxOffset}px)`;
-                        rightRail.style.transform = `translateY(${parallaxOffset}px)`;
-                    }
-                    isTicking = false;
-                });
-                isTicking = true;
             }
         });
 
