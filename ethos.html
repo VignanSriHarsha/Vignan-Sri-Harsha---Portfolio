@@ -57,25 +57,24 @@
             background-size: 30px 30px; z-index: 1; pointer-events: none;
         }
 
-        /* --- LOW-GPU AMBIENT ATMOSPHERE --- */
-        .ambient-light {
+        /* --- GPU-ACCELERATED PARALLAX ORB CONTAINER --- */
+        #parallax-orbs {
             position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            will-change: transform; /* Forces hardware acceleration */
+        }
+
+        .ambient-light {
+            position: absolute;
             border-radius: 50%;
             background: var(--accent);
             filter: blur(120px);
             opacity: 0.12; 
-            z-index: 1;
-            pointer-events: none;
-            animation: pulse-slow 12s ease-in-out infinite alternate;
-            will-change: transform, opacity;
         }
-        .light-top { width: 45vw; height: 45vw; top: -10vw; right: -10vw; }
-        .light-bottom { width: 55vw; height: 55vw; bottom: -15vw; left: -10vw; animation-delay: -6s; opacity: 0.08; }
-
-        @keyframes pulse-slow {
-            0% { transform: scale(0.85); opacity: 0.08; }
-            100% { transform: scale(1.1); opacity: 0.15; }
-        }
+        .light-top { width: 45vw; height: 45vw; top: -5vw; right: -10vw; }
+        .light-bottom { width: 55vw; height: 55vw; bottom: -10vw; left: -10vw; opacity: 0.08; }
 
         /* Top Nav - Return to Base */
         .top-nav {
@@ -109,7 +108,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* --- UPGRADED INTERACTIVE DOCUMENTATION BLOCKS --- */
+        /* --- STATIC DOCUMENTATION BLOCKS (READ-ONLY) --- */
         .ethos-block { 
             background: rgba(255, 255, 255, 0.015);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -117,17 +116,8 @@
             border-radius: 8px;
             padding: 2.5rem;
             margin-bottom: 3rem; 
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 5;
-        }
-
-        .ethos-block:hover {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 2px solid var(--accent);
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(168, 81, 33, 0.05);
-            transform: translateX(8px); /* Kinetic forward slide */
         }
 
         .ethos-number { font-family: var(--font-tech); font-size: 1rem; color: var(--accent); font-weight: 600; opacity: 0.8; margin-bottom: 0.5rem; display: block; letter-spacing: 2px; }
@@ -169,15 +159,16 @@
             .top-nav { padding: 20px; }
             .container { padding-top: 7rem; }
             .page-title { font-size: 2.2rem; }
-            .ethos-block { padding: 1.5rem; transform: none !important; }
-            .ethos-block:hover { transform: none !important; } /* Kill hover slide on mobile */
+            .ethos-block { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="ambient-light light-top"></div>
-    <div class="ambient-light light-bottom"></div>
+    <div id="parallax-orbs">
+        <div class="ambient-light light-top"></div>
+        <div class="ambient-light light-bottom"></div>
+    </div>
 
     <div id="ethos-boot">
         <div id="ethos-boot-text"></div>
@@ -230,6 +221,15 @@
     </div>
             
     <script>
+        // --- DYNAMIC SCROLL PARALLAX FOR ORBS ---
+        const orbContainer = document.getElementById('parallax-orbs');
+        window.addEventListener('scroll', () => {
+            if (!orbContainer) return;
+            const scrollY = window.scrollY;
+            // Translates the orbs upward slightly slower than the scroll speed for depth
+            orbContainer.style.transform = `translateY(${scrollY * 0.35}px)`;
+        });
+
         // --- TACTICAL CURSOR LOGIC ---
         const cursor = document.getElementById('tactical-cursor');
         document.addEventListener('mousemove', (e) => {
@@ -237,12 +237,12 @@
             cursor.style.top = e.clientY + 'px';
         });
 
-        // Makes the cursor expand when hovering over links
-        const interactables = document.querySelectorAll('a, button, .ethos-block');
+        // Makes the cursor expand when hovering over links ONLY
+        const interactables = document.querySelectorAll('a, button');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('active'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-        }); // FIXED: Loop properly closed here.
+        });
 
         // --- CASCADE REVEAL LOGIC ---
         function triggerCascade() {
@@ -256,7 +256,7 @@
             items.forEach((item, index) => {
                 setTimeout(() => {
                     item.classList.add('active');
-                }, 400 + (index * 200)); // 200ms delay between each block
+                }, 400 + (index * 200)); 
             });
         }
 
@@ -273,7 +273,6 @@
             } else {
                 setTimeout(() => {
                     eBoot.classList.add('hidden-boot');
-                    // Trigger the fade-in cascade the moment the boot screen vanishes
                     setTimeout(triggerCascade, 300);
                 }, 400);
             }
