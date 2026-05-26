@@ -26,7 +26,45 @@
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap');
 
         :root {
+            --bg: #030303;
+            --text-primary: #eaeaea;
+            --text-secondary: #999999;
+            --accent: #A85121; 
+            --accent-glow: rgba(168, 81, 33, 0.2); 
             --font-tech: 'Chakra Petch', sans-serif;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* --- NEW: LIGHT MODE ARCHITECTURE --- */
+        html.light-mode {
+            --bg: #f5f5f7; /* Apple's exact cool off-white */
+            --text-primary: #1d1d1f; /* Deep charcoal */
+            --text-secondary: #6e6e73;
+            --accent: #d95c14; /* Brighter orange to pop on light backgrounds */
+            --accent-glow: rgba(217, 92, 20, 0.15);
+        }
+
+        /* Ensure the dot grid inverts softly */
+        html.light-mode body::before {
+            background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+        }
+        
+        /* Ensure the frosted glass boxes flip from dark to white */
+        html.light-mode .project-block {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        /* Ensure the nav gradient fades to light */
+        html.light-mode .top-nav {
+            background: linear-gradient(to bottom, rgba(245, 245, 247, 0.95) 0%, transparent 100%);
+        }
+
+        /* Ensure Academic Nodes look structural in Light Mode */
+        html.light-mode .data-node-card {
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.08);
         }
         
         /* --- SECURITY OVERRIDE MODAL --- */
@@ -90,15 +128,6 @@
             background: rgba(168, 81, 33, 0.1);
         }
 
-        :root {
-            --bg: #030303;
-            --text-primary: #eaeaea;
-            --text-secondary: #999999;
-            --accent: #A85121; 
-            --accent-glow: rgba(168, 81, 33, 0.2); 
-            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
         html, body {
             background-color: var(--bg);
             color: var(--text-primary);
@@ -110,24 +139,24 @@
             width: 100%;
             max-width: 100vw; 
             cursor: none; 
-            scroll-behavior: smooth; /* Global smooth scroll */
+            scroll-behavior: smooth; 
         }
 
         a, button { cursor: none; }
 
         /* --- CUSTOM SCROLLBAR ARCHITECTURE --- */
         ::-webkit-scrollbar {
-            width: 8px; /* Makes it sleek and thin */
+            width: 8px; 
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg); /* Seamlessly matches your dark background */
+            background: var(--bg); 
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(168, 81, 33, 0.4); /* Faded burnt orange */
-            border-radius: 10px; /* Smooth, rounded edges */
+            background: rgba(168, 81, 33, 0.4); 
+            border-radius: 10px; 
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent); /* Lights up to solid orange when they hover over it */
+            background: var(--accent); 
         }
 
         /* --- STICKY HEADER ARCHITECTURE --- */
@@ -136,7 +165,6 @@
             top: 0;
             left: 0;
             width: 100%;
-            /* Subtle dark burnt-orange fade */
             background: linear-gradient(to bottom, rgba(40, 15, 5, 0.85) 0%, rgba(40, 15, 5, 0.35) 50%, transparent 100%);
             padding: 30px 50px 60px 50px; 
             display: flex !important; 
@@ -172,6 +200,12 @@
             margin: 0;
             -webkit-text-stroke: 0.25px var(--accent);
         }
+        
+        /* Nav identity override for light mode */
+        html.light-mode .nav-identity {
+            color: var(--text-primary);
+            -webkit-text-stroke: 0;
+        }
 
         .nav-scroll {
             pointer-events: auto; 
@@ -184,6 +218,10 @@
             opacity: 0.7;
             transition: all 0.3s ease;
         }
+        
+        html.light-mode .nav-scroll {
+            color: var(--text-primary) !important;
+        }
 
         .nav-scroll:hover {
             opacity: 1;
@@ -192,7 +230,7 @@
 
         .nav-menu {
             display: flex;
-            gap: 2.5rem; /* Creates a wide, elegant gap between the two links */
+            gap: 2.5rem; 
             align-items: center;
             pointer-events: auto;
         }
@@ -200,7 +238,7 @@
         /* --- COPYRIGHT & LEGAL ARCHITECTURE --- */
         .legal-disclaimer {
             text-align: center;
-            padding-bottom: 4rem; /* Restored the massive gap to let it breathe */
+            padding-bottom: 4rem; 
             font-family: var(--font-tech); 
             font-size: 0.7rem; 
             font-weight: 500; 
@@ -212,7 +250,7 @@
 
         .console-contact { 
             text-align: center; 
-            padding-bottom: 1.5rem; /* Shrunk from 5rem so the version stamp tucks nicely under it */
+            padding-bottom: 1.5rem; 
             font-family: var(--font-tech); 
             font-size: 0.85rem; 
             color: var(--text-secondary); 
@@ -227,15 +265,11 @@
 
         .version-stamp {
             text-align: center;
-            padding-bottom: 4rem; /* Keeps it off the absolute floor of the browser */
+            padding-bottom: 4rem; 
             font-family: var(--font-tech);
             font-size: 0.55rem;
             color: var(--text-secondary);
-            
-            /* TO TWEAK OPACITY: Change this decimal. 
-               0.1 is almost invisible. 0.5 is half solid. 1.0 is solid. */
             opacity: 0.35; 
-            
             letter-spacing: 3px;
             text-transform: uppercase;
         }
@@ -276,6 +310,9 @@
             transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border 0.2s ease;
             mix-blend-mode: screen;
         }
+        html.light-mode #tactical-cursor {
+            mix-blend-mode: multiply; /* Fixes cursor visibility in light mode */
+        }
         #tactical-cursor.active {
             width: 45px; height: 45px;
             background-color: rgba(168, 81, 33, 0.1);
@@ -300,6 +337,11 @@
         .twinkle-layer-2 { background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px); background-size: 120px 120px; background-position: 60px 90px; animation: twinkle 7s infinite ease-in-out 1s; }
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
+        
+        html.light-mode .twinkle-layer-1 { background-image: radial-gradient(rgba(0, 0, 0, 0.15) 1.5px, transparent 1.5px); }
+        html.light-mode .twinkle-layer-2 { background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1.5px, transparent 1.5px); }
+        html.light-mode .twinkle-layer-3 { background-image: radial-gradient(rgba(0, 0, 0, 0.15) 1.5px, transparent 1.5px); }
+        html.light-mode .twinkle-layer-4 { background-image: radial-gradient(rgba(0, 0, 0, 0.10) 1.5px, transparent 1.5px); }
 
         /* Ambient Brush Effects */
         .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.3s ease, transform 0.2s ease-out; }
@@ -313,13 +355,14 @@
         .header-section { display: flex; align-items: center; gap: 4rem; margin-bottom: 6rem; margin-top: 4rem; }
         .profile-wrapper { position: relative; width: 240px; height: 240px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .mesh-background { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 20px 20px; transform: perspective(400px) rotateX(60deg) translateZ(-100px); -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 60%); mask-image: radial-gradient(circle at center, black 10%, transparent 60%); z-index: 1; pointer-events: none; }
+        html.light-mode .mesh-background { background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px); }
         .profile-img { width: 210px; height: 210px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(168, 81, 33, 0.4); position: relative; z-index: 2; box-shadow: 0 0 40px var(--accent-glow); filter: saturate(125%); }
         .header-text h1 { font-family: 'Chakra Petch', sans-serif; font-size: 4rem; font-weight: 500; margin: 0; letter-spacing: -1px; color: var(--accent); line-height: 1.1; }
         .header-text .subtitle { font-size: 1.25rem; color: var(--text-secondary); font-weight: 300; margin-top: 1rem; }
 
-        h2 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: #ffffff; margin-top: 3rem; margin-bottom: 2rem; position: relative; display: inline-block; font-weight: 500; }
+        h2 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-primary); margin-top: 3rem; margin-bottom: 2rem; position: relative; display: inline-block; font-weight: 500; }
         h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, var(--accent), transparent); }
-        p { font-weight: 300; color: #b0b0b0; margin-bottom: 1.5rem; font-size: 1.05rem; }
+        p { font-weight: 300; color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.05rem; }
 
         /* --- FROSTED GLASS CARDS --- */
         .project-block {
@@ -330,9 +373,22 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             position: relative; z-index: 5; 
             transform-style: preserve-3d;
-            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease, box-shadow 0.5s ease;
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
             will-change: transform;
             overflow: hidden; 
+        }
+
+        /* Abstracted Academic Node Styles */
+        .data-node-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.8rem;
+            border-radius: 8px;
+            transition: border-color 0.3s ease, background 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         /* Sensor Sweep Glare */
@@ -369,35 +425,65 @@
         .project-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.7rem; letter-spacing: -0.5px; transform: translateZ(20px); position: relative; z-index: 5;}
         .project-meta { color: var(--accent); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; transform: translateZ(30px); position: relative; z-index: 5;}
         .main-img { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05); transform: translateZ(40px); position: relative; z-index: 5;}
+        html.light-mode .main-img { border-color: rgba(0, 0, 0, 0.1); }
 
         .app-list { display: grid; gap: 3rem; margin-top: 3rem; transform: translateZ(25px); position: relative; z-index: 5;}
         .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         .logo-group { display: flex; gap: 15px; align-items: center; }
         .app-logo { width: auto; object-fit: contain; }
+        
         .app-metric { font-size: 2.2rem; font-weight: 500; font-family: var(--font-tech); letter-spacing: 1px; line-height: 1.1; display: block; margin-top: 0.5rem; }
         .app-metric.accent { color: var(--accent); } 
         .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
 
         /* TERMINAL CONTACT FOOTER */
         .terminal-footer { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 4rem; margin-top: 2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem 3rem; text-align: center; }
+        html.light-mode .terminal-footer { border-color: rgba(0, 0, 0, 0.1); }
+        
         .terminal-link { display: flex; flex-direction: column; gap: 0.5rem; text-decoration: none; color: var(--text-secondary); transition: all 0.3s ease; cursor: pointer; }
         .link-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
-        .link-value { font-size: 1rem; font-family: 'Chakra Petch', sans-serif; font-weight: 500; }
+        .link-value { font-size: 1rem; font-family: 'Chakra Petch', sans-serif; font-weight: 500; color: var(--text-primary); }
         .terminal-link:hover { color: var(--accent); transform: translateY(-3px); }
+        .terminal-link:hover .link-value { color: var(--accent); }
         
-        .console-contact { text-align: center; padding-bottom: 3rem; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 2px; opacity: 0.6; transition: opacity 0.3s ease; word-wrap: break-word; padding-left: 1rem; padding-right: 1rem; }
-        .console-contact a { color: var(--accent); text-decoration: none; position: relative; margin-left: 5px; text-transform: lowercase; }
-        .console-contact a::after { content: '_'; display: inline-block; margin-left: 2px; animation: blink 1s step-end infinite; }
-
         .beta-footer { text-align: center; padding-top: 2rem; padding-bottom: 2rem; font-size: 0.85rem; color: var(--text-secondary); opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 2rem; }
+        html.light-mode .beta-footer { border-color: rgba(0, 0, 0, 0.1); }
 
         /* SCROLL ANIMATIONS */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* AUDIO TOGGLE */
-        #audio-toggle { position: fixed; bottom: 30px; right: 30px; z-index: 1000; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); padding: 10px 16px; border-radius: 4px; font-family: 'Chakra Petch', sans-serif; font-size: 0.8rem; letter-spacing: 2px; transition: all 0.3s ease; cursor: pointer; }
+        /* --- BOTTOM RIGHT SYSTEM CLUSTER --- */
+        .system-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .sys-btn {
+            background: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            color: var(--text-secondary); 
+            padding: 10px 16px; 
+            border-radius: 4px; 
+            font-family: 'Chakra Petch', sans-serif; 
+            font-size: 0.8rem; 
+            letter-spacing: 2px; 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+            text-align: right;
+        }
+
+        html.light-mode .sys-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
 
         /* --- MOBILE OVERRIDES & TOUCH DEVICES --- */
         @media (pointer: coarse), (max-width: 600px) {
@@ -419,15 +505,14 @@
             .project-block { padding: 1.5rem; transform: none !important; }
             .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
             .main-img { height: 220px; }
-            #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; z-index: 9999; }
+            
+            /* System Cluster Mobile Alignment */
+            .system-controls { bottom: 25px; right: 15px; gap: 8px; z-index: 9999; }
+            .sys-btn { font-size: 0.65rem; padding: 8px 12px; }
 
-            /* Add this inside the mobile @media block */
             .copyright-lock { left: 25px; bottom: 25px; font-size: 0.6rem; }
-
             .nav-menu { gap: 1.2rem; }
             
-            /* Copyright & Card Targeting Mobile */
-            .copyright-lock { bottom: 25px; left: 25px; font-size: 0.6rem; }
             .project-block.in-view .glare { transform: rotate(45deg) translateY(100%); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
             .project-block.in-view::before { top: 12px; left: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
             .project-block.in-view::after { bottom: 12px; right: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
@@ -466,7 +551,11 @@
     </div>
 
     <audio id="bg-audio" loop src="assets/music.mp3" preload="auto"></audio>
-    <button id="audio-toggle">[ SYSTEM.AUDIO : OFF ]</button>
+    
+    <div class="system-controls">
+        <button id="theme-toggle" class="sys-btn">[ SYSTEM.THEME : DARK ]</button>
+        <button id="audio-toggle" class="sys-btn">[ SYSTEM.AUDIO : OFF ]</button>
+    </div>
 
     <div class="twinkle-layer-1"></div>
     <div class="twinkle-layer-2"></div>
@@ -501,15 +590,15 @@
             <div class="app-list" style="margin-top: 2.5rem;">
                 <div class="app-block" style="grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: stretch;">
                     
-                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 1.8rem; border-radius: 8px; transition: border-color 0.3s ease; display: flex; flex-direction: column; height: 100%; box-sizing: border-box;">
-                        <span class="app-metric accent" style="font-size: 2.2rem; font-family: var(--font-tech); line-height: 1; letter-spacing: 1px;">MPC</span>
-                        <h3 style="font-size: 1.1rem; color: var(--text-primary); margin: 1rem 0 0.5rem 0; font-weight: 500;">B.I.E.A.P Curriculum</h3>
+                    <div class="data-node-card">
+                        <span class="app-metric accent">MPC</span>
+                        <h3 style="font-size: 1.1rem; margin: 1rem 0 0.5rem 0; font-weight: 500;">B.I.E.A.P Curriculum</h3>
                         <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Currently executing the final requirements of the secondary evaluation phase. Specialized strictly in advanced Mathematics, Physics, and Chemistry, establishing the computational logic and resilience required to excel in advanced STEM frameworks.</p>
                     </div>
 
-                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 1.8rem; border-radius: 8px; transition: border-color 0.3s ease; display: flex; flex-direction: column; height: 100%; box-sizing: border-box;">
-                        <span class="app-metric accent" style="font-size: 2.2rem; font-family: var(--font-tech); line-height: 1; letter-spacing: 1px;">6.5 BAND</span>
-                        <h3 style="font-size: 1.1rem; color: var(--text-primary); margin: 1rem 0 0.5rem 0; font-weight: 500;">IELTS Academic</h3>
+                    <div class="data-node-card">
+                        <span class="app-metric accent">6.5 BAND</span>
+                        <h3 style="font-size: 1.1rem; margin: 1rem 0 0.5rem 0; font-weight: 500;">IELTS Academic</h3>
                         <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Certified international communication standard. Maintained a strict &ge;6.0 operational baseline across all evaluation modules (Reading: 6.5, Writing: 6.5, Speaking: 6.5, Listening: 6.0), verifying seamless capability for global collaboration.</p>
                     </div>
 
@@ -663,7 +752,6 @@
             closeSecurity();
         }
 
-        // Prevent auto-scrolling to hash on page reload
         if (window.location.hash) {
             history.replaceState("", document.title, window.location.pathname + window.location.search);
         }
@@ -721,13 +809,25 @@
                 const rotateX = ((y - centerY) / centerY) * -2.5; 
                 const rotateY = ((x - centerX) / centerX) * 2.5;
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                card.style.borderColor = 'rgba(168, 81, 33, 0.4)';
-                card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow)`;
+                
+                // Allow dynamic borders but respect light mode
+                if(!document.documentElement.classList.contains('light-mode')) {
+                    card.style.borderColor = 'rgba(168, 81, 33, 0.4)';
+                    card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow)`;
+                } else {
+                    card.style.borderColor = 'rgba(168, 81, 33, 0.4)';
+                    card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.1), 0 0 20px var(--accent-glow)`;
+                }
             });
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                card.style.borderColor = 'rgba(255, 255, 255, 0.05)';
-                card.style.boxShadow = `0 10px 30px rgba(0,0,0,0.2)`;
+                if(!document.documentElement.classList.contains('light-mode')) {
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                    card.style.boxShadow = `0 10px 30px rgba(0,0,0,0.2)`;
+                } else {
+                    card.style.borderColor = 'rgba(0, 0, 0, 0.05)';
+                    card.style.boxShadow = `0 10px 30px rgba(0,0,0,0.05)`;
+                }
             });
         });
 
@@ -846,8 +946,9 @@
                         audio.pause();
                         isPlaying = false;
                         audioBtn.innerHTML = '[ SYSTEM.AUDIO : OFF ]';
-                        audioBtn.style.color = 'var(--text-secondary)';
-                        audioBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                        // Removed inline styles to let Light/Dark Mode CSS take over completely
+                        audioBtn.style.color = '';
+                        audioBtn.style.borderColor = '';
                         
                         if(liquid1) { liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg)`; liquid1.style.opacity = 1; }
                         if(liquid2) { liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`; liquid2.style.opacity = 1; }
@@ -945,6 +1046,39 @@
         }, observerOptions);
 
         headers.forEach(header => headerObserver.observe(header));
+
+        // --- THEME ENGINE (LIGHT/DARK MODE) ---
+        const themeBtn = document.getElementById('theme-toggle');
+        const htmlRoot = document.documentElement;
+
+        // 1. Check if the user's computer is already in Light Mode
+        const prefersLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+        // 2. Check if they have a saved preference from a previous visit
+        const savedTheme = localStorage.getItem('systemTheme');
+
+        // 3. Apply the correct theme on boot
+        if (savedTheme === 'light' || (!savedTheme && prefersLightMode)) {
+            htmlRoot.classList.add('light-mode');
+            themeBtn.innerHTML = '[ SYSTEM.THEME : LIGHT ]';
+        }
+
+        // 4. Manual Override Engine
+        themeBtn.addEventListener('click', () => {
+            if (navigator.vibrate) navigator.vibrate(50);
+            
+            if (htmlRoot.classList.contains('light-mode')) {
+                // Switch to Dark
+                htmlRoot.classList.remove('light-mode');
+                themeBtn.innerHTML = '[ SYSTEM.THEME : DARK ]';
+                localStorage.setItem('systemTheme', 'dark');
+            } else {
+                // Switch to Light
+                htmlRoot.classList.add('light-mode');
+                themeBtn.innerHTML = '[ SYSTEM.THEME : LIGHT ]';
+                localStorage.setItem('systemTheme', 'light');
+            }
+        });
     </script>
 </body>
 </html>
