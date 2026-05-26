@@ -19,6 +19,54 @@
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* --- THE MIXED LIGHT MODE ARCHITECTURE --- */
+        html.light-mode {
+            --bg: #f5f5f7; 
+            --text-primary: #1d1d1f; 
+            --text-secondary: #6e6e73;
+            --accent: #d95c14; 
+        }
+
+        /* Darker dots for human readability */
+        html.light-mode body::before {
+            background-image: radial-gradient(rgba(0, 0, 0, 0.25) 1px, transparent 1px);
+        }
+
+        /* Soft Light Orange Header Fade */
+        html.light-mode .top-nav {
+            background: linear-gradient(to bottom, rgba(255, 242, 235, 0.95) 0%, rgba(255, 242, 235, 0.4) 60%, transparent 100%);
+        }
+
+        /* Nav identity override for light mode */
+        html.light-mode .nav-identity {
+            color: var(--text-primary);
+            -webkit-text-stroke: 0;
+        }
+
+        html.light-mode .nav-scroll {
+            color: var(--text-primary) !important;
+        }
+
+        /* The "Mixed" Frosted Glass for Ethos Blocks */
+        html.light-mode .ethos-block {
+            background: rgba(245, 245, 247, 0.55); 
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        html.light-mode .beta-warning {
+            background: rgba(0, 0, 0, 0.02);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        html.light-mode .terminal-footer {
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
         html, body {
             background-color: var(--bg);
             color: var(--text-primary);
@@ -91,15 +139,20 @@
             pointer-events: none; 
         }
 
-        /* --- AUDIO TOGGLE --- */
-        #audio-toggle { 
-            position: fixed; 
-            bottom: 30px; 
-            right: 30px; 
-            z-index: 1000; 
+        /* --- BOTTOM RIGHT SYSTEM CLUSTER --- */
+        .system-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .sys-btn {
             background: rgba(0, 0, 0, 0.6); 
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px); 
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
             border: 1px solid rgba(255, 255, 255, 0.1); 
             color: var(--text-secondary); 
             padding: 10px 16px; 
@@ -109,6 +162,12 @@
             letter-spacing: 2px; 
             transition: all 0.3s ease; 
             cursor: pointer; 
+            text-align: right;
+        }
+
+        html.light-mode .sys-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         /* Top Nav - Return to Base */
@@ -161,6 +220,8 @@
         .ethos-number { font-family: var(--font-tech); font-size: 1rem; color: var(--accent); font-weight: 600; opacity: 0.8; margin-bottom: 0.5rem; display: block; letter-spacing: 2px; }
         .ethos-title { font-size: 1.5rem; color: var(--text-primary); margin: 0 0 1rem 0; font-family: var(--font-tech); font-weight: 500; letter-spacing: -0.5px; }
         .ethos-text { font-size: 1.05rem; color: #b0b0b0; font-weight: 300; margin: 0; }
+        
+        html.light-mode .ethos-text { color: var(--text-secondary); }
 
         /* --- STAGGERED CASCADE ANIMATIONS --- */
         .reveal { 
@@ -188,8 +249,23 @@
             transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border 0.2s ease;
             mix-blend-mode: screen;
         }
+        html.light-mode #tactical-cursor { mix-blend-mode: multiply; }
         #tactical-cursor.active { width: 45px; height: 45px; background-color: rgba(168, 81, 33, 0.1); border: 1px solid var(--accent); }
         
+        /* RANDOM ALIGNED TWINKLING */
+        @keyframes twinkle { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+        .twinkle-layer-1, .twinkle-layer-2, .twinkle-layer-3, .twinkle-layer-4 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .twinkle-layer-1 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 90px 90px; background-position: 30px 30px; animation: twinkle 4s infinite ease-in-out; }
+        .twinkle-layer-2 { background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px); background-size: 120px 120px; background-position: 60px 90px; animation: twinkle 7s infinite ease-in-out 1s; }
+        .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
+        .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
+        
+        /* Darkened twinkles for Light Mode readability */
+        html.light-mode .twinkle-layer-1 { background-image: radial-gradient(rgba(0, 0, 0, 0.35) 1.5px, transparent 1.5px); }
+        html.light-mode .twinkle-layer-2 { background-image: radial-gradient(rgba(0, 0, 0, 0.30) 1.5px, transparent 1.5px); }
+        html.light-mode .twinkle-layer-3 { background-image: radial-gradient(rgba(0, 0, 0, 0.40) 1.5px, transparent 1.5px); }
+        html.light-mode .twinkle-layer-4 { background-image: radial-gradient(rgba(0, 0, 0, 0.25) 1.5px, transparent 1.5px); }
+
         /* Mobile Adapters */
         @media (max-width: 600px) {
             html, body, a, button { cursor: auto; } 
@@ -200,8 +276,10 @@
             .container { padding-top: 7rem; }
             .page-title { font-size: 2.2rem; }
             .ethos-block { padding: 1.5rem; }
+            
+            .system-controls { bottom: 25px; right: 15px; gap: 8px; z-index: 9999; }
+            .sys-btn { font-size: 0.65rem; padding: 8px 12px; }
             .copyright-lock { left: 25px; bottom: 25px; font-size: 0.6rem; }
-            #audio-toggle { bottom: 25px; right: 15px; font-size: 0.65rem; padding: 8px 12px; }
         }
     </style>
 </head>
@@ -211,6 +289,11 @@
         <div class="ambient-light light-top"></div>
         <div class="ambient-light light-bottom"></div>
     </div>
+
+    <div class="twinkle-layer-1"></div>
+    <div class="twinkle-layer-2"></div>
+    <div class="twinkle-layer-3"></div>
+    <div class="twinkle-layer-4"></div>
 
     <div id="ethos-boot">
         <div id="ethos-boot-text"></div>
@@ -225,9 +308,14 @@
             <span class="nav-text-mobile">RETURN</span>
         </a>
     </nav>
+    
     <div class="copyright-lock">&copy; Vignan Sri Harsha</div>
     <audio id="bg-audio" loop src="assets/music.mp3" preload="auto"></audio>
-    <button id="audio-toggle">[ SYSTEM.AUDIO : OFF ]</button>
+    
+    <div class="system-controls">
+        <button id="theme-toggle" class="sys-btn">[ SYSTEM.THEME : DARK ]</button>
+        <button id="audio-toggle" class="sys-btn">[ SYSTEM.AUDIO : OFF ]</button>
+    </div>
 
     <div class="container">
         <div class="reveal" id="header-reveal">
@@ -284,7 +372,7 @@
             isTransitioning = true;
 
             if (!isPlaying) {
-                audio.currentTime = 14; // Matches main page sync
+                audio.currentTime = 14; 
                 audio.volume = 0;
                 audio.play();
                 isPlaying = true;
@@ -311,8 +399,9 @@
                         audio.pause();
                         isPlaying = false;
                         audioBtn.innerHTML = '[ SYSTEM.AUDIO : OFF ]';
-                        audioBtn.style.color = 'var(--text-secondary)';
-                        audioBtn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                        // Let Light/Dark Mode CSS take over completely
+                        audioBtn.style.color = '';
+                        audioBtn.style.borderColor = '';
                         
                         clearInterval(fadeInterval);
                         isTransitioning = false; 
@@ -376,6 +465,32 @@
         }
 
         window.onload = () => { runEthosFetch(); };
+
+        // --- THEME ENGINE (LIGHT/DARK MODE) ---
+        const themeBtn = document.getElementById('theme-toggle');
+        const htmlRoot = document.documentElement;
+
+        const prefersLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const savedTheme = localStorage.getItem('systemTheme');
+
+        if (savedTheme === 'light' || (!savedTheme && prefersLightMode)) {
+            htmlRoot.classList.add('light-mode');
+            themeBtn.innerHTML = '[ SYSTEM.THEME : LIGHT ]';
+        }
+
+        themeBtn.addEventListener('click', () => {
+            if (navigator.vibrate) navigator.vibrate(50);
+            
+            if (htmlRoot.classList.contains('light-mode')) {
+                htmlRoot.classList.remove('light-mode');
+                themeBtn.innerHTML = '[ SYSTEM.THEME : DARK ]';
+                localStorage.setItem('systemTheme', 'dark');
+            } else {
+                htmlRoot.classList.add('light-mode');
+                themeBtn.innerHTML = '[ SYSTEM.THEME : LIGHT ]';
+                localStorage.setItem('systemTheme', 'light');
+            }
+        });
     </script>
 </body>
 </html>
