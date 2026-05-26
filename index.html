@@ -35,10 +35,10 @@
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* --- UPGRADED LIGHT MODE ARCHITECTURE --- */
+        /* --- THE MIXED LIGHT MODE ARCHITECTURE --- */
         html.light-mode {
             --bg: #f5f5f7; 
-            --text-primary: #1d1d1f; 
+            --text-primary: #1d1d1f; /* Deep charcoal for perfect readability */
             --text-secondary: #6e6e73;
             --accent: #d95c14; 
             --accent-glow: rgba(217, 92, 20, 0.15);
@@ -49,35 +49,28 @@
             background-image: radial-gradient(rgba(0, 0, 0, 0.25) 1px, transparent 1px);
         }
         
-        /* Apple's Smoked Glass Material for Light Mode */
+        /* The "Mixed" Frosted Glass */
         html.light-mode .project-block {
-            background: rgba(25, 25, 25, 0.65);
-            backdrop-filter: blur(32px) saturate(180%);
-            -webkit-backdrop-filter: blur(32px) saturate(180%);
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            background: rgba(245, 245, 247, 0.55); /* Luminous frosted pearl */
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
 
         html.light-mode .data-node-card {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.02); /* Very subtle inset feeling */
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
         }
 
-        /* Force inner text back to white/grey to contrast the dark glass */
-        html.light-mode .project-block .project-title,
-        html.light-mode .project-block h3,
-        html.light-mode .data-node-card h3 {
-            color: #ffffff;
-        }
-
-        html.light-mode .project-block p,
-        html.light-mode .data-node-card p {
-            color: #b0b0b0;
+        /* Soft Light Orange Header Fade */
+        html.light-mode .top-nav {
+            background: linear-gradient(to bottom, rgba(255, 242, 235, 0.95) 0%, rgba(255, 242, 235, 0.4) 60%, transparent 100%);
         }
 
         /* Adjust internal image borders */
-        html.light-mode .main-img { border-color: rgba(255, 255, 255, 0.1); }
+        html.light-mode .main-img { border-color: rgba(0, 0, 0, 0.08); }
         
         /* --- SECURITY OVERRIDE MODAL --- */
         #security-modal {
@@ -177,7 +170,6 @@
             top: 0;
             left: 0;
             width: 100%;
-            /* Kept identically burnt-orange across both modes */
             background: linear-gradient(to bottom, rgba(40, 15, 5, 0.85) 0%, rgba(40, 15, 5, 0.35) 50%, transparent 100%);
             padding: 30px 50px 60px 50px; 
             display: flex !important; 
@@ -213,6 +205,11 @@
             margin: 0;
             -webkit-text-stroke: 0.25px var(--accent);
         }
+        
+        html.light-mode .nav-identity {
+            color: var(--text-primary);
+            -webkit-text-stroke: 0;
+        }
 
         .nav-scroll {
             pointer-events: auto; 
@@ -224,6 +221,10 @@
             text-decoration: none !important; 
             opacity: 0.7;
             transition: all 0.3s ease;
+        }
+        
+        html.light-mode .nav-scroll {
+            color: var(--text-primary) !important;
         }
 
         .nav-scroll:hover {
@@ -314,7 +315,7 @@
             mix-blend-mode: screen;
         }
         html.light-mode #tactical-cursor {
-            mix-blend-mode: multiply;
+            mix-blend-mode: multiply; /* Fixes cursor visibility in light mode */
         }
         #tactical-cursor.active {
             width: 45px; height: 45px;
@@ -341,7 +342,6 @@
         .twinkle-layer-3 { background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1.5px, transparent 1.5px); background-size: 150px 150px; background-position: 90px 30px; animation: twinkle 11s infinite ease-in-out 3s; }
         .twinkle-layer-4 { background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px); background-size: 210px 210px; background-position: 150px 120px; animation: twinkle 13s infinite ease-in-out 5s; }
         
-        /* Darkened twinkles for Light Mode readability */
         html.light-mode .twinkle-layer-1 { background-image: radial-gradient(rgba(0, 0, 0, 0.35) 1.5px, transparent 1.5px); }
         html.light-mode .twinkle-layer-2 { background-image: radial-gradient(rgba(0, 0, 0, 0.30) 1.5px, transparent 1.5px); }
         html.light-mode .twinkle-layer-3 { background-image: radial-gradient(rgba(0, 0, 0, 0.40) 1.5px, transparent 1.5px); }
@@ -440,12 +440,16 @@
 
         /* TERMINAL CONTACT FOOTER */
         .terminal-footer { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 4rem; margin-top: 2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem 3rem; text-align: center; }
+        html.light-mode .terminal-footer { border-color: rgba(0, 0, 0, 0.1); }
+        
         .terminal-link { display: flex; flex-direction: column; gap: 0.5rem; text-decoration: none; color: var(--text-secondary); transition: all 0.3s ease; cursor: pointer; }
         .link-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
-        .link-value { font-size: 1rem; font-family: 'Chakra Petch', sans-serif; font-weight: 500; }
+        .link-value { font-size: 1rem; font-family: 'Chakra Petch', sans-serif; font-weight: 500; color: var(--text-primary); }
         .terminal-link:hover { color: var(--accent); transform: translateY(-3px); }
+        .terminal-link:hover .link-value { color: var(--accent); }
         
         .beta-footer { text-align: center; padding-top: 2rem; padding-bottom: 2rem; font-size: 0.85rem; color: var(--text-secondary); opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 2rem; }
+        html.light-mode .beta-footer { border-color: rgba(0, 0, 0, 0.1); }
 
         /* SCROLL ANIMATIONS */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
@@ -812,7 +816,7 @@
                     card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow)`;
                 } else {
                     card.style.borderColor = 'rgba(168, 81, 33, 0.6)';
-                    card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.2), 0 0 20px var(--accent-glow), inset 0 1px 1px rgba(255, 255, 255, 0.15)`;
+                    card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.1), 0 0 20px var(--accent-glow), inset 0 1px 1px rgba(255, 255, 255, 0.15)`;
                 }
             });
             card.addEventListener('mouseleave', () => {
@@ -821,8 +825,8 @@
                     card.style.borderColor = 'rgba(255, 255, 255, 0.05)';
                     card.style.boxShadow = `0 10px 30px rgba(0,0,0,0.2)`;
                 } else {
-                    card.style.borderColor = 'rgba(0, 0, 0, 0.2)';
-                    card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15)`;
+                    card.style.borderColor = 'rgba(0, 0, 0, 0.08)';
+                    card.style.boxShadow = `0 15px 35px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8)`;
                 }
             });
         });
@@ -942,7 +946,7 @@
                         audio.pause();
                         isPlaying = false;
                         audioBtn.innerHTML = '[ SYSTEM.AUDIO : OFF ]';
-                        // Let Light/Dark Mode CSS take over completely
+                        // Removed inline styles to let Light/Dark Mode CSS take over completely
                         audioBtn.style.color = '';
                         audioBtn.style.borderColor = '';
                         
