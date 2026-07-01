@@ -412,7 +412,7 @@
         .ledger-log { font-family: 'Chakra Petch', sans-serif; font-size: 0.9rem; color: var(--text-secondary); background: rgba(0, 0, 0, 0.2); padding: 14px 18px; border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0; display: flex; align-items: center; gap: 15px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02); }
         html.light-mode .ledger-log { background: rgba(255, 255, 255, 0.4); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8); border-color: var(--accent); }
         .ledger-status { color: var(--accent); font-weight: 600; font-size: 0.75rem; letter-spacing: 2px; flex-shrink: 0; }
-        .ledger-icon { width: 22px; height: 22px; object-fit: contain; opacity: 0.85; transition: all 0.3s ease; border-radius: 2px; }
+        .ledger-icon { width: 22px; height: 22px; object-fit: cover; opacity: 0.85; transition: all 0.3s ease; border-radius: 6px; overflow: hidden; background-color: #ffffff; }
         html.light-mode .ledger-icon { opacity: 0.9; }
         .ledger-log:hover .ledger-icon { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15)); }
         .ledger-title { color: var(--text-primary); font-family: var(--font-stack); font-weight: 400; }
@@ -651,7 +651,7 @@
                 </div>
                 <div class="ledger-log">
                     <span class="ledger-status">[ SYSTEM.VERIFIED ]</span>
-                    <img src="assets/googlelogo1.png" alt="Google" class="ledger-icon" onerror="this.style.display='none'">
+                    <img src="assets/googlelogo.png" alt="Google" class="ledger-icon" onerror="this.style.display='none'">
                     <span class="ledger-title">Google Grasshopper Certification — Fundamental Programming Protocol</span>
                 </div>
             </div>
@@ -668,7 +668,7 @@
                 <div class="data-node-card">
                     <span class="project-meta" style="font-size: 0.75rem; margin-bottom: 0.5rem; transform: none; z-index: auto;">Coursera Integration</span>
                     <h3 style="font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">Google AI Professional Certificate</h3>
-                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Computing the mathematical limits of LLM's. Optimizing algorithm logic to run Generative AI efficiently</p>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Analyzing Machine Learning fundamentals and Generative AI frameworks. Executing protocols for prompt architecture, model evaluation, and secure AI deployment.</p>
                     <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
                         <div class="progress-header">
                             <span class="module-count" style="font-size: 0.85rem;">MODULE 03 / 07</span>
@@ -686,7 +686,7 @@
                     <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Deploying a hardware-accelerated, interactive DOM environment (this portfolio) to structure and host my digital footprint.</p>
                     <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
                         <div class="progress-header">
-                            <span class="module-count" style="font-size: 0.85rem;">BUILD v1.9.162 BETA</span>
+                            <span class="module-count" style="font-size: 0.85rem;">BUILD v1.9.162. BETA</span>
                             <span class="status" style="font-size: 0.65rem;">UPDATING...</span>
                         </div>
                         <div class="progress-track">
@@ -697,7 +697,7 @@
                 <!-- Track 3: Queued Execution -->
                 <div class="data-node-card">
                     <span class="project-meta" style="font-size: 0.75rem; margin-bottom: 0.5rem; transform: none; z-index: auto;">Queued Execution</span>
-                    <h3 style="font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">Google Data Analytics</h3>
+                    <h3 style="font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">Google Data Analytics Certificate</h3>
                     <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Next scheduled execution. Preparing to process predictive data models, algorithms, and statistical logic.</p>
                     <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
                         <div class="progress-header">
