@@ -4,27 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vignan Sri Harsha | Portfolio</title>
-
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vignansriharsha.space/">
     <meta property="og:title" content="Vignan Sri Harsha | Portfolio">
     <meta property="og:description" content="Synthesizer. Bridging Systems, Strategy, and Creative Media.">
     <meta property="og:image" content="https://vignansriharsha.space/assets/preview.jpg">
-
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Vignan Sri Harsha | Portfolio">
     <meta name="twitter:description" content="Synthesizer. Bridging Systems, Strategy, and Creative Media.">
     <meta name="twitter:image" content="https://vignansriharsha.space/assets/preview.jpg">
     
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-
     <meta name="msvalidate.01" content="6E63FF6D16EA1B841BD9B7C94FFB7F0C" />
     <meta name="google-site-verification" content="ehfNX9Q7y9RHamFYI3x-fjj5yg2k8_nml71sxYK6Gnk" />
     
     <style>
         /* Classy Tech Font */
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap');
-
         :root {
             --bg: #030303;
             --text-primary: #eaeaea;
@@ -34,7 +30,6 @@
             --font-tech: 'Chakra Petch', sans-serif;
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-
         /* --- THE MIXED LIGHT MODE ARCHITECTURE --- */
         html.light-mode {
             --bg: #f5f5f7; 
@@ -43,7 +38,6 @@
             --accent: #d95c14; 
             --accent-glow: rgba(217, 92, 20, 0.15);
         }
-
         /* Darker dots for human readability */
         html.light-mode body::before {
             background-image: radial-gradient(rgba(0, 0, 0, 0.25) 1px, transparent 1px);
@@ -57,18 +51,15 @@
             border: 1px solid rgba(0, 0, 0, 0.08);
             box-shadow: 0 15px 35px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
-
         html.light-mode .data-node-card {
             background: rgba(0, 0, 0, 0.02); /* Very subtle inset feeling */
             border: 1px solid rgba(0, 0, 0, 0.06);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
         }
-
         /* Soft Light Orange Header Fade */
         html.light-mode .top-nav {
             background: linear-gradient(to bottom, rgba(255, 242, 235, 0.95) 0%, rgba(255, 242, 235, 0.4) 60%, transparent 100%);
         }
-
         /* Adjust internal image borders */
         html.light-mode .main-img { border-color: rgba(0, 0, 0, 0.08); }
         
@@ -132,7 +123,6 @@
         .sec-btn.confirm:hover {
             background: rgba(168, 81, 33, 0.1);
         }
-
         html, body {
             background-color: var(--bg);
             color: var(--text-primary);
@@ -146,9 +136,7 @@
             cursor: none; 
             scroll-behavior: smooth; 
         }
-
         a, button { cursor: none; }
-
         /* --- CUSTOM SCROLLBAR ARCHITECTURE --- */
         ::-webkit-scrollbar {
             width: 8px; 
@@ -163,7 +151,6 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--accent); 
         }
-
         /* --- STICKY HEADER ARCHITECTURE --- */
         .top-nav {
             position: fixed;
@@ -179,7 +166,6 @@
             pointer-events: none; 
             box-sizing: border-box;
         }
-
         /* --- PERSISTENT COPYRIGHT SIGNATURE --- */
         .copyright-lock {
             position: fixed; 
@@ -194,7 +180,6 @@
             opacity: 0.4; 
             pointer-events: none; 
         }
-
         .nav-identity {
             pointer-events: auto; 
             color: #ffffff; 
@@ -210,7 +195,6 @@
             color: var(--text-primary);
             -webkit-text-stroke: 0;
         }
-
         .nav-scroll {
             pointer-events: auto; 
             color: #ffffff !important; 
@@ -226,19 +210,16 @@
         html.light-mode .nav-scroll {
             color: var(--text-primary) !important;
         }
-
         .nav-scroll:hover {
             opacity: 1;
             color: var(--accent) !important; 
         }
-
         .nav-menu {
             display: flex;
             gap: 2.5rem; 
             align-items: center;
             pointer-events: auto;
         }
-
         /* --- COPYRIGHT & LEGAL ARCHITECTURE --- */
         .legal-disclaimer {
             text-align: center;
@@ -251,7 +232,6 @@
             letter-spacing: 1.5px; 
             text-transform: uppercase; 
         }
-
         .console-contact { 
             text-align: center; 
             padding-bottom: 1.5rem; 
@@ -266,7 +246,6 @@
         }
         .console-contact a { color: var(--accent); text-decoration: none; position: relative; margin-left: 5px; text-transform: lowercase; }
         .console-contact a::after { content: '_'; display: inline-block; margin-left: 2px; animation: blink 1s step-end infinite; }
-
         .version-stamp {
             text-align: center;
             padding-bottom: 4rem; 
@@ -300,7 +279,6 @@
             opacity: 0;
             pointer-events: none;
         }
-
         /* --- 2. TACTICAL CURSOR --- */
         #tactical-cursor {
             position: fixed;
@@ -322,7 +300,6 @@
             background-color: rgba(168, 81, 33, 0.1);
             border: 1px solid var(--accent);
         }
-
         /* Global Subtle Dot Grid Pattern */
         body::before {
             content: '';
@@ -333,7 +310,6 @@
             z-index: 1;
             pointer-events: none;
         }
-
         /* RANDOM ALIGNED TWINKLING */
         @keyframes twinkle { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
         .twinkle-layer-1, .twinkle-layer-2, .twinkle-layer-3, .twinkle-layer-4 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
@@ -346,15 +322,12 @@
         html.light-mode .twinkle-layer-2 { background-image: radial-gradient(rgba(0, 0, 0, 0.30) 1.5px, transparent 1.5px); }
         html.light-mode .twinkle-layer-3 { background-image: radial-gradient(rgba(0, 0, 0, 0.40) 1.5px, transparent 1.5px); }
         html.light-mode .twinkle-layer-4 { background-image: radial-gradient(rgba(0, 0, 0, 0.25) 1.5px, transparent 1.5px); }
-
         /* Ambient Brush Effects */
         .ambient-brush { position: fixed; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(100px) saturate(110%); z-index: 3; pointer-events: none; will-change: transform; transition: opacity 0.3s ease, transform 0.2s ease-out; }
         .brush-position-1 { width: 45vw; height: 50vh; top: 10vh; left: -10vw; }
         .brush-position-2 { width: 55vw; height: 60vh; top: 60vh; right: -20vw; }
         .brush-position-3 { width: 40vw; height: 40vh; bottom: 5vh; left: 15vw; opacity: 0.5; } 
-
         .container { max-width: 900px; padding: 7rem 2rem 2rem 2rem; width: 100%; margin: 0 auto; box-sizing: border-box; position: relative; z-index: 10; filter: saturate(110%); }
-
         /* HEADER */
         .header-section { display: flex; align-items: center; gap: 4rem; margin-bottom: 6rem; margin-top: 4rem; }
         .profile-wrapper { position: relative; width: 240px; height: 240px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -363,11 +336,9 @@
         .profile-img { width: 210px; height: 210px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(168, 81, 33, 0.4); position: relative; z-index: 2; box-shadow: 0 0 40px var(--accent-glow); filter: saturate(125%); }
         .header-text h1 { font-family: 'Chakra Petch', sans-serif; font-size: 4rem; font-weight: 500; margin: 0; letter-spacing: -1px; color: var(--accent); line-height: 1.1; }
         .header-text .subtitle { font-size: 1.25rem; color: var(--text-secondary); font-weight: 300; margin-top: 1rem; }
-
         h2 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-primary); margin-top: 3rem; margin-bottom: 2rem; position: relative; display: inline-block; font-weight: 500; }
         h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background: linear-gradient(to right, var(--accent), transparent); }
         p { font-weight: 300; color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.05rem; }
-
         /* --- FROSTED GLASS CARDS --- */
         .project-block {
             background: rgba(255, 255, 255, 0.03);
@@ -381,7 +352,6 @@
             will-change: transform;
             overflow: hidden; 
         }
-
         .data-node-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -393,7 +363,57 @@
             height: 100%;
             box-sizing: border-box;
         }
-
+        /* --- ACTIVE PROCESSING TRACKER --- */
+        .progress-container { margin-top: 2.5rem; transform: translateZ(25px); position: relative; z-index: 5; }
+        .progress-header { display: flex; justify-content: space-between; margin-bottom: 12px; letter-spacing: 1px; align-items: flex-end; }
+        .progress-header .module-count { font-family: var(--font-tech); color: var(--accent); font-size: 1.1rem; font-weight: 500; }
+        .progress-header .status { font-size: 0.75rem; color: var(--text-secondary); opacity: 0.7; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .progress-track { height: 3px; width: 100%; background: rgba(255, 255, 255, 0.08); border-radius: 2px; overflow: hidden; position: relative; }
+        html.light-mode .progress-track { background: rgba(0, 0, 0, 0.08); }
+        
+        .progress-fill { height: 100%; width: 28%; background: var(--accent); border-radius: 2px; box-shadow: 0 0 10px var(--accent-glow); position: relative; }
+        
+        /* The Active Computation Sweep */
+        .progress-fill::after { 
+            content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 100%; 
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent); 
+            animation: data-sweep 2.5s infinite cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+        @keyframes data-sweep { 
+            0% { transform: translateX(-100%); opacity: 0; } 
+            15% { opacity: 1; } 
+            85% { opacity: 1; } 
+            100% { transform: translateX(100%); opacity: 0; } 
+        }
+        /* Standby Animation (High-Tech Scanner) */
+        .progress-track.standby .progress-fill { width: 100%; background: transparent; box-shadow: none; overflow: hidden; }
+        .progress-track.standby .progress-fill::after { 
+            content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 15%; 
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent); 
+            box-shadow: 0 0 8px rgba(255,255,255,0.4);
+            animation: standby-scan 2s infinite cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        html.light-mode .progress-track.standby .progress-fill::after {
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.5), transparent); 
+            box-shadow: none;
+        }
+        @keyframes standby-scan { 
+            0% { transform: translateX(-100%); } 
+            100% { transform: translateX(600%); } 
+        }
+        /* Dynamic Processing Grid */
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.5rem; align-items: stretch; margin-top: 2rem; transform: translateZ(25px); position: relative; z-index: 5; }
+        
+        /* Verified Ledger Architecture */
+        .ledger-container { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 2rem; transform: translateZ(25px); position: relative; z-index: 5; }
+        .ledger-log { font-family: 'Chakra Petch', sans-serif; font-size: 0.9rem; color: var(--text-secondary); background: rgba(0, 0, 0, 0.2); padding: 14px 18px; border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0; display: flex; align-items: center; gap: 15px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02); }
+        html.light-mode .ledger-log { background: rgba(255, 255, 255, 0.4); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8); border-color: var(--accent); }
+        .ledger-status { color: var(--accent); font-weight: 600; font-size: 0.75rem; letter-spacing: 2px; flex-shrink: 0; }
+        .ledger-icon { width: 22px; height: 22px; object-fit: contain; filter: grayscale(100%) brightness(200%); opacity: 0.8; transition: all 0.3s ease; }
+        html.light-mode .ledger-icon { filter: grayscale(100%) brightness(0%); opacity: 0.6; }
+        .ledger-log:hover .ledger-icon { filter: grayscale(0%) brightness(100%); opacity: 1; transform: scale(1.1); }
+        .ledger-title { color: var(--text-primary); font-family: var(--font-stack); font-weight: 400; }
         /* Sensor Sweep Glare */
         .glare {
             position: absolute;
@@ -404,7 +424,6 @@
             pointer-events: none;
             z-index: 1; 
         }
-
         /* Targeting Brackets */
         .project-block::before, .project-block::after {
             content: ''; position: absolute; width: 20px; height: 20px;
@@ -414,21 +433,17 @@
         }
         .project-block::before { top: 0px; left: 0px; border-top-color: var(--accent); border-left-color: var(--accent); }
         .project-block::after { bottom: 0px; right: 0px; border-bottom-color: var(--accent); border-right-color: var(--accent); }
-
         /* --- TERMINAL BLINK ANIMATION --- */
         @keyframes blink { 50% { opacity: 0; } }
-
         /* PC Hover Triggers */
         @media (pointer: fine) {
             .project-block:hover .glare { transform: rotate(45deg) translateY(100%); }
             .project-block:hover::before { top: 15px; left: 15px; opacity: 1; }
             .project-block:hover::after { bottom: 15px; right: 15px; opacity: 1; }
         }
-
         .project-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 500; margin-bottom: 0.7rem; letter-spacing: -0.5px; transform: translateZ(20px); position: relative; z-index: 5;}
         .project-meta { color: var(--accent); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; transform: translateZ(30px); position: relative; z-index: 5;}
         .main-img { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.05); transform: translateZ(40px); position: relative; z-index: 5; transition: border-color 0.5s ease;}
-
         .app-list { display: grid; gap: 3rem; margin-top: 3rem; transform: translateZ(25px); position: relative; z-index: 5;}
         .app-block { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start; }
         .app-visuals { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
@@ -437,7 +452,6 @@
         .app-metric { font-size: 2.2rem; font-weight: 500; font-family: var(--font-tech); letter-spacing: 1px; line-height: 1.1; display: block; margin-top: 0.5rem; }
         .app-metric.accent { color: var(--accent); } 
         .app-info h3 { font-size: 1.3rem; font-weight: 500; color: var(--text-primary); margin: 0 0 0.5rem 0; letter-spacing: -0.5px;}
-
         /* TERMINAL CONTACT FOOTER */
         .terminal-footer { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 4rem; margin-top: 2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem 3rem; text-align: center; }
         html.light-mode .terminal-footer { border-color: rgba(0, 0, 0, 0.1); }
@@ -450,11 +464,9 @@
         
         .beta-footer { text-align: center; padding-top: 2rem; padding-bottom: 2rem; font-size: 0.85rem; color: var(--text-secondary); opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 2rem; }
         html.light-mode .beta-footer { border-color: rgba(0, 0, 0, 0.1); }
-
         /* SCROLL ANIMATIONS */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
         /* --- BOTTOM RIGHT SYSTEM CLUSTER --- */
         .system-controls {
             position: fixed;
@@ -465,7 +477,6 @@
             gap: 10px;
             z-index: 1000;
         }
-
         .sys-btn {
             background: rgba(0, 0, 0, 0.6); 
             backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
@@ -480,38 +491,67 @@
             cursor: pointer; 
             text-align: right;
         }
-
         html.light-mode .sys-btn {
             background: rgba(255, 255, 255, 0.8);
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
-
+        /* --- TABLET & INTERMEDIATE RATIOS --- */
+        @media (max-width: 950px) {
+            .container { padding: 6rem 2rem 2rem 2rem; }
+            .header-section { gap: 2rem; margin-bottom: 4rem; }
+            .header-text h1 { font-size: 3.2rem; }
+            .profile-wrapper { width: 200px; height: 200px; }
+            .profile-img { width: 170px; height: 170px; }
+            .project-block { padding: 2.2rem; margin-bottom: 3rem; }
+            .top-nav { padding: 20px 30px 40px 30px; }
+            .nav-menu { gap: 1.5rem; }
+            .copyright-lock { left: 30px; }
+            .system-controls { right: 30px; }
+            .main-img { height: 300px; }
+            .app-block { grid-template-columns: 200px 1fr; gap: 1.5rem; }
+            .app-metric { font-size: 1.8rem; }
+        }
         /* --- MOBILE OVERRIDES & TOUCH DEVICES --- */
         @media (pointer: coarse), (max-width: 600px) {
             html, body, a, button { cursor: auto; }
             #tactical-cursor { display: none !important; }
             
             /* Header / Identity Mobile Tweaks */
-            .top-nav { padding: 20px 25px 40px 25px; }
+            .top-nav { padding: 15px 20px 30px 20px; }
             .desktop-text { display: none; }
             .nav-identity { font-size: 0.95rem !important; letter-spacing: 2px; }
             .nav-scroll { font-size: 0.65rem !important; }
-
+            .nav-menu { gap: 1rem; }
             /* Main Container Mobile Tweaks */
-            .header-section { flex-direction: column; text-align: center; gap: 1.5rem; margin-top: 2rem; }
-            .app-block { grid-template-columns: 1fr; gap: 1rem; }
-            .logo-group { justify-content: center; }
-            .app-visuals { align-items: center; text-align: center; }
-            .header-text h1 { font-size: 2.8rem; }
-            .project-block { padding: 1.5rem; transform: none !important; }
-            .terminal-footer { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; padding-top: 3rem; }
-            .main-img { height: 220px; }
+            .container { padding: 5rem 1.2rem 1.5rem 1.2rem; }
+            .header-section { flex-direction: column; text-align: center; gap: 1rem; margin-top: 1.5rem; margin-bottom: 2.5rem; }
+            .profile-wrapper { width: 160px; height: 160px; margin: 0 auto; }
+            .profile-img { width: 140px; height: 140px; }
+            .header-text h1 { font-size: 2.4rem; letter-spacing: 0px; }
+            .header-text .subtitle { font-size: 1.05rem; }
             
-            .system-controls { bottom: 25px; right: 15px; gap: 8px; z-index: 9999; }
+            .project-block { padding: 1.5rem; margin-bottom: 2rem; transform: none !important; }
+            .project-title { font-size: 1.3rem; }
+            h2 { margin-top: 2.5rem; margin-bottom: 1.5rem; }
+            
+            .app-list { gap: 2rem; margin-top: 2rem; }
+            .app-block { grid-template-columns: 1fr; gap: 1rem; }
+            .logo-group { justify-content: center; flex-wrap: wrap; }
+            .app-visuals { align-items: center; text-align: center; }
+            .app-metric { font-size: 1.6rem; }
+            
+            .terminal-footer { grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; padding-top: 2.5rem; }
+            .main-img { height: 200px; margin-top: 1.5rem; }
+            
+            .ledger-log { align-items: flex-start; gap: 10px; padding: 12px 14px; }
+            .ledger-status { font-size: 0.65rem; }
+            .ledger-title { font-size: 0.85rem; }
+            
+            .progress-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+            
+            .system-controls { bottom: 20px; right: 15px; gap: 8px; z-index: 9999; }
             .sys-btn { font-size: 0.65rem; padding: 8px 12px; }
-
-            .copyright-lock { left: 25px; bottom: 25px; font-size: 0.6rem; }
-            .nav-menu { gap: 1.2rem; }
+            .copyright-lock { left: 15px; bottom: 20px; font-size: 0.55rem; }
             
             .project-block.in-view .glare { transform: rotate(45deg) translateY(100%); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
             .project-block.in-view::before { top: 12px; left: 12px; opacity: 1; border-width: 1.5px; width: 15px; height: 15px; }
@@ -520,7 +560,6 @@
     </style>
 </head>
 <body id="top-target">
-
     <div id="security-modal">
         <div class="security-box">
             <div class="sec-header">> SYSTEM.SECURITY_CHECK</div>
@@ -531,7 +570,6 @@
             </div>
         </div>
     </div>
-
     <nav class="top-nav">
         <div class="nav-identity">BHIRAVABHOTLA</div>
         <div class="nav-menu">
@@ -545,18 +583,15 @@
     <div class="copyright-lock">&copy; Vignan Sri Harsha</div>
     
     <div id="tactical-cursor"></div>
-
     <div id="boot-screen">
         <div id="boot-text"></div>
     </div>
-
     <audio id="bg-audio" loop src="assets/music.mp3" preload="auto"></audio>
     
     <div class="system-controls">
         <button id="theme-toggle" class="sys-btn">[ SYSTEM.THEME : DARK ]</button>
         <button id="audio-toggle" class="sys-btn">[ SYSTEM.AUDIO : OFF ]</button>
     </div>
-
     <div class="twinkle-layer-1"></div>
     <div class="twinkle-layer-2"></div>
     <div class="twinkle-layer-3"></div>
@@ -565,7 +600,6 @@
     <div class="ambient-brush brush-position-1" id="liquid-1"></div>
     <div class="ambient-brush brush-position-2" id="liquid-2"></div>
     <div class="ambient-brush brush-position-3" id="liquid-3"></div>
-
     <div class="container">
         
         <header class="header-section reveal">
@@ -578,7 +612,6 @@
                 <div class="subtitle">Synthesizer. Bridging Systems, Strategy, and Creative Media.</div>
             </div>
         </header>
-
        <h2 class="reveal">Academic Telemetry</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
@@ -586,7 +619,6 @@
             <div class="project-title">Core Sciences & Global Communication</div>
             
             <p>A foundational overview of core academic infrastructure and language verification. These base metrics act as certified proof of analytical endurance and international communication capability, demonstrating full readiness for complex B.S. and engineering environments.</p>
-
             <div class="app-list" style="margin-top: 2.5rem;">
                 <div class="app-block" style="grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: stretch;">
                     
@@ -595,17 +627,88 @@
                         <h3 style="font-size: 1.1rem; margin: 1rem 0 0.5rem 0; font-weight: 500;">B.I.E.A.P Curriculum</h3>
                         <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Currently executing the final requirements of the secondary evaluation phase. Specialized strictly in advanced Mathematics, Physics, and Chemistry, establishing the computational logic and resilience required to excel in advanced STEM frameworks.</p>
                     </div>
-
                     <div class="data-node-card">
                         <span class="app-metric accent">6.5 BAND</span>
                         <h3 style="font-size: 1.1rem; margin: 1rem 0 0.5rem 0; font-weight: 500;">IELTS Academic</h3>
                         <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Certified international communication standard. Maintained a strict &ge;6.0 operational baseline across all evaluation modules (Reading: 6.5, Writing: 6.5, Speaking: 6.5, Listening: 6.0), verifying seamless capability for global collaboration.</p>
                     </div>
-
                 </div>
             </div>
         </div>
-
+        <h2 class="reveal">Verified Data Logs</h2>
+        <div class="project-block reveal">
+            <div class="glare"></div>
+            <span class="project-meta">Historical Telemetry</span>
+            <div class="project-title">Authorized System Logs</div>
+            <p>Archived milestones detailing foundational mathematics and algorithmic logic. Immutable data points establishing baseline computational endurance.</p>
+            <div class="ledger-container">
+                <div class="ledger-log">
+                    <span class="ledger-status">[ SYSTEM.VERIFIED ]</span>
+                    <img src="assets/sof.png" alt="SOF" class="ledger-icon" onerror="this.style.display='none'">
+                    <span class="ledger-title">SOF International Mathematics Olympiad — Gold Medal | School Rank: 1</span>
+                </div>
+                <div class="ledger-log">
+                    <span class="ledger-status">[ SYSTEM.VERIFIED ]</span>
+                    <img src="assets/googlelogo.png" alt="Google" class="ledger-icon" onerror="this.style.display='none'">
+                    <span class="ledger-title">Google Grasshopper — Fundamental Programming Protocol</span>
+                </div>
+            </div>
+        </div>
+        <h2 class="reveal">Active Processing</h2>
+        <div class="project-block reveal">
+            <div class="glare"></div>
+            <span class="project-meta">Live Development Pipeline</span>
+            <div class="project-title">Current System Execution</div>
+            
+            <p>A real-time overview of active computational and academic tasks. Displaying current network priorities and skill acquisition vectors.</p>
+            <div class="process-grid">
+                <!-- Track 1: Coursera Integration -->
+                <div class="data-node-card">
+                    <span class="project-meta" style="font-size: 0.75rem; margin-bottom: 0.5rem; transform: none; z-index: auto;">Coursera Integration</span>
+                    <h3 style="font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">Google AI Professional</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Computing the mathematical limits of neural networks. Optimizing algorithm logic to run efficiently on physical hardware.</p>
+                    <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
+                        <div class="progress-header">
+                            <span class="module-count" style="font-size: 0.85rem;">MODULE 03 / 07</span>
+                            <span class="status" style="font-size: 0.65rem;">EXECUTING...</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 42%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Track 2: Systems Architecture -->
+                <div class="data-node-card">
+                    <span class="project-meta" style="font-size: 0.75rem; margin-bottom: 0.5rem; transform: none; z-index: auto;">Live Deployment</span>
+                    <h3 style="font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">Frontend Infrastructure</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Deploying a hardware-accelerated, interactive DOM environment (this portfolio) to structure and host my digital footprint.</p>
+                    <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
+                        <div class="progress-header">
+                            <span class="module-count" style="font-size: 0.85rem;">BUILD v1.9.161. BETA VERSION</span>
+                            <span class="status" style="font-size: 0.65rem;">UPDATING...</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Track 3: Queued Execution -->
+                <div class="data-node-card">
+                    <span class="project-meta" style="font-size: 0.75rem; margin-bottom: 0.5rem; transform: none; z-index: auto;">Queued Execution</span>
+                    <h3 style="font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">Google Data Analytics</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Next scheduled execution. Preparing to process predictive data models, algorithms, and statistical logic.</p>
+                    <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
+                        <div class="progress-header">
+                            <span class="module-count" style="font-size: 0.85rem;">MODULE 00 / 08</span>
+                            <span class="status" style="font-size: 0.65rem; color: var(--text-secondary);">STANDBY</span>
+                        </div>
+                        <div class="progress-track standby">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <h2 class="reveal">Hardware Architecture</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
@@ -614,14 +717,12 @@
             <p>Built, configured, and manually optimized a custom PC centered around a Ryzen processor. I focused heavily on thermal management and voltage balancing—achieving a stable 4.2 GHz overclock at 1.352V—to ensure the system handles heavy video rendering and competitive gaming without bottlenecking.</p>
             <img src="assets/pc-build.jpg" alt="Custom PC Build" class="main-img">
         </div>
-
         <h2 class="reveal">Digital Media Synthesis</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
             <span class="project-meta">Collaboration & Creative Synthesis</span>
             <div class="project-title">Content Creation & Performance Analytics</div>
             <p>Synthesizing technical precision with collaborative storytelling to produce high-impact digital artifacts. Focused on leveraging diverse toolsets to drive engagement on leading creative and social platforms.</p>
-
             <div class="app-list">
                 <div class="app-block">
                     <div class="app-visuals">
@@ -636,7 +737,6 @@
                         <p>Scaling content across YouTube and Instagram by analyzing algorithm trends, audience retention curves, and deploying targeted visual hooks to reach over 1 million organic views.</p>
                     </div>
                 </div>
-
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
@@ -650,7 +750,6 @@
                         <p>Synthesizing heavy narrative editing and color grading in DaVinci Resolve with the rapid, platform-native pacing of CapCut to create trailer-style cinematics and high-retention short-form content.</p>
                     </div>
                 </div>
-
                 <div class="app-block">
                     <div class="app-visuals">
                         <div class="logo-group">
@@ -665,7 +764,6 @@
                 </div>
             </div>
         </div>
-
         <h2 class="reveal">Visual Composition</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
@@ -674,7 +772,6 @@
             <p>A minimalist collection focusing strictly on light, geometry, and composition. This gallery lets the visual artifacts speak for themselves, showcasing my approach to narrative depth through photography.</p>
             <video src="assets/photography.mp4" class="main-img" autoplay loop muted playsinline preload="auto"></video>
         </div>
-
         <h2 class="reveal">Strategic Execution</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
@@ -683,7 +780,6 @@
             <p>Operating in a volatile, closed-system environment that functions as a high-speed 5v5 chess and timing masterpiece. Reached Ascendant tier by maintaining a top-tier 75% KAST (Kill, Assist, Survive, Trade) rating, prioritizing economic management, and executing split-second probability calculations.</p>
             <img src="assets/valorant.jpg" alt="Valorant Ascendant Rank" class="main-img">
         </div>
-
         <h2 class="reveal">Athletic Leadership</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
@@ -692,7 +788,6 @@
             <p>Grounding technical systems optimization in physical discipline. Represented my team to win gold medals in Volleyball and Kabaddi during Class 10 intramural competitions, proving traditional teamwork, leadership, and athletic execution.</p>
             <img src="assets/sports.jpg" alt="Sports Gold Medal" class="main-img">
         </div>
-
         <div class="terminal-footer reveal">
             <a onclick="openSecurity('mailto:vignansriharsha.b@gmail.com')" class="terminal-link">
                 <span class="link-label">System.Contact</span>
@@ -719,21 +814,16 @@
         <div class="beta-footer">
             This is a Beta Version of the portfolio — not the final result.
         </div>
-
         <div class="legal-disclaimer">
             All assets and architecture are proprietary. Do not clone or redistribute. All rights are reserved.
         </div>
-
         <div class="console-contact" id="bottom-target">
             > system.ping --auth "Felix(Harsha)" --target <a href="mailto:vignansriharsha.b@gmail.com">vignansriharsha.b@gmail.com</a>
         </div>
-
         <div class="version-stamp">
-            SYSTEM BUILD v1.8.158.BETA // DEPLOYED MAY 25, 2026
+            SYSTEM BUILD v1.9.161.BETA // DEPLOYED JULY 01, 2026
         </div>
-
     </div>
-
     <script>
         // --- SECURITY LOGIC ---
         let targetURL = '';
@@ -751,17 +841,14 @@
             }
             closeSecurity();
         }
-
         if (window.location.hash) {
             history.replaceState("", document.title, window.location.pathname + window.location.search);
         }
-
         // --- BOOT SEQUENCE WITH SESSION MEMORY ---
         const bootScreen = document.getElementById('boot-screen');
         const bootText = document.getElementById('boot-text');
         const messages = ["> INITIALIZING...", "> MOUNTING ASSETS...", "> ACCESS GRANTED."];
         let msgIndex = 0;
-
         function runBoot() {
             if (msgIndex < messages.length) {
                 bootText.innerText = messages[msgIndex++];
@@ -774,7 +861,6 @@
                 }, 500);
             }
         }
-
         window.onload = () => {
             if (sessionStorage.getItem('systemBooted')) {
                 bootScreen.style.display = 'none';
@@ -783,7 +869,6 @@
                 runBoot();
             }
         };
-
         // --- TACTICAL CURSOR ---
         const cursor = document.getElementById('tactical-cursor');
         document.addEventListener('mousemove', (e) => {
@@ -795,7 +880,6 @@
             el.addEventListener('mouseenter', () => cursor.classList.add('active'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
         });
-
         // --- KINETIC 3D TILT (PC ONLY) ---
         const cards = document.querySelectorAll('.project-block');
         cards.forEach(card => {
@@ -830,7 +914,6 @@
                 }
             });
         });
-
         // --- MOBILE SCROLL OBSERVER (TACTICAL UI TRIGGERS) ---
         if (window.innerWidth <= 600) {
             const observer = new IntersectionObserver((entries) => {
@@ -844,7 +927,6 @@
             }, { threshold: 0.65 }); 
             cards.forEach(card => observer.observe(card));
         }
-
         // --- SCROLL FADE-IN ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
@@ -855,7 +937,6 @@
             }
         }
         window.addEventListener("scroll", reveal);
-
         // --- AUDIO ENGINE ---
         const audio = document.getElementById('bg-audio');
         const audioBtn = document.getElementById('audio-toggle');
@@ -865,19 +946,16 @@
         let isPlaying = false;
         let isTransitioning = false; 
         let fadeInterval;
-
         var liquid1 = document.getElementById('liquid-1');
         var liquid2 = document.getElementById('liquid-2');
         var liquid3 = document.getElementById('liquid-3');
         var baseScroll = 0; 
-
         window.addEventListener("scroll", function() {
             baseScroll = window.pageYOffset;
             if(liquid1 && !isPlaying) liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg)`;
             if(liquid2 && !isPlaying) liquid2.style.transform = `translateY(${baseScroll * -0.1}px) scale(${1 + baseScroll * 0.0002})`;
             if(liquid3 && !isPlaying) liquid3.style.transform = `translateY(${baseScroll * 0.08}px) translateX(${baseScroll * -0.05}px)`;
         });
-
         function initAudioEngine() {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             analyser = audioCtx.createAnalyser();
@@ -889,7 +967,6 @@
             isAudioEngineRunning = true;
             renderAudioVisuals();
         }
-
         function renderAudioVisuals() {
             if (!isPlaying) return;
             requestAnimationFrame(renderAudioVisuals);
@@ -897,7 +974,6 @@
             
             let rawBass = (dataArray[0] + dataArray[1] + dataArray[2]) / 3 / 255;
             let bassImpact = Math.pow(rawBass, 4); 
-
             if(liquid1) {
                 liquid1.style.transform = `translateY(${baseScroll * 0.15}px) rotate(${baseScroll * 0.05}deg) scale(${1 + bassImpact * 0.15})`;
                 liquid1.style.opacity = 0.5 + (bassImpact * 0.3);
@@ -907,15 +983,12 @@
                 liquid2.style.opacity = 0.5 + (bassImpact * 0.3);
             }
         }
-
         audioBtn.addEventListener('click', () => {
             if (navigator.vibrate) navigator.vibrate(50);
             if (isTransitioning) return; 
             isTransitioning = true;
-
             if (!isAudioEngineRunning) initAudioEngine();
             if (audioCtx.state === 'suspended') audioCtx.resume();
-
             if (!isPlaying) {
                 audio.currentTime = 14;
                 audio.volume = 0;
@@ -925,9 +998,7 @@
                 audioBtn.innerHTML = '[ SYSTEM.AUDIO : ON ]';
                 audioBtn.style.color = 'var(--accent)';
                 audioBtn.style.borderColor = 'var(--accent)';
-
                 renderAudioVisuals(); 
-
                 clearInterval(fadeInterval);
                 fadeInterval = setInterval(() => {
                     if (audio.volume < 0.25) {
@@ -959,15 +1030,12 @@
                 }, 100);
             }
         });
-
         // --- DYNAMIC SCROLL TOGGLE ---
         const scrollBtn = document.getElementById('dynamic-scroll-btn');
         const scrollText = document.getElementById('dynamic-scroll-text');
-
         window.addEventListener('scroll', () => {
             const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
             const midpoint = scrollableHeight / 2;
-
             if (window.scrollY > midpoint) {
                 scrollBtn.setAttribute('href', '#top-target');
                 scrollText.innerText = 'Header';
@@ -976,7 +1044,6 @@
                 scrollText.innerText = 'Footer';
             }
         });
-
         // --- HARDWARE-ACCELERATED CRYPTOGRAPHIC DECRYPTION ENGINE ---
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
         const headers = document.querySelectorAll('h2.reveal');
@@ -997,7 +1064,6 @@
                     let viewCount = parseInt(target.dataset.viewCount || "0");
                     viewCount++;
                     target.dataset.viewCount = viewCount;
-
                     let stepIncrement = viewCount === 1 ? 0.35 : 0.70;
                     let intervalSpeed = viewCount === 1 ? 33 : 16;
                     let blurIntensity = viewCount === 1 ? "1.1px" : "1.5px";
@@ -1044,21 +1110,16 @@
                 }
             });
         }, observerOptions);
-
         headers.forEach(header => headerObserver.observe(header));
-
         // --- THEME ENGINE (LIGHT/DARK MODE) ---
         const themeBtn = document.getElementById('theme-toggle');
         const htmlRoot = document.documentElement;
-
         const prefersLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
         const savedTheme = localStorage.getItem('systemTheme');
-
         if (savedTheme === 'light' || (!savedTheme && prefersLightMode)) {
             htmlRoot.classList.add('light-mode');
             themeBtn.innerHTML = '[ SYSTEM.THEME : LIGHT ]';
         }
-
         themeBtn.addEventListener('click', () => {
             if (navigator.vibrate) navigator.vibrate(50);
             
@@ -1075,3 +1136,4 @@
     </script>
 </body>
 </html>
+
