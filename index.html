@@ -7,11 +7,11 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vignansriharsha.space/">
     <meta property="og:title" content="Vignan Sri Harsha | Portfolio">
-    <meta property="og:description" content="Synthesizer. Bridging Systems, Strategy, and Creative Media.">
+    <meta property="og:description" content="Founder of Twenty Plus Two (20+2) & Synthesizer. Bridging Systems, Strategy, and Creative Media.">
     <meta property="og:image" content="https://vignansriharsha.space/assets/preview.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Vignan Sri Harsha | Portfolio">
-    <meta name="twitter:description" content="Synthesizer. Bridging Systems, Strategy, and Creative Media.">
+    <meta name="twitter:description" content="Founder of Twenty Plus Two (20+2) & Synthesizer. Bridging Systems, Strategy, and Creative Media.">
     <meta name="twitter:image" content="https://vignansriharsha.space/assets/preview.jpg">
     
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -86,6 +86,8 @@
             border: 1px solid var(--accent);
             padding: 2.5rem;
             max-width: 400px;
+            width: 90%;
+            box-sizing: border-box;
             text-align: center;
             font-family: 'Chakra Petch', sans-serif;
         }
@@ -220,17 +222,61 @@
             align-items: center;
             pointer-events: auto;
         }
-        /* --- COPYRIGHT & LEGAL ARCHITECTURE --- */
+        /* --- COPYRIGHT, FAIR USE & LEGAL ARCHITECTURE --- */
+        .release-footer { 
+            text-align: center; 
+            padding-top: 2rem; 
+            padding-bottom: 1.5rem; 
+            font-family: var(--font-tech);
+            font-size: 0.85rem; 
+            color: var(--accent); 
+            opacity: 0.85; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            border-top: 1px solid rgba(255, 255, 255, 0.05); 
+            margin-top: 2rem; 
+        }
+        html.light-mode .release-footer { border-color: rgba(0, 0, 0, 0.1); }
+
         .legal-disclaimer {
             text-align: center;
-            padding-bottom: 4rem; 
+            padding-bottom: 1.5rem; 
             font-family: var(--font-tech); 
             font-size: 0.7rem; 
             font-weight: 500; 
             color: var(--text-secondary); 
-            opacity: 0.45; 
+            opacity: 0.55; 
             letter-spacing: 1.5px; 
             text-transform: uppercase; 
+        }
+        .fair-use-box {
+            max-width: 720px;
+            margin: 0 auto 2.5rem auto;
+            padding: 1.2rem 1.5rem;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 2px solid var(--accent);
+            border-radius: 6px;
+            text-align: left;
+            font-family: var(--font-tech);
+            font-size: 0.68rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            opacity: 0.65;
+            letter-spacing: 0.8px;
+        }
+        html.light-mode .fair-use-box {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.08);
+            border-left-color: var(--accent);
+        }
+        .fair-use-title {
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 4px;
         }
         .console-contact { 
             text-align: center; 
@@ -248,11 +294,11 @@
         .console-contact a::after { content: '_'; display: inline-block; margin-left: 2px; animation: blink 1s step-end infinite; }
         .version-stamp {
             text-align: center;
-            padding-bottom: 4rem; 
+            padding-bottom: 4.5rem; 
             font-family: var(--font-tech);
-            font-size: 0.55rem;
+            font-size: 0.6rem;
             color: var(--text-secondary);
-            opacity: 0.35; 
+            opacity: 0.45; 
             letter-spacing: 3px;
             text-transform: uppercase;
         }
@@ -293,7 +339,7 @@
             mix-blend-mode: screen;
         }
         html.light-mode #tactical-cursor {
-            mix-blend-mode: multiply; /* Fixes cursor visibility in light mode */
+            mix-blend-mode: multiply;
         }
         #tactical-cursor.active {
             width: 45px; height: 45px;
@@ -363,6 +409,105 @@
             height: 100%;
             box-sizing: border-box;
         }
+        .dual-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            align-items: stretch;
+            margin-top: 2rem;
+            transform: translateZ(25px);
+            position: relative;
+            z-index: 5;
+        }
+        /* --- YZU POSITION HEADER & VENTURE TAGS --- */
+        .position-showcase {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            padding: 1.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-left: 3px solid var(--accent);
+            border-radius: 10px;
+            transform: translateZ(25px);
+            position: relative;
+            z-index: 5;
+        }
+        html.light-mode .position-showcase {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.08);
+            border-left-color: var(--accent);
+        }
+        .yzu-logo-wrapper {
+            width: 85px;
+            height: 85px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        html.light-mode .yzu-logo-wrapper {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+        .yzu-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .position-details h3 {
+            font-family: var(--font-tech);
+            font-size: 1.35rem;
+            color: var(--text-primary);
+            margin: 0 0 0.35rem 0;
+            font-weight: 600;
+        }
+        .position-details .dept-tag {
+            color: var(--accent);
+            font-family: var(--font-tech);
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+        .tagline-banner {
+            display: inline-block;
+            font-family: var(--font-tech);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(168, 81, 33, 0.12);
+            border: 1px solid rgba(168, 81, 33, 0.35);
+            padding: 6px 14px;
+            border-radius: 4px;
+            margin-bottom: 1.2rem;
+            transform: translateZ(25px);
+            position: relative;
+            z-index: 5;
+        }
+        .inline-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-family: var(--font-tech);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            display: inline-block;
+            transition: opacity 0.2s ease;
+        }
+        .inline-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
         /* --- ACTIVE PROCESSING TRACKER --- */
         .progress-container { margin-top: 2.5rem; transform: translateZ(25px); position: relative; z-index: 5; }
         .progress-header { display: flex; justify-content: space-between; margin-bottom: 12px; letter-spacing: 1px; align-items: flex-end; }
@@ -412,7 +557,7 @@
         .ledger-log { font-family: 'Chakra Petch', sans-serif; font-size: 0.9rem; color: var(--text-secondary); background: rgba(0, 0, 0, 0.2); padding: 14px 18px; border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0; display: flex; align-items: center; gap: 15px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02); }
         html.light-mode .ledger-log { background: rgba(255, 255, 255, 0.4); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8); border-color: var(--accent); }
         .ledger-status { color: var(--accent); font-weight: 600; font-size: 0.75rem; letter-spacing: 2px; flex-shrink: 0; }
-        .ledger-icon { width: 22px; height: 22px; object-fit: cover; opacity: 0.85; transition: all 0.3s ease; border-radius: 6px; overflow: hidden; background-color: #ffffff; }
+        .ledger-icon { width: 22px; height: 22px; object-fit: cover; opacity: 0.85; transition: all 0.3s ease; border-radius: 6px; overflow: hidden; background-color: #ffffff; flex-shrink: 0; }
         html.light-mode .ledger-icon { opacity: 0.9; }
         .ledger-log:hover .ledger-icon { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15)); }
         .ledger-title { color: var(--text-primary); font-family: var(--font-stack); font-weight: 400; }
@@ -464,8 +609,6 @@
         .terminal-link:hover { color: var(--accent); transform: translateY(-3px); }
         .terminal-link:hover .link-value { color: var(--accent); }
         
-        .beta-footer { text-align: center; padding-top: 2rem; padding-bottom: 2rem; font-size: 0.85rem; color: var(--text-secondary); opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 2rem; }
-        html.light-mode .beta-footer { border-color: rgba(0, 0, 0, 0.1); }
         /* SCROLL ANIMATIONS */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -525,7 +668,7 @@
             .nav-scroll { font-size: 0.65rem !important; }
             .nav-menu { gap: 1rem; }
             /* Main Container Mobile Tweaks */
-            .container { padding: 5rem 1.2rem 1.5rem 1.2rem; }
+            .container { padding: 5rem 1.2rem 2.5rem 1.2rem; }
             .header-section { flex-direction: column; text-align: center; gap: 1rem; margin-top: 1.5rem; margin-bottom: 2.5rem; }
             .profile-wrapper { width: 160px; height: 160px; margin: 0 auto; }
             .profile-img { width: 140px; height: 140px; }
@@ -536,20 +679,28 @@
             .project-title { font-size: 1.3rem; }
             h2 { margin-top: 2.5rem; margin-bottom: 1.5rem; }
             
+            .position-showcase { flex-direction: column; text-align: center; gap: 1.2rem; padding: 1.4rem; border-left: 1px solid rgba(255, 255, 255, 0.06); border-top: 3px solid var(--accent); }
+            html.light-mode .position-showcase { border-left-color: rgba(0, 0, 0, 0.08); border-top-color: var(--accent); }
+            .dual-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .process-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+
             .app-list { gap: 2rem; margin-top: 2rem; }
             .app-block { grid-template-columns: 1fr; gap: 1rem; }
             .logo-group { justify-content: center; flex-wrap: wrap; }
             .app-visuals { align-items: center; text-align: center; }
             .app-metric { font-size: 1.6rem; }
+            .app-info { text-align: center; }
             
-            .terminal-footer { grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; padding-top: 2.5rem; }
+            .terminal-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; padding-top: 2.5rem; }
             .main-img { height: 200px; margin-top: 1.5rem; }
             
-            .ledger-log { align-items: flex-start; gap: 10px; padding: 12px 14px; }
+            .ledger-log { align-items: center; gap: 10px; padding: 12px 14px; flex-wrap: wrap; }
             .ledger-status { font-size: 0.65rem; }
-            .ledger-title { font-size: 0.85rem; }
+            .ledger-title { font-size: 0.85rem; width: 100%; }
             
             .progress-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .fair-use-box { font-size: 0.62rem; padding: 1rem 1.2rem; }
+            .version-stamp { padding-bottom: 6.5rem; }
             
             .system-controls { bottom: 20px; right: 15px; gap: 8px; z-index: 9999; }
             .sys-btn { font-size: 0.65rem; padding: 8px 12px; }
@@ -611,38 +762,107 @@
             </div>
             <div class="header-text">
                 <h1>Vignan Sri Harsha</h1>
-                <div class="subtitle">Synthesizer. Bridging Systems, Strategy, and Creative Media.</div>
+                <div class="subtitle">Synthesizer &amp; Founder. Bridging Systems, Strategy, and Creative Media.</div>
             </div>
         </header>
-       <h2 class="reveal">Academic Telemetry</h2>
+
+        <!-- NEW BLOCK 1: CURRENT POSITION (EDUCATION) -->
+        <h2 class="reveal">Current Position</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
-            <span class="project-meta">Base Operating Credentials</span>
-            <div class="project-title">Core Sciences & Global Communication</div>
+            <span class="project-meta">Active Station // Taoyuan, Taiwan</span>
+            <div class="project-title">Who I Am Right Now</div>
+            <p>Operating at the intersection of informatics, venture architecture, and creative engineering. Currently stationed in Taiwan pursuing my undergraduate degree while building independent software ecosystems from the ground up.</p>
             
-            <p>A foundational overview of core academic infrastructure and language verification. These base metrics act as certified proof of analytical endurance and international communication capability, demonstrating full readiness for complex B.S. and engineering environments.</p>
-            <div class="app-list" style="margin-top: 2.5rem;">
-                <div class="app-block" style="grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: stretch;">
-                    
-                    <div class="data-node-card">
-                        <span class="app-metric accent">MPC</span>
-                        <h3 style="font-size: 1.1rem; margin: 1rem 0 0.5rem 0; font-weight: 500;">B.I.E.A.P Curriculum</h3>
-                        <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Currently executing the final requirements of the secondary evaluation phase. Specialized strictly in advanced Mathematics, Physics, and Chemistry, establishing the computational logic and resilience required to excel in advanced STEM frameworks.</p>
+            <div class="position-showcase">
+                <div class="yzu-logo-wrapper">
+                    <img src="assets/yzu-logo.png" alt="Yuan Ze University" class="yzu-logo" onerror="this.style.display='none'">
+                </div>
+                <div class="position-details">
+                    <span class="dept-tag">Education // Undergraduate Degree</span>
+                    <h3>Yuan Ze University (元智大學) — Taiwan</h3>
+                    <p style="margin: 0; font-size: 0.92rem; opacity: 0.8; line-height: 1.6;">Enrolled in the <strong>International Bachelor Program in Informatics (IBPI)</strong>. Focusing on computer science fundamentals, systems logic, calculus, and cross-border technological innovation within an international academic environment.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW BLOCK 2: CURRENT VENTURES (20+2 & THE PEERWAVE) -->
+        <h2 class="reveal">Current Ventures</h2>
+        <div class="project-block reveal">
+            <div class="glare"></div>
+            <span class="project-meta">Founder &amp; Systems Architect</span>
+            <div class="project-title">Twenty Plus Two (20+2)</div>
+            <div class="tagline-banner">Tagline: "Resilience wins."</div>
+            
+            <p>Founded <strong>Twenty Plus Two (20+2)</strong> as an independent parent organization and venture lab built on a singular operational philosophy: <em>Resilience wins.</em> Designed to architect, incubate, and scale digital platforms, community networks, and experimental software products.</p>
+
+            <div class="process-grid">
+                <div class="data-node-card">
+                    <span class="project-meta" style="font-size: 0.75rem; margin-bottom: 0.5rem; transform: none; z-index: auto;">Parent Entity</span>
+                    <h3 style="font-size: 1.15rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">Twenty Plus Two (20+2)</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.75; line-height: 1.6; flex-grow: 1;">The overarching umbrella organization driving product strategy, design architecture, and long-term execution across all subsidiary projects.</p>
+                    <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
+                        <div class="progress-header">
+                            <span class="module-count" style="font-size: 0.8rem;">CORE UMBRELLA</span>
+                            <span class="status" style="font-size: 0.65rem;">ACTIVE</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
                     </div>
-                    <div class="data-node-card">
-                        <span class="app-metric accent">6.5 BAND</span>
-                        <h3 style="font-size: 1.1rem; margin: 1rem 0 0.5rem 0; font-weight: 500;">IELTS Academic</h3>
-                        <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Certified international communication standard. Maintained a strict &ge;6.0 operational baseline across all evaluation modules (Reading: 6.5, Writing: 6.5, Speaking: 6.5, Listening: 6.0), verifying seamless capability for global collaboration.</p>
+                </div>
+
+                <div class="data-node-card">
+                    <span class="project-meta" style="font-size: 0.75rem; margin-bottom: 0.5rem; transform: none; z-index: auto;">Flagship Subsidiary</span>
+                    <h3 style="font-size: 1.15rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">The Peerwave</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.75; line-height: 1.6; flex-grow: 1;">A dedicated web platform engineered under 20+2 to facilitate authentic student-to-student connections, peer discovery, and cohort networking across global institutions.</p>
+                    <a onclick="openSecurity('https://thepeerwave.com')" class="inline-link">&gt; Launch ThePeerwave.com</a>
+                </div>
+
+                <div class="data-node-card">
+                    <span class="project-meta" style="font-size: 0.75rem; margin-bottom: 0.5rem; transform: none; z-index: auto;">20+2 Lab Pipeline</span>
+                    <h3 style="font-size: 1.15rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">Upcoming Ecosystem Builds</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.75; line-height: 1.6; flex-grow: 1;">Developing next-generation utilities, digital media workflows, and student-centric tools under the Twenty Plus Two umbrella.</p>
+                    <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
+                        <div class="progress-header">
+                            <span class="module-count" style="font-size: 0.8rem;">R&amp;D PIPELINE</span>
+                            <span class="status" style="font-size: 0.65rem;">BUILDING...</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 65%;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <h2 class="reveal">Academic Telemetry</h2>
+        <div class="project-block reveal">
+            <div class="glare"></div>
+            <span class="project-meta">Base Operating Credentials</span>
+            <div class="project-title">Core Sciences &amp; Global Communication</div>
+            
+            <p>Foundational academic infrastructure and language verification that established my analytical endurance and international communication baseline prior to relocating to Taiwan.</p>
+            <div class="dual-grid">
+                <div class="data-node-card">
+                    <span class="app-metric accent">MPC</span>
+                    <h3 style="font-size: 1.1rem; margin: 1rem 0 0.5rem 0; font-weight: 500;">B.I.E.A.P Curriculum</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Completed intensive higher-secondary specialization in Mathematics, Physics, and Chemistry—forging the mathematical rigor and problem-solving resilience required for computer science and informatics.</p>
+                </div>
+                <div class="data-node-card">
+                    <span class="app-metric accent">6.5 BAND</span>
+                    <h3 style="font-size: 1.1rem; margin: 1rem 0 0.5rem 0; font-weight: 500;">IELTS Academic</h3>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Certified international communication standard. Maintained a strict &ge;6.0 operational baseline across all evaluation modules (Reading: 6.5, Writing: 6.5, Speaking: 6.5, Listening: 6.0), verifying seamless capability for global collaboration.</p>
+                </div>
+            </div>
+        </div>
+
         <h2 class="reveal">Verified Data Logs</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
             <span class="project-meta">Historical Telemetry</span>
             <div class="project-title">Authorized System Logs</div>
-            <p>Archived milestones detailing foundational mathematics and algorithmic logic. Immutable data points establishing baseline computational endurance.</p>
+            <p>Archived milestones detailing foundational mathematics, AI deployment, and algorithmic logic. Immutable data points establishing baseline computational endurance.</p>
             <div class="ledger-container">
                 <div class="ledger-log">
                     <span class="ledger-status">[ SYSTEM.VERIFIED ]</span>
@@ -656,6 +876,7 @@
                 </div>
             </div>
         </div>
+
         <h2 class="reveal">Active Processing</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
@@ -671,11 +892,11 @@
                     <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Analyzing Machine Learning fundamentals and Generative AI frameworks. Executing protocols for prompt architecture, model evaluation, and secure AI deployment.</p>
                     <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
                         <div class="progress-header">
-                            <span class="module-count" style="font-size: 0.85rem;">MODULE 03 / 07</span>
-                            <span class="status" style="font-size: 0.65rem;">EXECUTING...</span>
+                            <span class="module-count" style="font-size: 0.85rem;">MODULE 07 / 07</span>
+                            <span class="status" style="font-size: 0.65rem;">VERIFIED</span>
                         </div>
                         <div class="progress-track">
-                            <div class="progress-fill" style="width: 42%;"></div>
+                            <div class="progress-fill" style="width: 100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -683,14 +904,14 @@
                 <div class="data-node-card">
                     <span class="project-meta" style="font-size: 0.75rem; margin-bottom: 0.5rem; transform: none; z-index: auto;">Live Deployment</span>
                     <h3 style="font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 500; color: var(--text-primary);">Frontend Infrastructure</h3>
-                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Deploying a hardware-accelerated, interactive DOM environment (this portfolio) to structure and host my digital footprint.</p>
+                    <p style="margin: 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; flex-grow: 1;">Deploying a hardware-accelerated, interactive DOM environment (this portfolio) to structure and host my digital footprint in full production.</p>
                     <div class="progress-container" style="margin-top: 1.5rem; transform: none; z-index: auto;">
                         <div class="progress-header">
-                            <span class="module-count" style="font-size: 0.85rem;">BUILD v1.9.162. BETA</span>
-                            <span class="status" style="font-size: 0.65rem;">UPDATING...</span>
+                            <span class="module-count" style="font-size: 0.85rem;">VERSION 1.0 (REAL BUILD)</span>
+                            <span class="status" style="font-size: 0.65rem;">LIVE</span>
                         </div>
                         <div class="progress-track">
-                            <div class="progress-fill" style="width: 85%;"></div>
+                            <div class="progress-fill" style="width: 100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -711,19 +932,21 @@
                 </div>
             </div>
         </div>
+
         <h2 class="reveal">Hardware Architecture</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
-            <span class="project-meta">System Building & Optimization</span>
+            <span class="project-meta">System Building &amp; Optimization</span>
             <div class="project-title">Custom High-Performance PC Build</div>
             <p>Built, configured, and manually optimized a custom PC centered around a Ryzen processor. I focused heavily on thermal management and voltage balancing—achieving a stable 4.2 GHz overclock at 1.352V—to ensure the system handles heavy video rendering and competitive gaming without bottlenecking.</p>
             <img src="assets/pc-build.jpg" alt="Custom PC Build" class="main-img">
         </div>
+
         <h2 class="reveal">Digital Media Synthesis</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
-            <span class="project-meta">Collaboration & Creative Synthesis</span>
-            <div class="project-title">Content Creation & Performance Analytics</div>
+            <span class="project-meta">Collaboration &amp; Creative Synthesis</span>
+            <div class="project-title">Content Creation &amp; Performance Analytics</div>
             <p>Synthesizing technical precision with collaborative storytelling to produce high-impact digital artifacts. Focused on leveraging diverse toolsets to drive engagement on leading creative and social platforms.</p>
             <div class="app-list">
                 <div class="app-block">
@@ -735,7 +958,7 @@
                         <span class="app-metric accent">750k+ Views</span>
                     </div>
                     <div class="app-info">
-                        <h3>Platform Growth & Engagement</h3>
+                        <h3>Platform Growth &amp; Engagement</h3>
                         <p>Scaling content across YouTube and Instagram by analyzing algorithm trends, audience retention curves, and deploying targeted visual hooks to reach over 1 million organic views.</p>
                     </div>
                 </div>
@@ -766,6 +989,7 @@
                 </div>
             </div>
         </div>
+
         <h2 class="reveal">Visual Composition</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
@@ -774,22 +998,25 @@
             <p>A minimalist collection focusing strictly on light, geometry, and composition. This gallery lets the visual artifacts speak for themselves, showcasing my approach to narrative depth through photography.</p>
             <video src="assets/photography.mp4" class="main-img" autoplay loop muted playsinline preload="auto"></video>
         </div>
+
         <h2 class="reveal">Strategic Execution</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
             <span class="project-meta">Top 1.5% - 3% Global Ranking</span>
-            <div class="project-title">Competitive Analytics & Macro Execution</div>
+            <div class="project-title">Competitive Analytics &amp; Macro Execution</div>
             <p>Operating in a volatile, closed-system environment that functions as a high-speed 5v5 chess and timing masterpiece. Reached Ascendant tier by maintaining a top-tier 75% KAST (Kill, Assist, Survive, Trade) rating, prioritizing economic management, and executing split-second probability calculations.</p>
             <img src="assets/valorant.jpg" alt="Valorant Ascendant Rank" class="main-img">
         </div>
+
         <h2 class="reveal">Athletic Leadership</h2>
         <div class="project-block reveal">
             <div class="glare"></div>
             <span class="project-meta">Intramural competition</span>
-            <div class="project-title">Traditional Teamwork & Physical Execution</div>
+            <div class="project-title">Traditional Teamwork &amp; Physical Execution</div>
             <p>Grounding technical systems optimization in physical discipline. Represented my team to win gold medals in Volleyball and Kabaddi during Class 10 intramural competitions, proving traditional teamwork, leadership, and athletic execution.</p>
             <img src="assets/sports.jpg" alt="Sports Gold Medal" class="main-img">
         </div>
+
         <div class="terminal-footer reveal">
             <a onclick="openSecurity('mailto:vignansriharsha.b@gmail.com')" class="terminal-link">
                 <span class="link-label">System.Contact</span>
@@ -813,17 +1040,21 @@
             </a>
         </div>
         
-        <div class="beta-footer">
-            This is a Beta Version of the portfolio — not the final result.
+        <div class="release-footer">
+            Version 1.0 (Real Build) — Production Release
         </div>
         <div class="legal-disclaimer">
-            All assets and architecture are proprietary. Do not clone or redistribute. All rights are reserved.
+            All custom architecture and original assets are proprietary. Do not clone or redistribute. All rights reserved.
+        </div>
+        <div class="fair-use-box">
+            <span class="fair-use-title">[ SYSTEM.LEGAL // FAIR USAGE WARNING ]</span>
+            This portfolio is a strictly non-commercial, zero-revenue personal showcase; not a single dollar is earned from this platform. All third-party trademarks, brand names, and logos displayed (including but not limited to Google, YouTube, Instagram, DaVinci Resolve, CapCut, Blender, SOF, and Yuan Ze University) remain the exclusive property of their respective owners. Their inclusion here is strictly under Fair Use for identification, educational context, and skill demonstration purposes only, and does not imply official endorsement or sponsorship.
         </div>
         <div class="console-contact" id="bottom-target">
             > system.ping --auth "Felix(Harsha)" --target <a href="mailto:vignansriharsha.b@gmail.com">vignansriharsha.b@gmail.com</a>
         </div>
         <div class="version-stamp">
-            SYSTEM BUILD v1.9.162.BETA // DEPLOYED JULY 01, 2026
+            SYSTEM BUILD v1.0.0 (PRODUCTION RELEASE) // DEPLOYED OCTOBER 2026
         </div>
     </div>
     <script>
@@ -849,7 +1080,7 @@
         // --- BOOT SEQUENCE WITH SESSION MEMORY ---
         const bootScreen = document.getElementById('boot-screen');
         const bootText = document.getElementById('boot-text');
-        const messages = ["> INITIALIZING...", "> MOUNTING ASSETS...", "> ACCESS GRANTED."];
+        const messages = ["> INITIALIZING v1.0...", "> MOUNTING ASSETS...", "> ACCESS GRANTED."];
         let msgIndex = 0;
         function runBoot() {
             if (msgIndex < messages.length) {
@@ -877,7 +1108,7 @@
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-        const interactables = document.querySelectorAll('a, button, .project-block, .terminal-link');
+        const interactables = document.querySelectorAll('a, button, .project-block, .terminal-link, .inline-link');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('active'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
@@ -926,7 +1157,7 @@
                         entry.target.classList.remove('in-view');
                     }
                 });
-            }, { threshold: 0.65 }); 
+            }, { threshold: 0.5 }); 
             cards.forEach(card => observer.observe(card));
         }
         // --- SCROLL FADE-IN ---
@@ -1019,7 +1250,6 @@
                         audio.pause();
                         isPlaying = false;
                         audioBtn.innerHTML = '[ SYSTEM.AUDIO : OFF ]';
-                        // Removed inline styles to let Light/Dark Mode CSS take over completely
                         audioBtn.style.color = '';
                         audioBtn.style.borderColor = '';
                         
